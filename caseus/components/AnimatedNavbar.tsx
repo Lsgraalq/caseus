@@ -131,7 +131,7 @@ export default function AnimatedNavbar() {
 
 
           <div className="bg-white flex flex-row   items-center  gap-2 text-center  px-5 pt-3 pb-3 rounded-xl md:hidden" onClick={toggleMenu}>
-            {isMenuOpen ? <IoMdClose className="w-5" /> : <IoIosMenu className="w-5" />}
+            {isMenuOpen ? <IoMdClose className="w-5 text-black" /> : <IoIosMenu className="w-5 flex text-black" />}
             <p className="text-black font-semibold">Menu</p>
           </div>
            <div className="bg-white  flex-row   items-center  gap-2 text-center  px-8 pt-2 pb-3 rounded-xl hidden md:flex hover:bg-gray-400 transition duration-400" onClick={toggleMenu}>

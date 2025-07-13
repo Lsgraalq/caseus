@@ -77,7 +77,7 @@ export default function RootLayout({
 //       },
 //     });
 
-//     // Анимация уменьшения видео
+//   
 //     tl.to(videoWrapper.current, {
 //       scale: 0.2,
 //       x: "75vw",
@@ -86,7 +86,7 @@ export default function RootLayout({
 //       ease: "power2.out",
 //     });
 
-//     // Анимация исчезновения текста
+//     
 //     tl.to(
 //       textRef.current,
 //       {
