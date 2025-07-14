@@ -48,7 +48,9 @@ export default function Home() {
       {color:"#ffffff"},
       "-=1.05"
     )
-  }
+    return () => split.revert();
+  };
+   
   },[]);
 
 
@@ -56,8 +58,10 @@ export default function Home() {
    useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const isMobile = window.innerWidth < 768;
-    const heroHeight = isMobile ? 1000 : 3000;
-    const split = new SplitText(heroTextRef.current, { type: "chars" });
+    const heroHeight = isMobile ? 1000 : 2500;
+    const split = new SplitText(heroTextRef.current, {
+  type: "lines,words"
+});
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -79,7 +83,7 @@ export default function Home() {
   },
   {
     scale: 0.2,
-    
+    duration:1,
     ease: "power1.out",
   },
   
@@ -87,16 +91,25 @@ export default function Home() {
   { x: "0vw",
     y: "0vh",},
   { x: "75vw",
-    y: "-10vh",
-  ease: "power1.out",}
-).fromTo(heroTextRef.current,
-  {opacity:0},
-  {opacity:1, duration:0.1},
-).fromTo(split.chars, 
-  {y:0, color:"#818181"}, 
-  {y:-200, stagger:0.5,color:"#000000"},
-
-)
+    y: "0vh",
+    duration:1,
+  ease: "power1.out",},
+  "-=1"
+).fromTo(split.lines, {
+  y: 0,
+  
+  },
+  {duration:1,ease: "power2.out", y: -500,},
+  "-=0.9"
+).fromTo(
+  split.words,
+  { color: "#DEE2E6" },
+  {
+    color: "#000000",
+    stagger: 0.03,
+    },
+    "-=0.7"
+);
 
   }, []);
 
@@ -142,12 +155,30 @@ export default function Home() {
 
         </div>
         {/* animated text hero section */}
-        <div className=" max-w-[60%]" ref={heroTextRef}>
-        <p className="text-gray-400 text-2xl">Combining creativity and expertise, we reveal the character of brands that stand out in their time.</p>
+        <div className=" max-w-[70%] md:max-w-[70%] pl-5" ref={heroTextRef} id="suka">
+        <p className="text-gray-400 text-4xl z-2 md:text-6xl">Combining creativity and expertise, we reveal the character of brands that stand out in their time.</p>
         </div>
       </section>
 
-      <section className="h-screen w-full"></section>
+      <section className="min-h-screen w-full mx-auto px-5">
+        <div className="grid grid-rows-3 md:grid-rows-4 gap-5 md:grid-cols-2 ">
+        <div className="relative group rounded-2xl overflow-hidden md:col-span-1 md:row-span-1">
+          <img src="photo2.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
+          <video src="video1.mp4" className=" absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+          <div className="absolute bottom-4 left-4"><p className="text-white">Your Button or Text</p></div>
+        </div>
+        <div className="relative group rounded-2xl overflow-hidden md:col-span-1  md:row-span-1" >
+          <img src="photo1.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
+          <video src="video2.mp4" className=" absolute inset-0 w-full h-full  opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+          <div className="absolute bottom-4 left-4"><p className="text-white">Your Button or Text</p></div>
+        </div>
+        <div className="relative group rounded-2xl overflow-hidden md:col-span-2 md:h-[45%]  md:row-span-2">
+          <img src="photo3.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
+          <video src="video3.mp4" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+          <div className="absolute bottom-4 left-4"><p className="text-white">Your Button or Text</p></div>
+        </div>
+        </div>
+      </section>
       <section className="h-screen w-full"></section>
     </>
   );
