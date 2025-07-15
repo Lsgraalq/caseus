@@ -66,7 +66,8 @@ const section2Ref = useRef(null);
    useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const isMobile = window.innerWidth < 768;
-    const heroHeight = isMobile ? 1900 : 3000;
+    const heroHeight = isMobile ? 800 : 3000;
+    const startPosition = isMobile ? "top 60%" : "top 20%";
     const split = new SplitText(heroTextRef.current, {
   type: "lines,chars"
 });
@@ -78,6 +79,7 @@ const section2Ref = useRef(null);
         end: heroHeight,
         scrub: true,
         pin: true,
+       
       },
     });
 
@@ -105,36 +107,18 @@ const section2Ref = useRef(null);
   "-=1"
 ).fromTo(split.lines, {
   y: 0,
-  
+  opacity:0.2
   },
-  {duration:1,ease: "power2.out", y: -500,},
-  "+=0.5"
+  {duration:0.7,ease: "power2.out", y: -300,opacity:1},
+  "-=0.9"
 )
-.fromTo(
-  split.lines,
-  { y:-500 },
-  { y:-600, stagger:0.5},
+// .fromTo(
+//   split.lines,
+//   { y:-500 },
+//   { y:-600, stagger:0.5},
    
-)
-.fromTo(
-  heroRef.current,
-  {y:0},
-  {y:-500, duration:1},
-  "+=0"
-)
-// section change animation
-.fromTo(
-  section2Ref.current,
-  {y:0},
-  {y:-200, duration:1},
-  "-=0.5"
-)
-.fromTo(
-  section2Ref.current,
-  {y:-200},
-  {y:-1000, duration:2},
-  "+=0"
-)
+// )
+
 
 
 
@@ -145,16 +129,17 @@ const section2Ref = useRef(null);
 gsap.timeline({
   scrollTrigger: {
     trigger: "#animated-text",
-    start: "top 20%",    // текст появляется при входе в вьюпорт
-    end: "+=500",        // сколько скролла на анимацию
+    start: startPosition,    // текст появляется при входе в вьюпорт
+    end: heroHeight,        // сколько скролла на анимацию
     scrub: true,
-    markers: false,       // убери потом
+    markers: true,       // убери потом
   },
 })
 .to(split.chars, {
   color: "#000",
   stagger: 0.05,
-})
+  duration:0.9
+}).fromTo(split.lines,{y:-300},{y:-400,stagger:0.2},"-=1")
 
 
 
@@ -168,13 +153,15 @@ gsap.timeline({
     <>
       <AnimatedNavbar />
 
-      <ReactLenis root options={{ autoRaf: true }} ref={lenisRef} />
+      <ReactLenis root  options={{autoRaf: true, duration: 1.5,
+    wheelMultiplier: 0.8,
+    touchMultiplier: 1}} ref={lenisRef} />
 
-      <div id="scroll-container">
+      <div >
 {/* HERO SECRION */}
-      <section className="h-screen w-full " id="hero" ref={heroRef}>
+      <section className="h-screen w-full " id="scroll-container" ref={heroRef}>
         <div className="relative p-0 m-0 ">
-          {/* Video hero section */}
+          {/* Video preload="auto" hero section */}
           <div className="w-full h-screen z-0" ref={videoRef}>
             <video
               src="/titul.mp4"
@@ -184,7 +171,7 @@ gsap.timeline({
               
               loop
             />
-            {/* second video in hero section for phones */}
+            {/* second video preload="auto" in hero section for phones */}
             <video
               src="/titul_small.mp4"
               className="block md:hidden w-full h-full object-cover rounded-3xl  p-4 "
@@ -206,7 +193,7 @@ gsap.timeline({
 
         </div>
         {/* animated text hero section */}
-        <div className=" max-w-[70%] md:max-w-[70%] pl-5" ref={heroTextRef} id="animated-text">
+        <div className=" max-w-[70%] md:max-w-[80%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
         <p className="text-gray-400 text-4xl z-2 md:text-6xl">Combining creativity and expertise, we reveal the character of brands that stand out in their time.</p>
         </div>
       </section>
@@ -215,7 +202,7 @@ gsap.timeline({
         <div className="grid grid-rows-3 md:grid-rows-4  md:grid-cols-2 lg:gap-7 gap-5">
         <div className="relative group rounded-2xl overflow-hidden md:col-span-1 md:row-span-1 cursor-pointer ">
           <img src="photo2.jpg" alt="" className="  block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
-          <video src="video1.mp4" className="  absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+          <video preload="auto" src="video2.mp4" className="  absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
           <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3"><p className="text-black  font-semibold text-2xl m-auto">Autotransfer</p> 
           <div className="inline-flex items-center justify-center rounded-full bg-gray-100  transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
   <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out " />
@@ -223,7 +210,7 @@ gsap.timeline({
         </div>
         <div className="relative group rounded-2xl overflow-hidden md:col-span-1 md:row-span-1 cursor-pointer ">
           <img src="photo1.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
-          <video src="video2.mp4" className=" absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+          <video preload="auto" src="video2.mp4" className=" absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
           <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3"><p className="text-black  font-semibold text-2xl m-auto">Autotransfer</p> 
           <div className="inline-flex items-center justify-center rounded-full bg-gray-100  transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
   <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out " />
@@ -231,7 +218,7 @@ gsap.timeline({
         </div>
         <div className="md:max-h-[45%] relative group rounded-2xl overflow-hidden md:col-span-2 md:row-span-2 cursor-pointer ">
           <img src="photo3.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
-          <video src="video3.mp4" className=" absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+          <video preload="auto" src="video3.mp4" className=" absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
           <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3"><p className="text-black  font-semibold text-2xl m-auto">Autotransfer</p> 
           <div className="inline-flex items-center justify-center rounded-full bg-gray-100  transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
   <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out " />
