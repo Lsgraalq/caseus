@@ -151,11 +151,20 @@ gsap.timeline({
 
   return (
     <>
+    <ReactLenis
+  root
+  options={{
+    autoRaf: true,
+    duration: 1.5,
+    wheelMultiplier: 0.8,
+    touchMultiplier: 1,
+  }}
+  ref={lenisRef}
+>
+    
       <AnimatedNavbar />
 
-      <ReactLenis root  options={{autoRaf: true, duration: 1.5,
-    wheelMultiplier: 0.8,
-    touchMultiplier: 1}} ref={lenisRef} />
+     
 
       <div >
 {/* HERO SECRION */}
@@ -228,6 +237,8 @@ gsap.timeline({
       </section>
       </div>
       <section className="h-screen w-full"></section>
-    </>
+   
+    </ReactLenis>
+     </>
   );
 }
