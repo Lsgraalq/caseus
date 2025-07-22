@@ -66,7 +66,7 @@ const section2Ref = useRef(null);
    useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const isMobile = window.innerWidth < 768;
-    const heroHeight = isMobile ? 800 : 3000;
+    const heroHeight = isMobile ? 1500 : 3000;
     const startPosition = isMobile ? "top 60%" : "top 20%";
     const split = new SplitText(heroTextRef.current, {
   type: "lines,chars"
