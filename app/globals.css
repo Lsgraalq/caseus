@@ -26,3 +26,21 @@ html, body {
   overflow: auto;
   scroll-behavior: auto !important;
 }
+
+
+
+#jelly-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 42px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 2px, solid, gray;
+  transform-origin: 50% 50%;
+  transform: translate(-50%, -50%);
+  will-change: width, height, transform, border;
+  z-index: 99999;
+  pointer-events: none;
+}
