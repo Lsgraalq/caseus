@@ -218,6 +218,11 @@ export default function Home() {
 ).to(
   videoRef.current,
   { y:-200,duration:0.7,},
+  "+=0.2"
+).fromTo(split.lines, {
+  y: -300,
+  },
+  {duration:0.3,ease: "power1.out", y: -400,stagger:0.03,},
   "-=0.5"
 )
 
@@ -242,16 +247,16 @@ gsap.timeline({
 
 
 gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
-  gsap.from(box, {
+  gsap.fromTo(box,{opacity:0}, {
     scrollTrigger: {
       trigger: box,
       start: "top 80%",
-      toggleActions: "play none none none",
+      toggleActions: "play none none reverse",
       once: true,
     },
-    scale: 0.2,
-    rotation: 10,
-    duration: 0.5,
+    y:-200,
+    opacity:1,
+    duration: 1.5,
     ease: "power3.out"
   });
 });
