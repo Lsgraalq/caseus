@@ -230,10 +230,10 @@ export default function Home() {
 gsap.timeline({
   scrollTrigger: {
     trigger: "#animated-text",
-    start: startPosition,    // текст появляется при входе в вьюпорт
-    end: 2000,        // сколько скролла на анимацию
+    start: startPosition,    
+    end: 2000,        
     scrub: true,
-    markers: false,       // убери потом
+    markers: false,       
     pin:false,
   },
 })
@@ -247,7 +247,7 @@ gsap.timeline({
 
 
 gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
-  gsap.fromTo(box,{opacity:0,scale:0}, {
+  gsap.fromTo(box,{opacity:0.5,scale:0}, {
     scrollTrigger: {
       trigger: box,
       start: "top 80%",
