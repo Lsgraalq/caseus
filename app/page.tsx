@@ -247,14 +247,14 @@ gsap.timeline({
 
 
 gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
-  gsap.fromTo(box,{opacity:0}, {
+  gsap.fromTo(box,{opacity:0,scale:0}, {
     scrollTrigger: {
       trigger: box,
       start: "top 80%",
       toggleActions: "play none none reverse",
       once: true,
     },
-    y:-200,
+    scale:1,
     opacity:1,
     duration: 1.5,
     ease: "power3.out"
