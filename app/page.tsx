@@ -252,7 +252,7 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
       trigger: box,
       start: "top 80%",
       toggleActions: "play none none reverse",
-      once: true,
+      
     },
     scale:1,
     opacity:1,
