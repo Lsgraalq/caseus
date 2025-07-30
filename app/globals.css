@@ -54,23 +54,25 @@ html, body {
 }
 
 .glassnav {
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(20px);
+background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+
 }
 
 .glassbutton {
   transition: all 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(0px);
+    background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
 }
 
 
 .glassbutton:hover {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255, 0);
   backdrop-filter: blur(0px);
 }
 
 .glassmenu {
     background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(4px);
 }
+
