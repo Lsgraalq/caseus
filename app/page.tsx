@@ -276,7 +276,7 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
     autoRaf: true,
     duration: 1.5,
     wheelMultiplier: 0.8,
-    touchMultiplier: 1,
+    touchMultiplier: 0.1,
   }}
   ref={lenisRef}
 >
@@ -328,11 +328,13 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
         <p className="text-gray-400 text-4xl z-2 md:text-6xl">Combining creativity and expertise, we reveal the character of brands that stand out in their time.</p>
         </div>
       </section>
+
+
 {/* project section */}
     <section className="w-full mx-auto" id="section2" ref={section2Ref}>
-  <div className="flex flex-col gap-5 mx-10" id="projectFlex">
+  <div className="flex flex-col gap-5 md:mx-10 mx-2" id="projectFlex">
 
-    {/* Верхний ряд с двумя квадратами */}
+
     <div className="flex flex-col md:flex-row gap-5">
       <div className="relative group rounded-2xl overflow-hidden flex-1 cursor-pointer project aspect-[4/3]">
         <img src="photo1.jpg" alt="" className="block w-full h-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0 object-cover" />
@@ -357,7 +359,7 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
       </div>
     </div>
 
-    {/* Нижний широкоформатный блок */}
+
     <div className="relative group rounded-2xl overflow-hidden w-full cursor-pointer project md:aspect-[16/7] aspect-[4/4]">
       <img src="photo2.jpg" alt="" className="block w-full h-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0 object-cover" />
       <video src="video3.mp4" className="absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" muted onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
@@ -379,10 +381,10 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
       {/* about us section */}
 
       <section className="h-screen w-full">
-        <div className="">
-          <div className="">
-            <p >Create and manage social media accounts.</p>
-            <h2 className="">Profiles</h2>
+        <div className="flex flex-col mx-10">
+          <div className="flex flex-row items-center gap-4">
+            <p className="flex-1 text-2xl">Create and manage social media accounts.</p>
+            <h2 className="flex-none font-bold text-lg">Profiles</h2>
           </div>
         </div>
       </section>
