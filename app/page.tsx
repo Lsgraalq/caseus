@@ -180,7 +180,7 @@ export default function Home() {
     if (typeof window !== "undefined" && textRef.current) {
         gsap.registerPlugin(ScrollTrigger);
     const isMobile = window.innerWidth < 768;
-    const heroHeight = isMobile ? 1000 : 3000;
+    const heroHeight = isMobile ? 1300 : 3000;
     const endHeight = isMobile ? 1000 : 2000;
     const startPosition = isMobile ? "top 60%" : "top 20%";
     const startProjectPosition = isMobile ? "top 99%" : "top 85%";
