@@ -172,6 +172,7 @@ export default function Home() {
         gsap.registerPlugin(ScrollTrigger);
     const isMobile = window.innerWidth < 768;
     const heroHeight = isMobile ? 1500 : 3000;
+    const endHeight = isMobile ? 1000 : 2000;
     const startPosition = isMobile ? "top 60%" : "top 20%";
     const split = new SplitText(heroTextRef.current, {
   type: "lines,chars"
@@ -231,7 +232,7 @@ gsap.timeline({
   scrollTrigger: {
     trigger: "#animated-text",
     start: startPosition,    
-    end: 2000,        
+    end: endHeight,        
     scrub: true,
     markers: false,       
     pin:false,
@@ -276,7 +277,7 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
     autoRaf: true,
     duration: 1.5,
     wheelMultiplier: 0.8,
-    touchMultiplier: 0.1,
+    touchMultiplier: 0.5,
   }}
   ref={lenisRef}
 >
