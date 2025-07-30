@@ -107,26 +107,26 @@ export default function AnimatedNavbar() {
         
           <a
             href="#"
-            className="hidden md:flex text-black cursor-pointer relative group px-2"
+            className="hidden md:flex text-white cursor-pointer relative group px-2"
           >
             Home
-            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-amber-100 transition-all group-hover:w-full"></span>
           </a>
 
           <a
             href="#"
-            className="hidden md:flex text-black cursor-pointer relative group px-2"
+            className="hidden md:flex text-white cursor-pointer relative group px-2"
           >
             About
-            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-amber-100 transition-all group-hover:w-full"></span>
           </a>
 
           <a
             href="#"
-            className="hidden md:flex text-black cursor-pointer relative group px-2"
+            className="hidden md:flex text-white cursor-pointer relative group px-2"
           >
             Contact
-            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-amber-100 transition-all group-hover:w-full"></span>
           </a>
 
 
@@ -134,9 +134,9 @@ export default function AnimatedNavbar() {
             {isMenuOpen ? <IoMdClose className="w-5 text-black" /> : <IoIosMenu className="w-5 flex text-black" />}
             <p className="text-black font-semibold">Menu</p>
           </div>
-           <div className=" flex-row   items-center  gap-2 text-center  px-8 pt-2 pb-3  rounded-xl hidden md:flex  transition duration-400 glassbutton" onClick={toggleMenu}>
+           <div className=" flex-row  group items-center  gap-2 text-center  px-8 pt-2 pb-3  rounded-xl hidden md:flex  transition duration-400 glassbutton" onClick={toggleMenu}>
             
-            <p className="text-black font-semibold  cursor-pointer ">Contakt</p>
+            <p className="text-white group-hover:text-black  font-semibold transition-colors duration-300 cursor-pointer ">Contakt</p>
             
           </div>
 
