@@ -285,9 +285,9 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
 
      
 
-      <div >
+      
 {/* HERO SECRION */}
-<div id="jelly-cursor"></div>
+<div id="jelly-cursor" className="hidden md:flex"></div>
 
       <section className="h-screen w-full " id="scroll-container" ref={heroRef}>
         
@@ -329,38 +329,63 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
         </div>
       </section>
 {/* project section */}
-     <section className="min-h-screen w-full mx-auto lg:px-20 px-5" id="section2" ref={section2Ref}>
-        <div className="grid grid-rows-3 md:grid-rows-4  md:grid-cols-2 lg:gap-7 gap-5" id="projectGrid">
-        <div className="relative group rounded-2xl overflow-hidden md:col-span-1 md:row-span-1 cursor-pointer project" >
-          <img  rel="preload" src="photo1.jpg" alt="" className="  block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
-          <video rel="preload"  src="video1.mp4" className="  absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
-          <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3"><p className="text-black  font-semibold text-2xl m-auto">Autotransfer</p> 
-          <div className="inline-flex items-center justify-center rounded-full bg-gray-100  transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
-  <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out " />
-</div></div>
-        </div>
-        <div className="relative group rounded-2xl overflow-hidden md:col-span-1 md:row-span-1 cursor-pointer project">
-          <img rel="preload" src="photo3.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
-          <video rel="preload" src="video2.mp4" className=" absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
-          <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3"><p className="text-black  font-semibold text-2xl m-auto">Autotransfer</p> 
-          <div className="inline-flex items-center justify-center rounded-full bg-gray-100  transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
-  <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out " />
-</div></div>
-        </div>
-        <div className="md:max-h-[45%] relative group rounded-2xl overflow-hidden md:col-span-2 md:row-span-2 cursor-pointer project ">
-          <img rel="preload" src="photo2.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
-          <video rel="preload"  src="video3.mp4" className=" absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
-          <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3"><p className="text-black  font-semibold text-2xl m-auto">Autotransfer</p> 
-          <div className="inline-flex items-center justify-center rounded-full bg-gray-100  transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
-  <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out " />
-</div></div>
-        </div>
-        </div>
-      </section> 
+    <section className="w-full mx-auto" id="section2" ref={section2Ref}>
+  <div className="flex flex-col gap-5 mx-10" id="projectFlex">
 
+    {/* Верхний ряд с двумя квадратами */}
+    <div className="flex flex-col md:flex-row gap-5">
+      <div className="relative group rounded-2xl overflow-hidden flex-1 cursor-pointer project aspect-[4/3]">
+        <img src="photo1.jpg" alt="" className="block w-full h-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0 object-cover" />
+        <video src="video1.mp4" className="absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" muted onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+        <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3">
+          <p className="text-black font-semibold text-2xl m-auto">Autotransfer</p>
+          <div className="inline-flex items-center justify-center rounded-full bg-gray-100 transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
+            <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out" />
+          </div>
+        </div>
       </div>
 
-      <section className="h-screen w-full"></section>
+      <div className="relative group rounded-2xl overflow-hidden flex-1 cursor-pointer project aspect-[4/3]">
+        <img src="photo3.jpg" alt="" className="block w-full h-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0 object-cover" />
+        <video src="video2.mp4" className="absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" muted onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+        <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3">
+          <p className="text-black font-semibold text-2xl m-auto">Autotransfer</p>
+          <div className="inline-flex items-center justify-center rounded-full bg-gray-100 transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
+            <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Нижний широкоформатный блок */}
+    <div className="relative group rounded-2xl overflow-hidden w-full cursor-pointer project md:aspect-[16/7] aspect-[4/4]">
+      <img src="photo2.jpg" alt="" className="block w-full h-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0 object-cover" />
+      <video src="video3.mp4" className="absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" muted onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+      <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3">
+        <p className="text-black font-semibold text-2xl m-auto">Autotransfer</p>
+        <div className="inline-flex items-center justify-center rounded-full bg-gray-100 transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
+          <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+     
+
+
+      {/* about us section */}
+
+      <section className="h-screen w-full">
+        <div className="">
+          <div className="">
+            <p >Create and manage social media accounts.</p>
+            <h2 className="">Profiles</h2>
+          </div>
+        </div>
+      </section>
   
     </ReactLenis>
      </>
