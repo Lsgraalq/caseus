@@ -391,7 +391,7 @@ useEffect(() => {
     wheelMultiplier: 0.8,
     touchMultiplier: 0.7, // попробуй значения от 0.3 до 1
     smoothWheel: true,
-    autoRaf: false,
+    autoRaf: true,
   }}
   ref={lenisRef}
 >

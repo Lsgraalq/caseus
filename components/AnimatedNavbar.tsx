@@ -93,7 +93,7 @@ export default function AnimatedNavbar() {
                   <img src="/logo.png" alt=""  className="z-1000  "/>
                 </div>
             
-      <div className="relative flex flex-row bg-black mt-8 ml-5 pl-5 pr-5 pt-2 pb-2 rounded-2xl  items-center gap-8" ref={navbarRef}>
+      <div className="relative flex flex-row bg-transparent mt-8 ml-5 pl-5 pr-5 pt-2 pb-2 rounded-2xl  items-center gap-8" ref={navbarRef}>
         {/* Круг */}
         {/* <div
            ref={circleRef}
@@ -101,32 +101,32 @@ export default function AnimatedNavbar() {
         >
           <img src="/logo.png" alt=""  className="z-20"/>
         </div> */}
-        <div className="w-12 h-12 bg-gray-600 rounded-full ">
+        <div className="w-12 h-12 bg-transparent rounded-full ">
 
         </div >
         
           <a
             href="#"
-            className="hidden md:flex text-gray-500 cursor-pointer relative group px-2"
+            className="hidden md:flex text-black cursor-pointer relative group px-2"
           >
             Home
-            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-gray-500 transition-all group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
           </a>
 
           <a
             href="#"
-            className="hidden md:flex text-gray-500 cursor-pointer relative group px-2"
+            className="hidden md:flex text-black cursor-pointer relative group px-2"
           >
             About
-            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-gray-500 transition-all group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
           </a>
 
           <a
             href="#"
-            className="hidden md:flex text-gray-500 cursor-pointer relative group px-2"
+            className="hidden md:flex text-black cursor-pointer relative group px-2"
           >
             Contact
-            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-gray-500 transition-all group-hover:w-full"></span>
+            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
           </a>
 
 
@@ -134,7 +134,7 @@ export default function AnimatedNavbar() {
             {isMenuOpen ? <IoMdClose className="w-5 text-black" /> : <IoIosMenu className="w-5 flex text-black" />}
             <p className="text-black font-semibold">Menu</p>
           </div>
-           <div className="bg-white  flex-row   items-center  gap-2 text-center  px-8 pt-2 pb-3 rounded-xl hidden md:flex hover:bg-gray-400 transition duration-400" onClick={toggleMenu}>
+           <div className=" flex-row   items-center  gap-2 text-center  px-8 pt-2 pb-3 rounded-xl hidden md:flex  transition duration-400" onClick={toggleMenu}>
             
             <p className="text-black font-semibold  cursor-pointer  ">Contakt</p>
             
