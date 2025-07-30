@@ -8,8 +8,10 @@ import SplitText from "gsap/SplitText";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { PiArrowRightThin } from "react-icons/pi";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 
 
+gsap.registerPlugin(ScrambleTextPlugin) 
 gsap.registerPlugin(SplitText,ScrollTrigger)
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,6 +25,13 @@ export default function Home() {
   const heroRef = useRef(null);
   const section2Ref = useRef(null);
   const projectRef = useRef(null);
+  const text3Ref = useRef<HTMLDivElement>(null);
+  const section3Ref = useRef(null);
+  const whyUsVideoOne = useRef(null);
+  const block1 = useRef(null);
+  const block2 = useRef(null);
+  const block3 = useRef(null);
+  const whyUsVideoTwo= useRef(null);
 // start animation + cursor logic
   useEffect (() => {
     if (typeof window !== "undefined" && textRef.current) {
@@ -171,12 +180,14 @@ export default function Home() {
     if (typeof window !== "undefined" && textRef.current) {
         gsap.registerPlugin(ScrollTrigger);
     const isMobile = window.innerWidth < 768;
-    const heroHeight = isMobile ? 1500 : 3000;
+    const heroHeight = isMobile ? 1000 : 3000;
     const endHeight = isMobile ? 1000 : 2000;
     const startPosition = isMobile ? "top 60%" : "top 20%";
+    const startProjectPosition = isMobile ? "top 99%" : "top 85%";
     const split = new SplitText(heroTextRef.current, {
   type: "lines,chars"
 });
+
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -227,7 +238,7 @@ export default function Home() {
   "-=0.5"
 )
 
-// new timeline for hero text animation 
+//hero section text color change animation 
 gsap.timeline({
   scrollTrigger: {
     trigger: "#animated-text",
@@ -244,22 +255,24 @@ gsap.timeline({
   duration:0.9
 })
 
+// why us color change anims
 
 
 
+// project section anims 
 gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
-  gsap.fromTo(box,{opacity:0.4,y:450}
+  gsap.fromTo(box,{opacity:0,y:200}
     ,
      {
     scrollTrigger: {
       trigger: box,
-      start: "top 90%",
+      start: startProjectPosition,
       toggleActions: "play none none reverse",
       
     },
     y:0,
     opacity:1,
-    duration: 1,
+    duration: 0.7,
     ease: "power2.out"
         }
 );
@@ -269,15 +282,116 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
     }
   },[])
 
+
+  //  why us section anims
+ useEffect(() => {
+
+
+const tl3 = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#why-us",
+    start: "top 95%",    
+    end: "bottom 50%",        
+    scrub: true,
+    markers: true,
+    pin: false,
+  }
+});
+
+
+
+
+
+const tl4 = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#why-us",
+    start: "top 95%",    
+    end: "bottom 50%",        
+    scrub: true,
+    markers: true,
+    pin: whyUsVideoOne.current,
+  }
+});
+
+tl4.fromTo(whyUsVideoOne.current, 
+  {x:0},
+  {x:250, rotate:90, duration:0},
+  
+).fromTo(whyUsVideoOne.current, 
+  {opacity:0 },
+  {opacity:1, duration:0.2},
+  
+).fromTo(whyUsVideoOne.current, 
+  {y:0 },
+  {y:-450, duration:3},
+  "<"
+).fromTo(whyUsVideoOne.current, 
+  {opacity:1 },
+  {opacity:0, duration:0.5},
+  "-=0.5"
+)
+
+
+
+
+ },[])
+
+useEffect(() => {
+  const el = text3Ref.current;
+  if (!el) return;
+
+  const paragraphs = el.querySelectorAll("p");
+
+  // Установим всем параграфам opacity: 0 в начале
+  gsap.set(paragraphs, { opacity: 0 });
+
+  paragraphs.forEach((p) => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: p,
+        start: "top 80%",
+        end: "bottom 60%",
+        scrub: true,
+      },
+    });
+
+    tl.fromTo(
+      p,
+      {
+        opacity: 0,
+        scrambleText: { text: "", revealDelay: 0.2 },
+      },
+      {
+        opacity: 1,
+        scrambleText: {
+          text: p.textContent || "",
+          chars: "upperCase",
+          speed: 0.5,
+          revealDelay: 0.2,
+        },
+        duration: 2,
+      }
+    );
+  });
+
+  return () => {
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  };
+}, []);
+
+
+
+  
   return (
     <>
     <ReactLenis
   root
   options={{
-    autoRaf: true,
     duration: 1.5,
     wheelMultiplier: 0.8,
-    touchMultiplier: 0.5,
+    touchMultiplier: 0.7, // попробуй значения от 0.3 до 1
+    smoothWheel: true,
+    autoRaf: false,
   }}
   ref={lenisRef}
 >
@@ -381,15 +495,38 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
 
       {/* about us section */}
 
-      <section className="h-screen w-full">
-        <div className="flex flex-col mx-10">
-          <div className="flex flex-row items-center gap-4">
-            <p className="flex-1 text-2xl">Create and manage social media accounts.</p>
-            <h2 className="flex-none font-bold text-lg">Profiles</h2>
+      <section className="h-screen w-full pt-20" ref={section3Ref}>
+        <div className="relative md:hidden items-center">
+          <video loop autoPlay muted  src="/whyUsVideoOne.mp4" className="absolute w-50  rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
+          
+          {/* <video loop autoPlay muted  src="/whyUsVideoTwo.mp4" className="absolute" ref={whyUsVideoTwo}></video> */}
+        </div>
+        <div className="flex flex-col mx-4 md:mx-10 gap-8" id="why-us" ref={text3Ref}>
+          <div className="flex md:flex-row md:items-center flex-col">
+            <h2 className=" text-5xl  flex-none font-heading ">Profiles</h2>
+            <p className="flex-1 text-3xl pt-2"  >Create and manage social media accounts.</p>
+          </div>
+          <div className="flex md:flex-row md:items-center flex-col">
+            <h2 className=" text-5xl  flex-none font-heading ">Content</h2>
+            <p className="flex-1 text-3xl pt-2"  >Plan and post engaging updates.</p>
+          </div>
+          <div className="flex md:flex-row md:items-center flex-col">
+            <h2 className=" text-5xl  flex-none font-heading ">Ads</h2>
+            <p className="flex-1 text-3xl pt-2"  >Targeted advertising to reach clients.</p>
+          </div>
+          <div className="flex md:flex-row md:items-center flex-col">
+            <h2 className=" text-5xl  flex-none font-heading ">Analytics</h2>
+            <p className="flex-1 text-3xl pt-2"  >Track results and improve strategies.</p>
+          </div>
+          <div className="flex md:flex-row md:items-center flex-col">
+            <h2 className=" text-5xl  flex-none font-heading ">Engagement</h2>
+            <p className="flex-1 text-3xl pt-2"  >Build active communities with followers.</p>
           </div>
         </div>
       </section>
-  
+      <section className="h-screen w-full pt-20">
+      <h1>section 4</h1>
+      </section>
     </ReactLenis>
      </>
   );

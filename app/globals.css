@@ -1,4 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 @import "tailwindcss";
+
+
+
+.font-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
 
 :root {
   --background: #ffffff;
