@@ -247,18 +247,21 @@ gsap.timeline({
 
 
 gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
-  gsap.fromTo(box,{opacity:0.5,scale:0}, {
+  gsap.fromTo(box,{opacity:0.4,y:450}
+    ,
+     {
     scrollTrigger: {
       trigger: box,
-      start: "top 80%",
+      start: "top 90%",
       toggleActions: "play none none reverse",
       
     },
-    scale:1,
+    y:0,
     opacity:1,
-    duration: 1.5,
-    ease: "power3.out"
-  });
+    duration: 1,
+    ease: "power2.out"
+        }
+);
 });
 
 
@@ -321,7 +324,7 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
 
         </div>
         {/* animated text hero section */}
-        <div className=" max-w-[70%] md:max-w-[80%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
+        <div className=" max-w-[70%] md:max-w-[60%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
         <p className="text-gray-400 text-4xl z-2 md:text-6xl">Combining creativity and expertise, we reveal the character of brands that stand out in their time.</p>
         </div>
       </section>
@@ -329,15 +332,15 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
      <section className="min-h-screen w-full mx-auto lg:px-20 px-5" id="section2" ref={section2Ref}>
         <div className="grid grid-rows-3 md:grid-rows-4  md:grid-cols-2 lg:gap-7 gap-5" id="projectGrid">
         <div className="relative group rounded-2xl overflow-hidden md:col-span-1 md:row-span-1 cursor-pointer project" >
-          <img  rel="preload" src="photo2.jpg" alt="" className="  block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
-          <video rel="preload"  src="video2.mp4" className="  absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
+          <img  rel="preload" src="photo1.jpg" alt="" className="  block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
+          <video rel="preload"  src="video1.mp4" className="  absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
           <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3"><p className="text-black  font-semibold text-2xl m-auto">Autotransfer</p> 
           <div className="inline-flex items-center justify-center rounded-full bg-gray-100  transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
   <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out " />
 </div></div>
         </div>
         <div className="relative group rounded-2xl overflow-hidden md:col-span-1 md:row-span-1 cursor-pointer project">
-          <img rel="preload" src="photo1.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
+          <img rel="preload" src="photo3.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
           <video rel="preload" src="video2.mp4" className=" absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
           <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3"><p className="text-black  font-semibold text-2xl m-auto">Autotransfer</p> 
           <div className="inline-flex items-center justify-center rounded-full bg-gray-100  transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
@@ -345,7 +348,7 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
 </div></div>
         </div>
         <div className="md:max-h-[45%] relative group rounded-2xl overflow-hidden md:col-span-2 md:row-span-2 cursor-pointer project ">
-          <img rel="preload" src="photo3.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
+          <img rel="preload" src="photo2.jpg" alt="" className="block w-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0" />
           <video rel="preload"  src="video3.mp4" className=" absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" autoPlay muted loop onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
           <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3"><p className="text-black  font-semibold text-2xl m-auto">Autotransfer</p> 
           <div className="inline-flex items-center justify-center rounded-full bg-gray-100  transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
