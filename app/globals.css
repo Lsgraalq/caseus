@@ -52,3 +52,24 @@ html, body {
   z-index: 99999;
   pointer-events: none;
 }
+
+.glassnav {
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+}
+
+.glassbutton {
+    background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(0px);
+}
+
+
+.glassbutton:hover {
+    background-color: rgb(255, 255, 255);
+  backdrop-filter: blur(0px);
+}
+
+.glassmenu {
+    background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+}

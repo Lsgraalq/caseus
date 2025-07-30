@@ -37,7 +37,7 @@ export default function AnimatedNavbar() {
     ).fromTo(
       navbarRef.current,
       {opacity:0},
-      {opacity:1, duration:1},"+=1"
+      {opacity:1, duration:0.3},"+=0.4"
     )
   }, []);
 
@@ -93,7 +93,7 @@ export default function AnimatedNavbar() {
                   <img src="/logo.png" alt=""  className="z-1000  "/>
                 </div>
             
-      <div className="relative flex flex-row bg-transparent mt-8 ml-5 pl-5 pr-5 pt-2 pb-2 rounded-2xl  items-center gap-8" ref={navbarRef}>
+      <div className="relative flex flex-row  mt-8 ml-5 pl-5 pr-5 pt-2 pb-2 rounded-2xl  items-center gap-8 glassnav" ref={navbarRef}>
         {/* Круг */}
         {/* <div
            ref={circleRef}
@@ -101,7 +101,7 @@ export default function AnimatedNavbar() {
         >
           <img src="/logo.png" alt=""  className="z-20"/>
         </div> */}
-        <div className="w-12 h-12 bg-transparent rounded-full ">
+        <div className="w-12 h-12 rounded-full ">
 
         </div >
         
@@ -134,9 +134,9 @@ export default function AnimatedNavbar() {
             {isMenuOpen ? <IoMdClose className="w-5 text-black" /> : <IoIosMenu className="w-5 flex text-black" />}
             <p className="text-black font-semibold">Menu</p>
           </div>
-           <div className=" flex-row   items-center  gap-2 text-center  px-8 pt-2 pb-3 rounded-xl hidden md:flex  transition duration-400" onClick={toggleMenu}>
+           <div className=" flex-row   items-center  gap-2 text-center  px-8 pt-2 pb-3  rounded-xl hidden md:flex  transition duration-400 glassbutton" onClick={toggleMenu}>
             
-            <p className="text-black font-semibold  cursor-pointer  ">Contakt</p>
+            <p className="text-black font-semibold  cursor-pointer ">Contakt</p>
             
           </div>
 
@@ -152,7 +152,7 @@ export default function AnimatedNavbar() {
             <div
               key={i}
              ref={(el) => (linksRef.current[i] = el, undefined)}
-              className="bg-black z-100 rounded-2xl mx-auto flex"
+              className="glassmenu z-100 rounded-2xl mx-auto flex"
             >
               <a
                 href="#"
