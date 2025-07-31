@@ -71,7 +71,7 @@ export default function Home() {
         // Apply jelly-like effect (position and rotation), keeping scale separate
         setX(pos.x);
         setY(pos.y);
-        setRotation(rotation);
+        
 
         // If not hovering, apply the jelly scale effect
       
@@ -79,7 +79,7 @@ export default function Home() {
 
       // Animation loop
       function animate() {
-        const speed = 0.35;
+        const speed = 0.15;
 
         // Update cursor's position based on targetPos
         pos.x += (targetPos.x - pos.x) * speed;
@@ -141,6 +141,30 @@ export default function Home() {
       if (!isTouchDevice) {
         animate();
       }
+
+      const cursorDiv = document.getElementById("jelly-cursor") as HTMLVideoElement;
+      const cursorPointer = document.getElementById("cursor-event") as HTMLVideoElement;
+      const targetSection = document.querySelector(".why-us");
+
+    if (targetSection && cursorPointer) {
+      targetSection.addEventListener("mouseenter", () => {
+        cursorPointer.style.display = "flex";
+        cursorDiv.style.width = "200px";
+         cursorDiv.style.border = "0px";
+        // cursorPointer.play();
+      });
+
+      targetSection.addEventListener("mouseleave", () => {
+        cursorPointer.style.display = "none";
+         cursorDiv.style.width = "42px";
+        cursorDiv.style.border = "2px, solid, gray";
+        // cursorPointer.pause();
+        // cursorPointer.currentTime = 0;
+      });
+    }
+
+
+
        const split = new SplitText(textRef.current, { type: "chars" });
       let tl = gsap.timeline();
 
@@ -170,7 +194,14 @@ export default function Home() {
       "-=0.68");
       return () => split.revert();
   
+
+
+
+      
   }
+
+
+  
   },[])
 
 
@@ -182,6 +213,7 @@ export default function Home() {
     const isMobile = window.innerWidth < 768;
     const heroHeight = isMobile ? 1300 : 3000;
     const endHeight = isMobile ? 1000 : 2000;
+    
     const startPosition = isMobile ? "top 60%" : "top 20%";
     const startProjectPosition = isMobile ? "top 99%" : "top 85%";
     const split = new SplitText(heroTextRef.current, {
@@ -287,17 +319,6 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
  useEffect(() => {
 
 
-const tl3 = gsap.timeline({
-  scrollTrigger: {
-    trigger: "#why-us",
-    start: "top 95%",    
-    end: "bottom 50%",        
-    scrub: true,
-    markers: true,
-    pin: false,
-  }
-});
-
 
 
 
@@ -308,7 +329,7 @@ const tl4 = gsap.timeline({
     start: "top 95%",    
     end: "bottom 50%",        
     scrub: true,
-    markers: true,
+    markers: false,
     pin: whyUsVideoOne.current,
   }
 });
@@ -340,18 +361,22 @@ useEffect(() => {
   const el = text3Ref.current;
   if (!el) return;
 
+  const isMobile = window.innerWidth < 768;
+  const pHeight = isMobile ? "bottom 45%" : "+=300";
+
+
   const paragraphs = el.querySelectorAll("p");
 
-  // Установим всем параграфам opacity: 0 в начале
   gsap.set(paragraphs, { opacity: 0 });
 
   paragraphs.forEach((p) => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: p,
-        start: "top 80%",
-        end: "bottom 60%",
+        start: "top 70%",
+        end: pHeight,
         scrub: true,
+        markers: true,
       },
     });
 
@@ -389,7 +414,7 @@ useEffect(() => {
   options={{
     duration: 1.5,
     wheelMultiplier: 0.8,
-    touchMultiplier: 0.7, // попробуй значения от 0.3 до 1
+    touchMultiplier: 0.7, 
     smoothWheel: true,
     autoRaf: true,
   }}
@@ -402,7 +427,9 @@ useEffect(() => {
 
       
 {/* HERO SECRION */}
-<div id="jelly-cursor" className="hidden md:flex"></div>
+<div id="jelly-cursor" className="hidden md:flex">
+  <div className="text-blue-300 text-2xl border-b-1 pb-0 libre-regular" id="cursor-event">What we do </div>
+</div>
 
       <section className="h-screen w-full " id="scroll-container" ref={heroRef}>
         
@@ -494,38 +521,40 @@ useEffect(() => {
 
 
       {/* about us section */}
-
-      <section className="h-screen w-full pt-20" ref={section3Ref}>
+      <section className="h-screen w-full pt-20 why-us" ref={section3Ref}>
         <div className="relative md:hidden items-center">
           <video loop autoPlay muted  src="/whyUsVideoOne.mp4" className="absolute w-50  rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
           
           {/* <video loop autoPlay muted  src="/whyUsVideoTwo.mp4" className="absolute" ref={whyUsVideoTwo}></video> */}
         </div>
-        <div className="flex flex-col mx-4 md:mx-10 gap-8" id="why-us" ref={text3Ref}>
-          <div className="flex md:flex-row md:items-center flex-col">
+        <div className="flex flex-col mx-4 md:mx-10 gap-8 md:gap-15 lg:gap-20 " id="why-us" ref={text3Ref}>
+          <div className="flex  md:flex-row-reverse md:items-center flex-col">
             <h2 className=" text-5xl  flex-none font-heading ">Profiles</h2>
-            <p className="flex-1 text-3xl pt-2"  >Create and manage social media accounts.</p>
+            <p className="flex-1 text-3xl lg:text-4xl pt-2"  >Create and manage social media accounts.</p>
           </div>
-          <div className="flex md:flex-row md:items-center flex-col">
+          <div className="flex md:flex-row-reverse md:items-center flex-col">
             <h2 className=" text-5xl  flex-none font-heading ">Content</h2>
-            <p className="flex-1 text-3xl pt-2"  >Plan and post engaging updates.</p>
+            <p className="flex-1 text-3xl lg:text-4xl pt-2"  >Plan and post engaging updates.</p>
           </div>
-          <div className="flex md:flex-row md:items-center flex-col">
+          <div className="flex md:flex-row-reverse md:items-center flex-col">
             <h2 className=" text-5xl  flex-none font-heading ">Ads</h2>
-            <p className="flex-1 text-3xl pt-2"  >Targeted advertising to reach clients.</p>
+            <p className="flex-1 text-3xl lg:text-4xl pt-2"  >Targeted advertising to reach clients.</p>
           </div>
-          <div className="flex md:flex-row md:items-center flex-col">
+          <div className="flex md:flex-row-reverse md:items-center flex-col">
             <h2 className=" text-5xl  flex-none font-heading ">Analytics</h2>
-            <p className="flex-1 text-3xl pt-2"  >Track results and improve strategies.</p>
+            <p className="flex-1 text-3xl lg:text-4xl pt-2"  >Track results and improve strategies.</p>
           </div>
-          <div className="flex md:flex-row md:items-center flex-col">
+          <div className="flex md:flex-row-reverse md:items-center flex-col">
             <h2 className=" text-5xl  flex-none font-heading ">Engagement</h2>
-            <p className="flex-1 text-3xl pt-2"  >Build active communities with followers.</p>
+            <p className="flex-1 text-3xl lg:text-4xl pt-2"  >Build active communities with followers.</p>
           </div>
         </div>
       </section>
-      <section className="h-screen w-full pt-20">
-      <h1>section 4</h1>
+      <section className="h-screen  pt-20 mx-5 about-us bg-blue-300 rounded-4xl">
+        <div className="mx-10">
+          <h1>section 4</h1>
+          </div>
+      
       </section>
     </ReactLenis>
      </>
