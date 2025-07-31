@@ -212,7 +212,7 @@ export default function Home() {
         gsap.registerPlugin(ScrollTrigger);
     const isMobile = window.innerWidth < 768;
     const heroHeight = isMobile ? 1300 : 3000;
-    const endHeight = isMobile ? 1000 : 2000;
+    const endHeight = isMobile ? 1250 : 3000;
     
     const startPosition = isMobile ? "top 60%" : "top 20%";
     const startProjectPosition = isMobile ? "top 99%" : "top 85%";
@@ -257,17 +257,12 @@ export default function Home() {
   y: 0,
   opacity:0.2
   },
-  {duration:0.7,ease: "power1.out", y: -300,opacity:1,stagger:0.04,},
+  {duration:0.7,ease: "power1.out", y: -500,opacity:1,stagger:0.04,},
   "-=0.9"
 ).to(
   videoRef.current,
-  { y:-200,duration:0.7,},
-  "+=0.2"
-).fromTo(split.lines, {
-  y: -300,
-  },
-  {duration:0.3,ease: "power1.out", y: -400,stagger:0.03,},
-  "-=0.5"
+  { y:-150,duration:0.5, ease:"none"},
+  "+=0"
 )
 
 //hero section text color change animation 
@@ -283,11 +278,9 @@ gsap.timeline({
 })
 .fromTo(split.chars,{color:"#ced4da",}, {
   color: "#000",
-  stagger: 0.05,
-  duration:0.9
+  stagger: 0.3,
+  
 })
-
-// why us color change anims
 
 
 
@@ -309,8 +302,6 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
         }
 );
 });
-
-
     }
   },[])
 
@@ -356,7 +347,7 @@ tl4.fromTo(whyUsVideoOne.current,
 
 
  },[])
-
+// section 3 text scramble anim
 useEffect(() => {
   const el = text3Ref.current;
   if (!el) return;
@@ -376,7 +367,7 @@ useEffect(() => {
         start: "top 70%",
         end: pHeight,
         scrub: true,
-        markers: true,
+        markers: false,
       },
     });
 
@@ -403,8 +394,6 @@ useEffect(() => {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   };
 }, []);
-
-
 
   
   return (
@@ -457,17 +446,17 @@ useEffect(() => {
           {/* text above hero section with pos absolute*/}
           <div className="w-full absolute  top-0  grid grid-rows-2 h-screen gap-30 md:grid-cols-2 md:gap-0" ref={textRef}>
             <h3 className="lg:text-2xl text-xl  uppercase font-thin md:text-left text-center self-end row-span-1 md:col-span-1 md:pl-20">
-              CREATIVE STUDIO
+              Creative & Digital
             </h3>
             <h3 className="lg:text-2xl text-xl  uppercase font-thin md:text-left text-center row-span-1 md:col-span-1 md:self-end ">
-              MULTYDISCIPLINARY
+               Solutions Provider
             </h3>
           </div>
 
         </div>
         {/* animated text hero section */}
-        <div className=" max-w-[70%] md:max-w-[60%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
-        <p className="text-gray-400 text-4xl z-2 md:text-6xl">Combining creativity and expertise, we reveal the character of brands that stand out in their time.</p>
+        <div className=" max-w-[70%] md:max-w-[60%] lg:max-w-[70%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
+        <p className="text-gray-400 text-4xl z-2 md:text-6xl lg:text-7xl">Combining creativity and expertise, we reveal the character of brands that stand out in their time.</p>
         </div>
       </section>
 
@@ -514,7 +503,7 @@ useEffect(() => {
     </div>
 
   </div>
-</section>
+    </section>
 
 
      
@@ -550,12 +539,37 @@ useEffect(() => {
           </div>
         </div>
       </section>
-      <section className="h-screen  pt-20 mx-5 about-us bg-blue-300 rounded-4xl">
-        <div className="mx-10">
-          <h1>section 4</h1>
+
+
+    {/* contact us section */}
+      <section className="h-screen  bg-black   contact mx-auto  border-0" >
+        <div className="h-screen  bg-white  pt-5 rounded-b-2xl border-0">
+          <img src="/statisticsPhoto.png" className="mx-auto w-85  rounded-xl" alt="ImageLoadingError" />
+          <div className="flex flex-col mt-20 mx-5 gap-5">
+            <h1 className="text-2xl font-thin  mx-auto">Want our services? <br className=""/> We always ready to start :)</h1>
+              <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-1">
+                    <p className="text-lg text-gray-900"> You got a work ?</p>
+                    <a href="mailto:caseusdigitalagency@gmail.com" className="text-lg text-gray-300">caseusdigitalagency@gmail.com</a>
+                  </div>
+                  <div className="flex flex-col gap-1 ">
+                    <p className="text-lg text-gray-900"> Want to apply ?</p>
+                    <a href="mailto:caseusdigitalagency@gmail.com" className="text-lg text-gray-300">caseusdigitalagency@gmail.com</a>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-lg text-gray-900"> Follow us :  </p>
+                    <a href="https://www.instagram.com/Caseusstudio" className="text-lg text-gray-300">Instagram</a>
+                    <a href="https://www.tiktok.com/@caseus_studios" className="text-lg text-gray-300">Tik Tok</a>
+                  </div>
+              </div>
+              <a href="" className="">Caseus 2025</a>
           </div>
-      
+        </div>
+        
       </section>
+      <div className="pt-20 bg-black  border-0">
+dsasad
+        </div>
     </ReactLenis>
      </>
   );
