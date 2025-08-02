@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import "lenis/dist/lenis.css";
 import { ReactLenis } from "lenis/react";
-import AnimatedNavbar from "@/components/AnimatedNavbar";
+import AnimatedNavbar from "@/components/AnimatedNavbarEN";
 import SplitText from "gsap/SplitText";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -33,6 +33,7 @@ export default function Home() {
   const block3 = useRef(null);
   const footerRef = useRef(null);
   const whyUsVideoTwo= useRef(null);
+   const footerTextRef = useRef(null);
 // start animation + cursor logic
   useEffect (() => {
     if (typeof window !== "undefined" && textRef.current) {
@@ -397,7 +398,35 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  
+  const split = new SplitText(footerTextRef.current, { type: "chars" });
+ScrollTrigger.matchMedia({
+  // desktop only
+  "(min-width: 768px)": function() {
+    const tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#contact-us",
+        start: "bottom bottom",
+        end: "bottom top",
+        scrub: true,
+        markers: false,
+        pin: true,
+      }
+    });
+
+    tl2.fromTo(
+      split.chars,
+      { color: "#ffffff" },
+      { color: "#000000", stagger: 1 },
+      "-=0"
+    );
+  },
+
+  // mobile only (можно добавить if нужно)
+  "(max-width: 767px)": function() {
+    // Ничего не делать — таймлайн не создаётся
+  }
+});
+
 }, []);
   
   return (
@@ -405,6 +434,7 @@ useEffect(() => {
     <ReactLenis
   root
   options={{
+    anchors: true,
     duration: 1.5,
     wheelMultiplier: 0.8,
     touchMultiplier: 0.7, 
@@ -420,6 +450,7 @@ useEffect(() => {
 
       
 {/* HERO SECRION */}
+<div className="" id="start"></div>
 <div id="jelly-cursor" className="hidden md:flex">
   <div className="text-blue-300 text-2xl border-b-1 pb-0 libre-regular" id="cursor-event">What we do </div>
 </div>
@@ -514,7 +545,7 @@ useEffect(() => {
 
 
       {/* about us section */}
-      <section className="h-screen w-full pt-20 why-us" ref={section3Ref}>
+      <section className="h-screen w-full pt-20 why-us" id="why-us" ref={section3Ref}>
         <div className="relative md:hidden items-center">
           <video loop autoPlay muted  src="/whyUsVideoOne.mp4" className="absolute w-50  rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
           
@@ -574,11 +605,11 @@ useEffect(() => {
                
               
           </div>
-           <div className="mx-auto flex flex-col  md:flex-row-reverse pt-3 mb-5 justify-between md:justify-end md:gap-10 md:pt-20 items-center">
+           <div className="mx-auto flex flex-col  md:flex-row-reverse pt-7 mb-5 justify-between md:justify-end md:gap-10 md:pt-20 items-center">
                   
                   <a href="http://www.merinets.xyz/" className=" tracking-[4]  text-gray-300 text-center  md:text-xl">developed by Merinets</a>
-                  <a href="#" className=" uppercase text-center md:text-xl">Caseus ©2025</a>
-                 <a href="/de" className="w-40 h-15 flex items-center bg-gray-200 rounded-xl p-1 px-2">
+                  <a href="#" className=" uppercase text-center md:text-xl" id="end">Caseus ©2025</a>
+                 <a href="/de" className="w-40 h-15  hidden md:flex items-center bg-gray-200 rounded-xl p-1 px-2">
                     <div className="flex items-center bg-white rounded-xl px-2 py-1 mr-2 shadow-sm w-[70%] h-11">
                       <img src="england.png" alt="EN" className="w-7 h-5 mr-1 ml-3" />
                       <p className="text-black font-medium text-lg pl-2">EN</p>

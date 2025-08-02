@@ -42,7 +42,7 @@ body {
 html, body {
  height: 100%;
   overflow: auto !important;
-
+  scroll-behavior: auto !important; 
 }
 
 
@@ -92,3 +92,12 @@ background-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(4px);
 }
 
+.lang-glass-big {
+    background-color: rgba(255, 255, 255, 0.1);
+
+}
+
+.lang-glass-small {
+    background-color: rgb(255, 255, 255, 0.5);
+
+}

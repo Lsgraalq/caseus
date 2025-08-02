@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import "lenis/dist/lenis.css";
 import { ReactLenis } from "lenis/react";
-import AnimatedNavbar from "@/components/AnimatedNavbar";
+import AnimatedNavbar from "@/components/AnimatedNavbarDE";
 import SplitText from "gsap/SplitText";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -32,6 +32,7 @@ export default function Home() {
   const block2 = useRef(null);
   const block3 = useRef(null);
   const footerRef = useRef(null);
+   const footerTextRef = useRef(null);
   const whyUsVideoTwo= useRef(null);
 // start animation + cursor logic
   useEffect (() => {
@@ -397,7 +398,36 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  
+const split = new SplitText(footerTextRef.current, { type: "chars" });
+ScrollTrigger.matchMedia({
+  // desktop only
+  "(min-width: 768px)": function() {
+    const tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#contact-us",
+        start: "bottom bottom",
+        end: "bottom top",
+        scrub: true,
+        markers: false,
+        pin: true,
+      }
+    });
+
+    tl2.fromTo(
+      split.chars,
+      { color: "#ffffff" },
+      { color: "#000000", stagger: 1 },
+      "-=0"
+    );
+  },
+
+  // mobile only (можно добавить if нужно)
+  "(max-width: 767px)": function() {
+    // Ничего не делать — таймлайн не создаётся
+  }
+});
+
+
 }, []);
   
   return (
@@ -405,6 +435,7 @@ useEffect(() => {
     <ReactLenis
   root
   options={{
+    anchors: true,
     duration: 1.5,
     wheelMultiplier: 0.8,
     touchMultiplier: 0.7, 
@@ -419,57 +450,55 @@ useEffect(() => {
      
 
       
+      
 {/* HERO SECRION */}
+<div className="" id="start"></div>
 <div id="jelly-cursor" className="hidden md:flex">
-  <div className="text-blue-300 text-2xl border-b-1 pb-0 libre-regular" id="cursor-event">What we do </div>
+  <div className="text-blue-300 text-2xl border-b-1 pb-0 libre-regular" id="cursor-event">Was wir tun</div>
 </div>
 
-      <section className="h-screen w-full " id="scroll-container" ref={heroRef}>
-        
-        <div className="relative p-0 m-0 ">
-          {/* Video preload="auto" hero section */}
-          <div className="w-full h-screen z-0" ref={videoRef}>
-            <video
-              src="/titul.mp4"
-              className="hidden md:block w-full h-full object-cover rounded-4xl p-5 "
-              autoPlay
-              muted
-              
-              loop
-            />
-            {/* second video preload="auto" in hero section for phones */}
-            <video
-              src="/titul_small.mp4"
-              className="block md:hidden w-full h-full object-cover rounded-3xl  p-4 "
-              autoPlay
-              muted
-              loop
-            />
-          </div>
+<section className="h-screen w-full " id="scroll-container" ref={heroRef}>
+  <div className="relative p-0 m-0 ">
+    {/* Video preload="auto" hero section */}
+    <div className="w-full h-screen z-0" ref={videoRef}>
+      <video
+        src="/titul.mp4"
+        className="hidden md:block w-full h-full object-cover rounded-4xl p-5 "
+        autoPlay
+        muted
+        loop
+      />
+      {/* second video preload="auto" in hero section for phones */}
+      <video
+        src="/titul_small.mp4"
+        className="block md:hidden w-full h-full object-cover rounded-3xl  p-4 "
+        autoPlay
+        muted
+        loop
+      />
+    </div>
 
-          {/* text above hero section with pos absolute*/}
-          <div className="w-full absolute  top-0  grid grid-rows-2 h-screen gap-30 md:grid-cols-2 md:gap-0" ref={textRef}>
-            <h3 className="lg:text-2xl text-xl  uppercase font-thin md:text-left text-center self-end row-span-1 md:col-span-1 md:pl-20">
-              Creative & Digital
-            </h3>
-            <h3 className="lg:text-2xl text-xl  uppercase font-thin md:text-left text-center row-span-1 md:col-span-1 md:self-end ">
-               Solutions Provider
-            </h3>
-          </div>
-
-        </div>
-        {/* animated text hero section */}
-        <div className=" max-w-[70%] md:max-w-[60%] lg:max-w-[70%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
-        <p className="text-gray-400 text-4xl z-2 md:text-6xl lg:text-7xl">Combining creativity and expertise, we reveal the character of brands that stand out in their time.</p>
-        </div>
-      </section>
-
+    {/* text above hero section with pos absolute*/}
+    <div className="w-full absolute  top-0  grid grid-rows-2 h-screen gap-30 md:grid-cols-2 md:gap-0" ref={textRef}>
+      <h3 className="lg:text-2xl text-xl  uppercase font-thin md:text-left text-center self-end row-span-1 md:col-span-1 md:pl-20">
+        Kreativ & Digital
+      </h3>
+      <h3 className="lg:text-2xl text-xl  uppercase font-thin md:text-left text-center row-span-1 md:col-span-1 md:self-end ">
+        Lösungsanbieter
+      </h3>
+    </div>
+  </div>
+  {/* animated text hero section */}
+  <div className=" max-w-[70%] md:max-w-[60%] lg:max-w-[70%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
+    <p className="text-gray-400 text-4xl z-2 md:text-6xl lg:text-7xl">
+      Durch die Verbindung von Kreativität und Fachwissen zeigen wir den Charakter von Marken, die in ihrer Zeit hervorstechen.
+    </p>
+  </div>
+</section>
 
 {/* project section */}
-    <section className="w-full mx-auto" id="section2" ref={section2Ref}>
+<section className="w-full mx-auto" id="section2" ref={section2Ref}>
   <div className="flex flex-col gap-5 md:mx-10 mx-2" id="projectFlex">
-
-
     <div className="flex flex-col md:flex-row gap-5">
       <div className="relative group rounded-2xl overflow-hidden flex-1 cursor-pointer project aspect-[4/3]">
         <img src="photo1.jpg" alt="" className="block w-full h-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0 object-cover" />
@@ -494,7 +523,6 @@ useEffect(() => {
       </div>
     </div>
 
-
     <div className="relative group rounded-2xl overflow-hidden w-full cursor-pointer project md:aspect-[16/7] aspect-[4/4]">
       <img src="photo2.jpg" alt="" className="block w-full h-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0 object-cover" />
       <video src="video3.mp4" className="absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" muted onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
@@ -505,90 +533,87 @@ useEffect(() => {
         </div>
       </div>
     </div>
-
   </div>
-    </section>
+</section>
+
 
 
      
 
 
       {/* about us section */}
-      <section className="h-screen w-full pt-20 why-us" ref={section3Ref}>
-        <div className="relative md:hidden items-center">
-          <video loop autoPlay muted  src="/whyUsVideoOne.mp4" className="absolute w-50  rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
-          
-          {/* <video loop autoPlay muted  src="/whyUsVideoTwo.mp4" className="absolute" ref={whyUsVideoTwo}></video> */}
-        </div>
-        <div className="flex flex-col mx-4 md:mx-10 gap-8 md:gap-15 lg:gap-20 " id="why-us" ref={text3Ref}>
-          <div className="flex  md:flex-row md:items-center flex-col">
-            <h2 className=" text-5xl  flex-1 font-heading ">Profiles</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Create and manage social media accounts.</p>
-          </div>
-          <div className="flex md:flex-row md:items-center flex-col">
-            <h2 className=" text-5xl  flex-1 font-heading ">Content</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Plan and post engaging updates.</p>
-          </div>
-          <div className="flex md:flex-row md:items-center flex-col">
-            <h2 className=" text-5xl  flex-1 font-heading ">Ads</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Targeted advertising to reach clients.</p>
-          </div>
-          <div className="flex md:flex-row md:items-center flex-col">
-            <h2 className=" text-5xl  flex-1 font-heading ">Analytics</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Track results and improve strategies.</p>
-          </div>
-          <div className="flex md:flex-row md:items-center flex-col">
-            <h2 className=" text-5xl flex-1  font-heading ">Engagement</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Build active communities with followers.</p>
-          </div>
-        </div>
-      </section>
+     <section className="h-screen w-full pt-20 why-us" id="why-us" ref={section3Ref}>
+  <div className="relative md:hidden items-center">
+    <video loop autoPlay muted src="/whyUsVideoOne.mp4" className="absolute w-50 rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
+  </div>
+  <div className="flex flex-col mx-4 md:mx-10 gap-8 md:gap-15 lg:gap-20" id="why-us" ref={text3Ref}>
+    <div className="flex md:flex-row md:items-center flex-col">
+      <h2 className="text-5xl flex-1 font-heading">Profile</h2>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Social-Media-Konten erstellen und verwalten.</p>
+    </div>
+    <div className="flex md:flex-row md:items-center flex-col">
+      <h2 className="text-5xl flex-1 font-heading">Inhalte</h2>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Spannende Beiträge planen und veröffentlichen.</p>
+    </div>
+    <div className="flex md:flex-row md:items-center flex-col">
+      <h2 className="text-5xl flex-1 font-heading">Werbung</h2>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Gezielte Werbung zur Kundengewinnung.</p>
+    </div>
+    <div className="flex md:flex-row md:items-center flex-col">
+      <h2 className="text-5xl flex-1 font-heading">Analytik</h2>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Ergebnisse analysieren und Strategien verbessern.</p>
+    </div>
+    <div className="flex md:flex-row md:items-center flex-col">
+      <h2 className="text-5xl flex-1 font-heading">Engagement</h2>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Aktive Communitys mit Followern aufbauen.</p>
+    </div>
+  </div>
+</section>
+
 
 
     {/* contact us section */}
-      <section className=" bg-transparent  contact mx-auto  border-0" >
-        <div className="  bg-white  pt-5 rounded-b-2xl border-0 md:mx-10" ref={footerRef}>
-          <img src="/statisticsPhoto.png" className="mx-auto w-85  rounded-xl md:hidden mb-20" alt="ImageLoadingError" />
-          <div className="flex flex-col mt-20 mx-5 gap-5 md:flex-row md:gap-40">
-            <h1 className="text-2xl font-thin  mx-auto md:font-semibold md:text-7xl md:text-left font-footer md:mx-0 pb-10">Want our services? <br className=""/> We`re listening :)</h1>
-              
-             
-                <div className="flex flex-col md:gap-2">
-                  <div className="flex flex-row justify-between md:gap-50">
-                      <div className="flex flex-col gap-1">
-                        <p className="text-lg text-gray-900  md:text-2xl"> You got a work ?</p>
-                        <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
-                      </div>
-                      <div className="flex flex-col gap-1 md:gap-5">
-                        <p className="text-lg text-gray-900  md:text-2xl"> Follow us :  </p>
-                        <a href="https://www.instagram.com/Caseusstudio" className="text-lg text-gray-300  md:text-2xl">Instagram</a>
-                        <a href="https://www.tiktok.com/@caseus_studios" className="text-lg text-gray-300  md:text-2xl">Tik Tok</a>
-                      </div>
-                  </div>
-                    <div className="flex flex-col gap-1 ">
-                      <p className="text-lg text-gray-900  md:text-2xl"> Want to apply ?</p>
-                      <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300  md:text-xl">caseusdigitalagency@gmail.com</a>
-                    </div>
-                  
-                </div>
-               
-              
+     <section className="bg-transparent contact mx-auto border-0 pb-5" id="contact-us">
+  <div className="bg-white pt-5 rounded-b-2xl border-0 md:mx-10"  ref={footerRef}>
+    <img src="/statisticsPhoto.png" className="mx-auto w-85 rounded-xl md:hidden mb-20" alt="ImageLoadingError" />
+    <div className="flex flex-col mt-20 mx-5 gap-5 md:flex-row md:gap-40">
+      <h1 className="text-2xl font-thin mx-auto md:font-semibold md:text-7xl md:text-left font-footer md:mx-0 pb-10" ref={footerTextRef}>
+        Möchten Sie unsere Dienstleistungen?<br />Wir hören zu :)
+      </h1>
+
+      <div className="flex flex-col md:gap-2">
+        <div className="flex flex-row justify-between md:gap-50">
+          <div className="flex flex-col gap-1">
+            <p className="text-lg text-gray-900 md:text-2xl">Sie haben einen Auftrag?</p>
+            <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
           </div>
-           <div className="mx-auto flex flex-col  md:flex-row-reverse pt-3 mb-5 justify-between md:justify-end md:gap-10 md:pt-20 items-center">
-                  
-                  <a href="http://www.merinets.xyz/" className=" tracking-[4]  text-gray-300 text-center  md:text-xl">developed by Merinets</a>
-                  <a href="#" className=" uppercase text-center md:text-xl">Caseus ©2025</a>
-                 <a href="/de" className="w-40 h-15 flex items-center bg-gray-200 rounded-xl p-1 px-2">
-                    <div className="flex items-center bg-white rounded-xl px-2 py-1 mr-2 shadow-sm w-[70%] h-11">
-                      <img src="england.png" alt="EN" className="w-7 h-5 mr-1 ml-3" />
-                      <p className="text-black font-medium text-lg pl-2">EN</p>
-                    </div>
-                    <p className="text-gray-500 text-lg font-medium">DE</p>
-                  </a>
-                </div>
+          <div className="flex flex-col gap-1 md:gap-5">
+            <p className="text-lg text-gray-900 md:text-2xl">Folgen Sie uns:</p>
+            <a href="https://www.instagram.com/Caseusstudio" className="text-lg text-gray-300 md:text-2xl">Instagram</a>
+            <a href="https://www.tiktok.com/@caseus_studios" className="text-lg text-gray-300 md:text-2xl">TikTok</a>
+          </div>
         </div>
-        
-      </section>
+        <div className="flex flex-col gap-1">
+          <p className="text-lg text-gray-900 md:text-2xl">Möchten Sie sich bewerben?</p>
+          <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div className="mx-auto flex flex-col  md:flex-row-reverse pt-7 mb-5 justify-between md:justify-end md:gap-10 md:pt-20 items-center">
+      <a href="http://www.merinets.xyz/" className="tracking-[4] text-gray-300 text-center md:text-xl">entwickelt von Merinets</a>
+      <a href="#" className="uppercase text-center md:text-xl" id="end">Caseus ©2025</a>
+      <a href="/en" className="w-40 h-15  items-center bg-gray-200 rounded-xl p-1 px-2 hidden md:flex">
+        <div className="flex items-center bg-white rounded-xl px-2 py-1 mr-2 shadow-sm w-[70%] h-11">
+          <img src="germany.png" alt="DE" className="w-7 h-5 mr-1 ml-3" />
+          <p className="text-black font-medium text-lg pl-2">DE</p>
+        </div>
+        <p className="text-gray-500 text-lg font-medium">EN</p>
+      </a>
+    </div>
+  </div>
+</section>
+
      
     </ReactLenis>
      </>
