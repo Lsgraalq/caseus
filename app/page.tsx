@@ -578,7 +578,7 @@ ScrollTrigger.matchMedia({
     <img src="/statisticsPhoto.png" className="mx-auto w-85 rounded-xl md:hidden mb-20" alt="ImageLoadingError" />
     <div className="flex flex-col mt-20 mx-5 gap-5 md:flex-row md:gap-40">
       <h1 className="text-2xl font-thin mx-auto md:font-semibold md:text-7xl md:text-left font-footer md:mx-0 pb-10" ref={footerTextRef}>
-        Möchten Sie unsere Dienstleistungen?<br />Wir hören zu :)
+        Möchten Sie unsere Dienstleistungen?<br />Wir hören zu !
       </h1>
 
       <div className="flex flex-col md:gap-2">
