@@ -169,7 +169,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
           </div>
            <div className=" flex-row  group items-center  gap-2 text-center  px-8 pt-2 pb-3  rounded-xl hidden md:flex  transition duration-400 glassbutton " onClick={toggleMenu}>
             
-            <a href="#end" className="text-black group-hover:text-black  font-semibold transition-colors duration-300 cursor-pointer ">Contakt</a>
+            <a href="#end" className="text-black group-hover:text-black  font-semibold transition-colors duration-300 cursor-pointer ">Contact</a>
             
           </div>
 
