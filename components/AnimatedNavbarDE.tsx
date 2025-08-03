@@ -37,7 +37,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const tl = gsap.timeline({ delay: 2.9 });
     const isMobile = window.innerWidth < 768;
-    const distance = isMobile ? 60 : 210;
+    const distance = isMobile ? 60 : 230;
 
     tl.from(circletwoRef.current, {
       y: -60,
