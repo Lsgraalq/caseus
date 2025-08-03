@@ -490,8 +490,8 @@ ScrollTrigger.matchMedia({
 
         </div>
         {/* animated text hero section */}
-        <div className=" max-w-[70%] md:max-w-[60%] lg:max-w-[70%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
-        <p className="text-gray-400 text-4xl z-2 md:text-6xl lg:text-7xl">Combining creativity and expertise, we reveal the character of brands that stand out in their time.</p>
+        <div className=" max-w-[75%] md:max-w-[60%] lg:max-w-[70%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
+        <p className="text-gray-400 text-4xl z-2 md:text-6xl lg:text-7xl">We create a holistic brand image where previously there was only an idea - so that you are not just seen, but remembered.</p>
         </div>
       </section>
 
@@ -554,30 +554,30 @@ ScrollTrigger.matchMedia({
         <div className="flex flex-col mx-4 md:mx-10 gap-8 md:gap-15 lg:gap-20 " id="why-us" ref={text3Ref}>
           <div className="flex  md:flex-row md:items-center flex-col">
             <h2 className=" text-5xl  flex-1 font-heading ">Profiles</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Create and manage social media accounts.</p>
+            <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2"  >Create and manage social media accounts.</p>
           </div>
           <div className="flex md:flex-row md:items-center flex-col">
             <h2 className=" text-5xl  flex-1 font-heading ">Content</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Plan and post engaging updates.</p>
+            <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2"  >Plan and post engaging updates.</p>
           </div>
           <div className="flex md:flex-row md:items-center flex-col">
             <h2 className=" text-5xl  flex-1 font-heading ">Ads</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Targeted advertising to reach clients.</p>
+            <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2"  >Targeted advertising to reach clients.</p>
           </div>
           <div className="flex md:flex-row md:items-center flex-col">
             <h2 className=" text-5xl  flex-1 font-heading ">Analytics</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Track results and improve strategies.</p>
+            <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2"  >Track results and improve strategies.</p>
           </div>
           <div className="flex md:flex-row md:items-center flex-col">
             <h2 className=" text-5xl flex-1  font-heading ">Engagement</h2>
-            <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2"  >Build active communities with followers.</p>
+            <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2"  >Build active communities with followers.</p>
           </div>
         </div>
       </section>
 
 
     {/* contact us section */}
-      <section className=" bg-transparent  contact mx-auto  border-0" id="contact-us">
+      <section className=" bg-transparent  contact mx-auto  border-0 pt-30 sm:pt-10" id="contact-us">
         <div className="  bg-white  pt-5 rounded-b-2xl border-0 md:mx-10" ref={footerRef}>
           <img src="/statisticsPhoto.png" className="mx-auto w-85  rounded-xl md:hidden mb-20" alt="ImageLoadingError" />
           <div className="flex flex-col mt-20 mx-5 gap-5 md:flex-row md:gap-40">
@@ -585,23 +585,24 @@ ScrollTrigger.matchMedia({
               
              
                 <div className="flex flex-col md:gap-2">
-                  <div className="flex flex-row justify-between md:gap-50">
-                      <div className="flex flex-col gap-1">
-                        <p className="text-lg text-gray-900  md:text-2xl"> You got a work ?</p>
-                        <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
-                      </div>
-                      <div className="flex flex-col gap-1 md:gap-5">
-                        <p className="text-lg text-gray-900  md:text-2xl"> Follow us :  </p>
-                        <a href="https://www.instagram.com/Caseusstudio" className="text-lg text-gray-300  md:text-2xl">Instagram</a>
-                        <a href="https://www.tiktok.com/@caseus_studios" className="text-lg text-gray-300  md:text-2xl">Tik Tok</a>
-                      </div>
-                  </div>
-                    <div className="flex flex-col gap-1 ">
-                      <p className="text-lg text-gray-900  md:text-2xl"> Want to apply ?</p>
-                      <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300  md:text-xl">caseusdigitalagency@gmail.com</a>
-                    </div>
+                  <div className="flex sm:flex-row flex-col gap-3 justify-between md:gap-50">
+          <div className="flex flex-col gap-1">
+            <p className="text-lg text-gray-900 md:text-2xl">You got a work ?</p>
+            <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
+          </div>
+          <div className="flex flex-col gap-1 md:gap-5">
+            <p className="text-lg text-gray-900 md:text-2xl">Follow us :</p>
+            <div className="flex flex-row gap-2">
+              <a href="https://www.instagram.com/Caseusstudio" className="text-lg text-gray-300 md:text-2xl">Instagram</a>
+             <a href="https://www.youtube.com/@caseusstudio" className="text-lg text-gray-300 md:text-2xl">YouTube</a>
+            <a href="https://www.tiktok.com/@caseus_studios" className="text-lg text-gray-300 md:text-2xl">TikTok</a>
+          
+            </div>
+           </div>
+            </div>
                   
                 </div>
+                
                
               
           </div>
@@ -609,7 +610,7 @@ ScrollTrigger.matchMedia({
                   
                   <a href="http://www.merinets.xyz/" className=" tracking-[4]  text-gray-300 text-center  md:text-xl">developed by Merinets</a>
                   <a href="#" className=" uppercase text-center md:text-xl" id="end">Caseus ©2025</a>
-                 <a href="/de" className="w-40 h-15  hidden md:flex items-center bg-gray-200 rounded-xl p-1 px-2">
+                 <a href="/" className="w-40 h-15  hidden md:flex items-center bg-gray-200 rounded-xl p-1 px-2">
                     <div className="flex items-center bg-white rounded-xl px-2 py-1 mr-2 shadow-sm w-[70%] h-11">
                       <img src="england.png" alt="EN" className="w-7 h-5 mr-1 ml-3" />
                       <p className="text-black font-medium text-lg pl-2">EN</p>

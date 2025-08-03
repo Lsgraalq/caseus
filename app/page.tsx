@@ -313,9 +313,8 @@ gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
 
 
 
-
-
-
+ const isMobile = window.innerWidth < 400;
+const x = isMobile ? 200 : 245;
 const tl4 = gsap.timeline({
   scrollTrigger: {
     trigger: "#why-us",
@@ -329,7 +328,7 @@ const tl4 = gsap.timeline({
 
 tl4.fromTo(whyUsVideoOne.current, 
   {x:0},
-  {x:250, rotate:90, duration:0},
+  {x:x, rotate:90, duration:0},
   
 ).fromTo(whyUsVideoOne.current, 
   {opacity:0 },
@@ -489,9 +488,9 @@ ScrollTrigger.matchMedia({
     </div>
   </div>
   {/* animated text hero section */}
-  <div className=" max-w-[70%] md:max-w-[60%] lg:max-w-[70%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
-    <p className="text-gray-400 text-4xl z-2 md:text-6xl lg:text-7xl">
-      Durch die Verbindung von Kreativität und Fachwissen zeigen wir den Charakter von Marken, die in ihrer Zeit hervorstechen.
+  <div className=" sm:max-w-[70%] md:max-w-[60%] lg:max-w-[70%] max-w-[75%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
+    <p className="text-gray-400 sm:text-4xl z-2 md:text-6xl lg:text-7xl text-3xl">
+      Wir schaffen ein ganzheitliches Markenbild, wo vorher nur eine Idee war - damit Sie nicht nur gesehen, sondern auch in Erinnerung bleiben.
     </p>
   </div>
 </section>
@@ -542,30 +541,30 @@ ScrollTrigger.matchMedia({
 
 
       {/* about us section */}
-     <section className="h-screen w-full pt-20 why-us" id="why-us" ref={section3Ref}>
+     <section className="h-screen w-full pt-20 why-us " id="why-us" ref={section3Ref}>
   <div className="relative md:hidden items-center">
     <video loop autoPlay muted src="/whyUsVideoOne.mp4" className="absolute w-50 rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
   </div>
   <div className="flex flex-col mx-4 md:mx-10 gap-8 md:gap-15 lg:gap-20" id="why-us" ref={text3Ref}>
     <div className="flex md:flex-row md:items-center flex-col">
       <h2 className="text-5xl flex-1 font-heading">Profile</h2>
-      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Social-Media-Konten erstellen und verwalten.</p>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Social-Media-Konten erstellen und verwalten.</p>
     </div>
     <div className="flex md:flex-row md:items-center flex-col">
       <h2 className="text-5xl flex-1 font-heading">Inhalte</h2>
-      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Spannende Beiträge planen und veröffentlichen.</p>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden " >Spannende Beiträge planen und veröffentlichen.</p>
     </div>
     <div className="flex md:flex-row md:items-center flex-col">
       <h2 className="text-5xl flex-1 font-heading">Werbung</h2>
-      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Gezielte Werbung zur Kundengewinnung.</p>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Gezielte Werbung zur Kundengewinnung.</p>
     </div>
     <div className="flex md:flex-row md:items-center flex-col">
       <h2 className="text-5xl flex-1 font-heading">Analytik</h2>
-      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Ergebnisse analysieren und Strategien verbessern.</p>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Ergebnisse analysieren und Strategien verbessern.</p>
     </div>
     <div className="flex md:flex-row md:items-center flex-col">
       <h2 className="text-5xl flex-1 font-heading">Engagement</h2>
-      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2">Aktive Communitys mit Followern aufbauen.</p>
+      <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Aktive Communitys mit Followern aufbauen.</p>
     </div>
   </div>
 </section>
@@ -573,7 +572,7 @@ ScrollTrigger.matchMedia({
 
 
     {/* contact us section */}
-     <section className="bg-transparent contact mx-auto border-0 pb-5" id="contact-us">
+     <section className="bg-transparent contact mx-auto border-0 pb-5 pt-30 sm:pt-10" id="contact-us">
   <div className="bg-white pt-5 rounded-b-2xl border-0 md:mx-10"  ref={footerRef}>
     <img src="/statisticsPhoto.png" className="mx-auto w-85 rounded-xl md:hidden mb-20" alt="ImageLoadingError" />
     <div className="flex flex-col mt-20 mx-5 gap-5 md:flex-row md:gap-40">
@@ -582,21 +581,25 @@ ScrollTrigger.matchMedia({
       </h1>
 
       <div className="flex flex-col md:gap-2">
-        <div className="flex flex-row justify-between md:gap-50">
-          <div className="flex flex-col gap-1">
+        <div className="flex sm:flex-row flex-col gap-3 justify-between md:gap-50 ">
+          <div className="flex flex-col gap-1 ">
             <p className="text-lg text-gray-900 md:text-2xl">Sie haben einen Auftrag?</p>
             <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
           </div>
           <div className="flex flex-col gap-1 md:gap-5">
             <p className="text-lg text-gray-900 md:text-2xl">Folgen Sie uns:</p>
-            <a href="https://www.instagram.com/Caseusstudio" className="text-lg text-gray-300 md:text-2xl">Instagram</a>
+            <div className="flex flex-row gap-2 md:gap-4">
+              <a href="https://www.instagram.com/Caseusstudio" className="text-lg text-gray-300 md:text-2xl">Instagram</a>
+             <a href="https://www.youtube.com/@caseusstudio" className="text-lg text-gray-300 md:text-2xl">YouTube</a>
             <a href="https://www.tiktok.com/@caseus_studios" className="text-lg text-gray-300 md:text-2xl">TikTok</a>
-          </div>
+          
+            </div>
+           </div>
         </div>
-        <div className="flex flex-col gap-1">
+        {/* <div className="flex flex-col gap-1">
           <p className="text-lg text-gray-900 md:text-2xl">Möchten Sie sich bewerben?</p>
           <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
-        </div>
+        </div> */}
       </div>
     </div>
 

@@ -25,7 +25,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
 > = [
   { text: "Startseite", href: "#start" },
   { text: "Projekte", href: "#section2" },
-  { text: "Was wir tun", href: "#why-us" },
+  { text: "Leistungen", href: "#why-us" },
   { text: "Kontakt", href: "#end" },
   { lang: { from: "DE", to: "EN", link: "/en", flagSrc: "germany.png" } }, // переключатель
 ];
@@ -38,22 +38,25 @@ const langRef = useRef<HTMLDivElement | null>(null);
     const tl = gsap.timeline({ delay: 2.9 });
     const isMobile = window.innerWidth < 768;
     const distance = isMobile ? 60 : 210;
-    
-    // 1. Кружочек падает сверху
+
     tl.from(circletwoRef.current, {
       y: -60,
       opacity: 0,
-      duration: 1,
+      duration: 0.7,
       ease: "power2.out",
-    },"-=0.7").fromTo(
-      circletwoRef.current,
-      {x:0, color:"#1e2939"},
-      {x: -distance, duration:0.7, color:"#101828"},"+=0.2"
-    ).fromTo(
-      navbarRef.current,
-      {opacity:0},
-      {opacity:1, duration:0.3},"+=0.4"
-    )
+    }, "-=0.5")
+      .fromTo(
+        circletwoRef.current,
+        { x: 0, color: "#1e2939" },
+        { x: -distance, duration: 0.5, color: "#101828" },
+        "+=0.2"
+      )
+      .fromTo(
+        navbarRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3 },
+        "+=0"
+      );
   }, []);
 
  useEffect(() => {
@@ -149,7 +152,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
       href="#why-us"
       className="hidden md:flex text-black cursor-pointer relative group px-2"
     >
-      Was wir tun
+      Leistungen
       <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
     </a>
 
@@ -182,7 +185,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
 
     <div className="z-1000 fixed top-0 left-0 w-full md:hidden">
       {isMenuOpen && (
-  <div className="absolute mx-auto w-full flex flex-col gap-2 mt-60 meni" ref={menuContainerRef}>
+  <div className="absolute mx-auto w-full flex flex-col gap-2 mt-44 meni" ref={menuContainerRef}>
     {menuItems.map((item, i) => {
   if ("lang" in item) {
     return (
@@ -218,7 +221,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
       >
         <a
           href={item.href}
-          className="text-black px-10 pt-8 pb-8 text-4xl rounded-2xl"
+          className="text-black px-10 pt-7 pb-7 text-4xl rounded-2xl"
         >
           {item.text}
         </a>
