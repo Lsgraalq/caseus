@@ -578,6 +578,7 @@ ScrollTrigger.matchMedia({
 
     {/* contact us section */}
       <section className=" bg-transparent  contact mx-auto  border-0  pt-30 sm:pt-20 " id="contact-us">
+
         <div className="  bg-white  pt-5 rounded-b-2xl border-0 md:mx-10" ref={footerRef}>
           <img src="/statisticsPhoto.png" className="mx-auto w-85  rounded-xl md:hidden mb-20" alt="ImageLoadingError" />
           <div className="flex flex-col mt-20 mx-5 gap-5 md:flex-row md:gap-40">
@@ -585,7 +586,7 @@ ScrollTrigger.matchMedia({
               
              
                 <div className="flex flex-col md:gap-2">
-                  <div className="flex sm:flex-row flex-col gap-3 justify-between md:gap-50">
+                  <div className="flex sm:flex-row flex-col md:flex-col gap-3 justify-between md:gap-20">
           <div className="flex flex-col gap-1">
             <p className="text-lg text-gray-900 md:text-2xl">You got a work ?</p>
             <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
