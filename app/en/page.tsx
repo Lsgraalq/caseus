@@ -545,7 +545,7 @@ ScrollTrigger.matchMedia({
 
 
       {/* about us section */}
-      <section className="h-screen w-full pt-20 why-us" id="why-us" ref={section3Ref}>
+      <section className="h-screen w-full pt-20 why-us mb-40" id="why-us" ref={section3Ref}>
         <div className="relative md:hidden items-center">
           <video loop autoPlay muted  src="/whyUsVideoOne.mp4" className="absolute w-50  rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
           
@@ -577,7 +577,7 @@ ScrollTrigger.matchMedia({
 
 
     {/* contact us section */}
-      <section className=" bg-transparent  contact mx-auto  border-0 pt-30 sm:pt-10" id="contact-us">
+      <section className=" bg-transparent  contact mx-auto  border-0  pt-30 sm:pt-20 " id="contact-us">
         <div className="  bg-white  pt-5 rounded-b-2xl border-0 md:mx-10" ref={footerRef}>
           <img src="/statisticsPhoto.png" className="mx-auto w-85  rounded-xl md:hidden mb-20" alt="ImageLoadingError" />
           <div className="flex flex-col mt-20 mx-5 gap-5 md:flex-row md:gap-40">
