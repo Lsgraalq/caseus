@@ -478,12 +478,9 @@ ScrollTrigger.matchMedia({
     </div>
 
     {/* text above hero section with pos absolute*/}
-    <div className="w-full absolute  top-0  grid grid-rows-2 h-screen gap-30 md:grid-cols-2 md:gap-0" ref={textRef}>
-      <h3 className="lg:text-2xl text-xl  uppercase font-thin md:text-left text-center self-end row-span-1 md:col-span-1 md:pl-20 ">
-        Kreativ & Digital
-      </h3>
-      <h3 className="lg:text-2xl text-xl  uppercase font-thin md:text-left text-center row-span-1 md:col-span-1 md:self-end ">
-        Lösungsanbieter
+    <div className="w-full absolute   h-screen top-[50vh] "  ref={textRef}>
+      <h3 className="lg:text-2xl text-xl  uppercase font-thin text-center   ">
+         Kreativ & Digital Lösungsanbieter
       </h3>
     </div>
   </div>
@@ -503,7 +500,7 @@ ScrollTrigger.matchMedia({
         <img src="photo1.jpg" alt="" className="block w-full h-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0 object-cover" />
         <video src="video1.mp4" className="absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" muted onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
         <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3">
-          <p className="text-black font-semibold text-2xl m-auto">Autotransfer</p>
+          <p className="text-black font-semibold text-2xl m-auto">So sehe das ich</p>
           <div className="inline-flex items-center justify-center rounded-full bg-gray-100 transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
             <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out" />
           </div>
@@ -526,7 +523,7 @@ ScrollTrigger.matchMedia({
       <img src="photo2.jpg" alt="" className="block w-full h-full rounded-2xl transition-opacity duration-300 group-hover:opacity-0 object-cover" />
       <video src="video3.mp4" className="absolute inset-0 w-full h-full opacity-0 object-cover group-hover:opacity-100 rounded-2xl transition-opacity duration-300" muted onMouseEnter={e => e.currentTarget.play()} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />
       <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3">
-        <p className="text-black font-semibold text-2xl m-auto">Autotransfer</p>
+        <p className="text-black font-semibold text-2xl m-auto">Bald...</p>
         <div className="inline-flex items-center justify-center rounded-full bg-gray-100 transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
           <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out" />
         </div>
