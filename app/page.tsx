@@ -568,40 +568,39 @@ ScrollTrigger.matchMedia({
 
 
 
-    {/* contact us section */}
-     <section className="bg-transparent contact mx-auto border-0 pb-5 pt-30 sm:pt-20" id="contact-us">
-
-  <div className="bg-white pt-5 rounded-b-2xl border-0 md:mx-10"  ref={footerRef}>
+{/* contact us section */}
+     <section className="bg-transparent contact mx-auto border-0 pt-30 sm:pt-20 pb-5" id="contact-us">
+  <div className="bg-white pt-5 rounded-b-2xl border-0 md:mx-10" ref={footerRef}>
     <img src="/statisticsPhoto.png" className="mx-auto w-85 rounded-xl md:hidden mb-20" alt="ImageLoadingError" />
     <div className="flex flex-col mt-20 mx-5 gap-5 md:flex-row md:gap-40">
-      <h1 className="text-2xl font-thin mx-auto md:font-semibold md:text-7xl md:text-left font-footer lg:text-7xl md:mx-0 pb-10" ref={footerTextRef}>
-        Möchten Sie unsere Dienstleistungen?<br />Wir hören zu !
+      <h1 className="text-2xl font-thin mx-auto md:font-semibold md:text-6xl md:text-left font-footer md:mx-0 pb-10" ref={footerTextRef}>
+        Möchten Sie mit uns arbeiten? <br /> Wir hören zu!
       </h1>
 
       <div className="flex flex-col md:gap-2">
-        <div className="flex sm:flex-row flex-col md:flex-col gap-3 justify-between md:gap-20 ">
-          <div className="flex flex-col gap-1 ">
-            <p className="text-lg text-gray-900 md:text-2xl">Sie haben einen Auftrag?</p>
+        <div className="flex sm:flex-row flex-col md:flex-col gap-3 justify-between md:gap-20">
+          <div className="flex flex-col gap-1">
+            <p className="text-lg text-gray-900 md:text-2xl">Haben Sie ein Projekt?</p>
             <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
           </div>
           <div className="flex flex-col gap-1 md:gap-5">
             <p className="text-lg text-gray-900 md:text-2xl">Folgen Sie uns:</p>
-            <div className="flex flex-row gap-2 md:gap-4">
+            <div className="flex flex-row gap-2">
               <a href="https://www.instagram.com/Caseusstudio" className="text-lg text-gray-300 md:text-2xl">Instagram</a>
-             <a href="https://www.youtube.com/@caseusstudio" className="text-lg text-gray-300 md:text-2xl">YouTube</a>
-            <a href="https://www.tiktok.com/@caseus_studios" className="text-lg text-gray-300 md:text-2xl">TikTok</a>
-          
+              <a href="https://www.youtube.com/@caseusstudio" className="text-lg text-gray-300 md:text-2xl">YouTube</a>
+              <a href="https://www.tiktok.com/@caseus_studios" className="text-lg text-gray-300 md:text-2xl">TikTok</a>
             </div>
-           </div>
+          </div>
         </div>
-        {/* <div className="flex flex-col gap-1">
-          <p className="text-lg text-gray-900 md:text-2xl">Möchten Sie sich bewerben?</p>
-          <a href="mailto:caseusdigitalagency@gmail.com" className="text-sm text-gray-300 md:text-xl">caseusdigitalagency@gmail.com</a>
-        </div> */}
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <div className="opacity-0">s</div>
+        <a href="/impressum" className="text-sm text-gray-300 md:text-xl">Impressum</a>
       </div>
     </div>
 
-    <div className="mx-auto flex flex-col  md:flex-row-reverse pt-7 mb-5 justify-between md:justify-end md:gap-10 md:pt-20 items-center">
+    <div className="mx-auto flex flex-col md:flex-row-reverse pt-7 mb-5 justify-between md:justify-end md:gap-10 md:pt-20 items-center">
       <a href="http://www.merinets.xyz/" className="tracking-[4] text-gray-300 text-center md:text-xl">entwickelt von Merinets</a>
       <a href="#" className="uppercase text-center md:text-xl" id="end">Caseus ©2025</a>
       <a href="/en" className="w-40 h-15  items-center bg-gray-200 rounded-xl p-1 px-2 hidden md:flex">
@@ -615,7 +614,6 @@ ScrollTrigger.matchMedia({
   </div>
 </section>
 
-     
     </ReactLenis>
      </>
   );
