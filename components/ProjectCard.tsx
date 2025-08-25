@@ -10,17 +10,20 @@ type Props = {
   start?: string
   end?: string
   ongoing?: boolean
+  href?: string            // ✅ добавили явный href
 }
 
 export default function ProjectCard({
-  title, summary, slug, heroImage, start, end, ongoing,
+  title, summary, slug, heroImage, start, end, ongoing, href,
 }: Props) {
   const subtitle = start
-    ? `${start} — ${ongoing ? 'present' : end ?? ''}`.trim()
+    ? `${start} — ${ongoing ? 'heute' : (end ?? '')}`.trim() // можно оставить 'present' — по желанию
     : undefined
 
+  const link = href ?? `/projects/${slug}` // fallback на старое поведение
+
   return (
-    <Link href={`/projects/${slug}`} className="group block rounded-2xl border p-4 hover:shadow-md transition">
+    <Link href={link} className="group block rounded-2xl border p-4 hover:shadow-md transition">
       {heroImage && (
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl mb-3">
           <Image
