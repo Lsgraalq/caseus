@@ -9,7 +9,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { PiArrowRightThin } from "react-icons/pi";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-
+import Preloader from "@/components/preloaderDe";
 
 gsap.registerPlugin(ScrambleTextPlugin) 
 gsap.registerPlugin(SplitText,ScrollTrigger)
@@ -455,7 +455,7 @@ ScrollTrigger.matchMedia({
 <div id="jelly-cursor" className="hidden md:flex">
   <div className="text-blue-300 text-2xl border-b-1 pb-0 libre-regular" id="cursor-event">Was wir tun</div>
 </div>
-
+<Preloader></Preloader>
 <section className="h-screen w-full " id="scroll-container" ref={heroRef}>
   <div className="relative p-0 m-0 ">
     {/* Video preload="auto" hero section */}

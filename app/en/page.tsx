@@ -9,7 +9,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { PiArrowRightThin } from "react-icons/pi";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-
+import Preloader from "@/components/preloaderEn";
 
 gsap.registerPlugin(ScrambleTextPlugin) 
 gsap.registerPlugin(SplitText,ScrollTrigger)
@@ -454,6 +454,7 @@ ScrollTrigger.matchMedia({
 <div id="jelly-cursor" className="hidden md:flex">
   <div className="text-blue-300 text-2xl border-b-1 pb-0 libre-regular" id="cursor-event">What we do </div>
 </div>
+<Preloader></Preloader>
 
       <section className="h-screen w-full " id="scroll-container" ref={heroRef}>
         
@@ -578,7 +579,7 @@ ScrollTrigger.matchMedia({
         <div className="  bg-white  pt-5 rounded-b-2xl border-0 md:mx-10" ref={footerRef}>
           <img src="/statisticsPhoto.png" className="mx-auto w-85  rounded-xl md:hidden mb-20" alt="ImageLoadingError" />
           <div className="flex flex-col mt-20 mx-5 gap-5 md:flex-row md:gap-40">
-            <h1 className="text-2xl font-thin  mx-auto md:font-semibold md:text-7xl md:text-left font-footer md:mx-0 pb-10" ref={footerTextRef}>Want our services? <br className=""/> We`re listening !</h1>
+            <h1 className="text-2xl font-thin  mx-auto md:font-semibold md:text-6xl md:text-left font-footer md:mx-0 pb-10" ref={footerTextRef}>Want our services ? <br className=""/> We`re listening !</h1>
               
              
                 <div className="flex flex-col md:gap-2">
