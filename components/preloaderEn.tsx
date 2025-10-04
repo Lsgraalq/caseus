@@ -18,7 +18,15 @@ export default function Preloader() {
       const pct = total ? Math.min(100, Math.round((loaded / total) * 100)) : 100
       setProgress(pct)
       if (loaded >= total) {
-        gsap.to(".preloader", { opacity:0 , duration: 0.5, ease: "power3.inOut", delay: 0.2 })
+       gsap.to(".preloader", {
+  opacity: 0,
+  duration: 0.5,
+  ease: "power3.inOut",
+  delay: 0.2,
+  onComplete: () => {
+    document.querySelector(".preloader")?.setAttribute("style", "display: none")
+  }
+})
       }
     }
 
