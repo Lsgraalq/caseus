@@ -1,5 +1,5 @@
-import {sanityClient} from '@/sanity/client'
-import {PROJECTS_LIST_DE} from '@/sanity/queries'
+import {sanityClient} from '@/sanity/lib/client'
+import {PROJECTS_LIST_DE} from '@/sanity/lib/queries'
 import ProjectCard from '@/components/ProjectCard'
 
 export const revalidate = 60 // ISR

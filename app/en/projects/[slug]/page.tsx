@@ -1,97 +1,87 @@
-// app/en/projects/[slug]/page.tsx
-import Image from 'next/image'
-import { notFound } from 'next/navigation'
-import { sanityClient } from '@/sanity/client'
-import { PROJECT_BY_SLUG, PROJECT_SLUGS } from '@/sanity/queries'
-import { urlForImage } from '@/sanity/sanity.image'
-import Portable from '@/components/Portable'
+import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
+import { PortableText } from '@portabletext/react'
 
-export const revalidate = 60
+export default async function ProjectPage({ params, searchParams }: any) {
+  const { slug } = await params;
+  // Допустим, язык передается через query param ?lang=en или ?lang=de
+  const lang = 'en' // Тут всегда английский
+  
+  const project = await client.fetch(`*[_type == "project" && slug.current == $slug][0]`, { slug })
 
-type Params = { slug: string }
+  if (!project) return <div>Проект не найден</div>
 
-// если у тебя Next 15+ — await params
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<Params>
-}) {
-  const { slug } = await params
-  const data = await sanityClient.fetch(PROJECT_BY_SLUG, { slug })
-  if (!data) return {}
-  return {
-    title: `${data.title} — Project`,
-    description: data.summary ?? '',
-  }
-}
-
-export async function generateStaticParams() {
-  const slugs: { slug: string }[] = await sanityClient.fetch(PROJECT_SLUGS)
-  return slugs.map(({ slug }) => ({ slug }))
-}
-
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<Params>
-}) {
-  const { slug } = await params
-  const project = await sanityClient.fetch(PROJECT_BY_SLUG, { slug })
-  if (!project) return notFound()
-
-  const { title, summary, heroImage, timeline, sections } = project
-  const subtitle = timeline?.startDate
-    ? `${timeline.startDate} — ${timeline.ongoing ? 'present' : timeline.endDate ?? ''}`.trim()
-    : null
+  const color = project.accentColor || '#000000'
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold">{title}</h1>
-        {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
-        {summary && <p className="mt-2">{summary}</p>}
-      </div>
+    <main className="max-w-6xl mx-auto px-4 py-20">
+      {/* Шапка проекта с акцентным цветом */}
+      <h1 style={{ color: color }} className="text-6xl font-bold mb-4">
+        {project.title?.[lang]}
+      </h1>
+      <p className="text-xl mb-10 opacity-80">{project.title2?.[lang]}</p>
 
-      {heroImage && (
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl mb-8">
-          <Image
-            src={urlForImage(heroImage).width(1600).height(900).url()}
-            alt={title}
-            fill
-            className="object-cover"
+      {/* Главное фото */}
+      {project.mainImage && (
+        <div className="w-full h-[70vh] mb-20">
+          <img 
+            src={urlFor(project.mainImage).width(1600).url()} 
+            className="w-full h-full object-cover rounded-3xl"
+            alt="Hero"
           />
         </div>
       )}
 
-      {sections?.length > 0 && (
-        <aside className="mb-8 rounded-xl border p-4 bg-white/50">
-          <h2 className="font-semibold mb-2">Оглавление</h2>
-          <ul className="flex flex-wrap gap-3">
-            {sections.map((s: any) => (
-              <li key={s.anchor}>
-                <a href={`#${s.anchor}`} className="text-blue-600 hover:underline">
-                  {s.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </aside>
-      )}
+      {/* Инфо о проекте: Клиент, Год, Локация */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-20 border-y border-white/10 py-10">
+        <div>
+          <h3 className="uppercase text-sm opacity-50 mb-2">Client</h3>
+          <p className="text-xl">{project.client}</p>
+        </div>
+        <div>
+          <h3 className="uppercase text-sm opacity-50 mb-2">Year</h3>
+          <p className="text-xl">{project.year}</p>
+        </div>
+        <div>
+          <h3 className="uppercase text-sm opacity-50 mb-2">Location</h3>
+          <p className="text-xl">{project.location?.[lang]}</p>
+        </div>
+      </div>
 
-      <div className="space-y-12">
-        {sections?.map((s: any) => (
-          <section key={s.anchor} id={s.anchor} className="scroll-mt-24">
-            <h2 className="text-2xl font-bold mb-4">{s.title}</h2>
-            <ol className="list-decimal pl-6 space-y-6">
-              {s.items?.map((it: any, i: number) => (
-                <li key={i}>
-                  {it.heading && <h3 className="font-semibold mb-1">{it.heading}</h3>}
-                  {it.body && <Portable value={it.body} />}
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))}
+      {/* Описание и Видео */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-20">
+        <div className="prose prose-invert prose-xl">
+          <PortableText value={project.description?.[lang]} />
+          <div className="mt-10 p-6 border-l-2" style={{ borderColor: color }}>
+             <PortableText value={project.description2?.[lang]} />
+          </div>
+        </div>
+        
+        {project.youtubeUrl && (
+          <div className="aspect-video rounded-2xl overflow-hidden bg-white/5">
+            <iframe 
+              width="100%" height="100%" 
+              src={project.youtubeUrl.replace("watch?v=", "embed/")}
+              frameBorder="0" allowFullScreen
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Твоя Галерея 2 квадрата + 1 широкая */}
+      <div className="grid grid-cols-2 gap-4">
+        {project.gallery?.map((img: any, index: number) => {
+          const isWide = (index + 1) % 3 === 0
+          return (
+            <div key={img._key} className={isWide ? "col-span-2" : "col-span-1"}>
+              <img 
+                src={urlFor(img).width(isWide ? 1200 : 600).url()} 
+                className="w-full h-[500px] object-cover rounded-2xl"
+                alt="Gallery"
+              />
+            </div>
+          )
+        })}
       </div>
     </main>
   )
