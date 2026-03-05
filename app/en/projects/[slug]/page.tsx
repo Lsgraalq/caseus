@@ -76,7 +76,7 @@ export default async function ProjectPage({ params, searchParams }: any) {
             <div key={img._key} className={isWide ? "col-span-2" : "col-span-1"}>
               <img 
                 src={urlFor(img).width(isWide ? 1200 : 600).url()} 
-                className="w-full h-[500px] object-cover rounded-2xl"
+                className="w-full h-125 object-cover rounded-2xl"
                 alt="Gallery"
               />
             </div>
