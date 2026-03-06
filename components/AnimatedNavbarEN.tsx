@@ -26,11 +26,11 @@ export default function AnimatedNavbar() {
     const menuItems: Array<
   { text: string; href: string } | { lang: { from: string; to: string; link: string; flagSrc: string } }
 > = [
-  { text: "Homepage", href: "#start" },
-  { text: "Projects", href: "#section2" },
-  { text: "Services", href: "#why-us" },
+  { text: "Homepage", href: "/en" },
+  { text: "Projects", href: "/en/projects" },
+  // { text: "Services", href: "#why-us" },
   { text: "Contact", href: "#end" },
-  { lang: { from: "EN", to: "DE", link: "/", flagSrc: "england.png" } }, // language switcher
+  { lang: { from: "EN", to: "DE", link: "/", flagSrc: "/england.png" } }, // language switcher
 
 ];
   // Toggle mobile menu
@@ -171,7 +171,7 @@ export default function AnimatedNavbar() {
             ) : (
               <IoIosMenu className="w-5 flex text-black" />
             )}
-            <p className="text-black font-semibold">Menu</p>
+            <p className="text-black ">Menu</p>
           </div>
 
           {/* Desktop Contact Button */}
@@ -181,7 +181,7 @@ export default function AnimatedNavbar() {
           >
             <a
               href="#end"
-              className="text-black group-hover:text-black font-semibold transition-colors duration-300 cursor-pointer"
+              className="text-black group-hover:text-black  transition-colors duration-300 cursor-pointer"
             >
               Contact
             </a>

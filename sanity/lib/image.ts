@@ -1,5 +1,5 @@
 // sanity/lib/image.ts
-import createImageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
  // Или впиши ID строками, если нет env.ts
 
 const imageBuilder = createImageUrlBuilder({

@@ -1,19 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import localFont from "next/font/local";
 
-
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// 1. Подключаем твой Apercu
+const apercu = localFont({
+  src: "../public/fonts/apercu_regular_pro.otf",
+  variable: "--font-apercu", // Это имя переменной для CSS
 });
 
 export const metadata: Metadata = {
@@ -27,17 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className={apercu.variable}> 
+      {/* 2. Обязательно добавляем apercu.variable в html или body */}
+      <body className="font-sans antialiased">
+        {children}  
         <SpeedInsights/>
       </body>
     </html>
   );
 }
-
-
 
 
