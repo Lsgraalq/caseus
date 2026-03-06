@@ -49,7 +49,7 @@ export default async function ProjectPage({ params, searchParams }: any) {
             </div>
         </div>
         {/* Breadcrumbs & Navigation */}
-        <div className="md:pt-30 pt-18 flex flex-row md:px-10 gap-1 text-sm md:text-base px-3 relative z-[2]">
+        <div className="pt-30 flex flex-row md:px-10 gap-1 text-sm md:text-base px-3 relative z-[2]">
           <a href="/de/" className="text-blue-700">STARTSEITE</a>
           <div className="hidden md:flex">{'(☆ω☆)'}</div>
           <div className="md:hidden flex">-</div>
