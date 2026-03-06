@@ -1,32 +1,8 @@
-/* Оставляем только те Google шрифты, которые ты реально используешь в кастомных классах */
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@700&family=Source+Code+Pro:wght@400&display=swap');
 @import "tailwindcss";
 
-/* 1. ПОДКЛЮЧЕНИЕ APERCU PRO */
-@font-face {
-  font-family: 'Apercu Pro';
-  /* Убрали /public/ и исправили формат на opentype */
-  src: url('/fonts/apercu_regular_pro.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Apercu Pro';
-  /* Убрали /public/ и исправили формат на opentype */
-  src: url('/fonts/apercu_medium_pro.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-    font-family: 'Apercu Pro';
-    src: url('/fonts/ApercuPro-ExtraLight.woff2') format('woff2');
-    font-weight: 200; /* Вот твоё значение */
-    font-style: normal;
-    font-display: swap;
-}
+/* 1. ПОДКЛЮЧЕНИЕ APERCU PRO - УДАЛЕНО */
+/* Next.js (localFont) сам генерирует @font-face. Оставлять их здесь = ломать шрифты. */
 
 /* 2. НАСТРОЙКИ TAILWIND V4 И ПЕРЕМЕННЫЕ */
 :root {
@@ -37,8 +13,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* Делаем твой Apercu главным шрифтом Tailwind */
-  --font-sans: "Apercu Pro", ui-sans-serif, system-ui, sans-serif;
+  /* Делаем твой Apercu главным шрифтом Tailwind через переменную из Next.js */
+  --font-sans: var(--font-apercu), ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -59,21 +35,21 @@ body {
 
 /* 4. ТВОИ КАСТОМНЫЕ КЛАССЫ */
 .apercu-regular {
-  font-family: 'Apercu Pro', sans-serif;
+  font-family: var(--font-apercu), sans-serif;
   font-weight: 400;
 }
 
 .apercu-bold {
-  font-family: 'Apercu Pro', sans-serif;
-  font-weight: 500;
+  font-family: var(--font-apercu), sans-serif;
+  font-weight: 600;
 }
 
 .apercu-semibold {
-  font-family: 'Apercu Pro', sans-serif;
+  font-family: var(--font-apercu), sans-serif;
   font-weight: 400;
 }
 .apercu-thin {
-    font-family: 'Apercu Pro', sans-serif;
+  font-family: var(--font-apercu), sans-serif;
   font-weight: 200;
 }
 .libre-regular {
@@ -99,7 +75,7 @@ body {
   height: 42px;
   background-color: transparent;
   border-radius: 50%;
-  border: 2px, solid, gray;
+  border: 2px solid gray;
   transform-origin: 50% 50%;
   transform: translate(-50%, -50%);
   will-change: width, height, transform, border;
@@ -107,42 +83,55 @@ body {
   pointer-events: none;
 }
 
-
 #cursor-event {
   display: none; /* Скрыт по умолчанию */
 }
 
-
 .glassnav {
-background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(4px);
-
 }
 
 .glassbutton {
   transition: all 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(4px);
 }
 
-
 .glassbutton:hover {
-    background-color: rgb(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
   backdrop-filter: blur(0px);
 }
 
 .glassmenu {
-    background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(4px);
 }
 
 .lang-glass-big {
-    background-color: rgba(255, 255, 255, 0.1);
-
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .lang-glass-small {
-    background-color: rgb(255, 255, 255, 0.5);
-
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

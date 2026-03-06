@@ -23,10 +23,10 @@ const langRef = useRef<HTMLDivElement | null>(null);
    const menuItems: Array<
   { text: string; href: string } | { lang: { from: string; to: string; link: string; flagSrc: string } }
 > = [
-  { text: "Startseite", href: "#start" },
-  { text: "Projekte", href: "#section2" },
-  { text: "Leistungen", href: "#why-us" },
-  { text: "Kontakt", href: "#end" },
+  { text: "Startseite", href: "/de" },
+  { text: "Projekte", href: "/de/projects" },
+  // { text: "Leistungen", href: "#why-us" },
+  { text: "Kontakt", href: "#" },
   { lang: { from: "DE", to: "EN", link: "/en", flagSrc: "germany.png" } }, // переключатель
 ];
   const toggleMenu = () => {
@@ -133,7 +133,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
     <div className="w-12 h-12 rounded-full"></div>
 
     <Link
-      href="#start"
+      href="/de"
       className="hidden md:flex text-black cursor-pointer relative group px-2"
     >
       Startseite
@@ -141,7 +141,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
     </Link>
 
     <a
-      href="#section2"
+      href="/de/projects/"
       className="hidden md:flex text-black cursor-pointer relative group px-2"
     >
       Projekte
@@ -149,7 +149,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
     </a>
 
     <a
-      href="#why-us"
+      href="/de#whyus"
       className="hidden md:flex text-black cursor-pointer relative group px-2"
     >
       Leistungen
@@ -174,7 +174,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
       onClick={toggleMenu}
     >
       <a
-        href="#end"
+        href="#"
         className="text-black group-hover:text-black font-semibold transition-colors duration-300 cursor-pointer"
       >
         Kontakt

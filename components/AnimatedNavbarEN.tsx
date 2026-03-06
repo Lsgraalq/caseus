@@ -29,8 +29,8 @@ export default function AnimatedNavbar() {
   { text: "Homepage", href: "/en" },
   { text: "Projects", href: "/en/projects" },
   // { text: "Services", href: "#why-us" },
-  { text: "Contact", href: "#end" },
-  { lang: { from: "EN", to: "DE", link: "/", flagSrc: "/england.png" } }, // language switcher
+  { text: "Contact", href: "#" },
+  { lang: { from: "EN", to: "DE", link: "/de", flagSrc: "/england.png" } }, // language switcher
 
 ];
   // Toggle mobile menu
@@ -137,7 +137,7 @@ export default function AnimatedNavbar() {
 
             {/* actually no reason to use Link )) */}
           <Link
-            href="#start"
+            href="/en"
             className="hidden md:flex text-black cursor-pointer relative group px-2"
           >
             Home
@@ -145,7 +145,7 @@ export default function AnimatedNavbar() {
           </Link>
 
           <a
-            href="#section2"
+            href="/en/projects/"
             className="hidden md:flex text-black cursor-pointer relative group px-2"
           >
             Projects
@@ -153,7 +153,7 @@ export default function AnimatedNavbar() {
           </a>
 
           <a
-            href="#why-us"
+            href="/en#why-us"
             className="hidden md:flex text-black cursor-pointer relative group px-2"
           >
             Services
@@ -180,7 +180,7 @@ export default function AnimatedNavbar() {
             className="flex-row group items-center gap-2 text-center px-8 pt-2 pb-3 rounded-xl hidden md:flex transition duration-400 glassbutton"
           >
             <a
-              href="#end"
+              href="#"
               className="text-black group-hover:text-black  transition-colors duration-300 cursor-pointer"
             >
               Contact

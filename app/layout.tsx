@@ -2,13 +2,29 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import localFont from "next/font/local";
-
+import SmoothScroll from "@/components/smoothscroll";
 // 1. Подключаем твой Apercu
 const apercu = localFont({
-  src: "../public/fonts/apercu_regular_pro.otf",
-  variable: "--font-apercu", // Это имя переменной для CSS
+  src: [
+    {
+      path: "../public/fonts/ApercuPro-ExtraLight.woff2", // Путь к файлу
+      weight: "200",                                 // Вес для ExtraLight
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/ApercuPro-Regular.woff2",    // Путь к файлу
+      weight: "400",                                 // Вес для Regular
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/ApercuPro-Bold.woff2",       // Если есть жирный
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-apercu",
+  display: "swap",
 });
-
 export const metadata: Metadata = {
   title: "Caseus studio",
   description: "Creative smm design studio",
@@ -21,9 +37,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={apercu.variable}> 
-      {/* 2. Обязательно добавляем apercu.variable в html или body */}
-      <body className="font-sans antialiased">
+      <body className={`${apercu.variable} font-apercu antialiased`}>
+        <SmoothScroll>
         {children}  
+        </SmoothScroll>
         <SpeedInsights/>
       </body>
     </html>
