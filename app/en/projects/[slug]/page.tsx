@@ -3,7 +3,7 @@ import { urlFor } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
 import AnimatedNavbar from '@/components/AnimatedNavbarEN';
 import FooterEN from '@/components/FooterEN';
-
+export const revalidate = 60;
 
 const query = `
 {
@@ -68,12 +68,18 @@ export default async function ProjectPage({ params, searchParams }: any) {
 
         {/* Hero Image */}
         {project.mainImage && (
-          <div className="w-full aspect-[3.5/4] md:aspect-[3/1.6] 2xl:aspect-none 2xl:h-screen overflow-hidden pb-15">
+          <div className="w-full aspect-[1/2] md:aspect-[2/1]  overflow-hidden pb-15">
             <img 
               src={urlFor(project.mainImage).width(2500).url()} 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover hidden md:flex" 
               alt="Hero"
             />
+            <img 
+              src={urlFor(project.mainImageForPhones).width(1200).url()} 
+              className="w-full h-full object-cover md:hidden flex" 
+              alt="HeroForPhones"
+            />
+            
           </div>
         )}
 
@@ -141,7 +147,7 @@ export default async function ProjectPage({ params, searchParams }: any) {
             <div>
               {/* Descriptions */}
               <div className="flex flex-col gap-10">
-                <div className="text-[20px] md:text-[35px] md:leading-7.5 leading-6.5">
+                <div className="text-[20px] md:text-[35px] md:leading-9.5 leading-6.5">
                   <PortableText value={project.description?.[lang]} />
                 </div>
                 <div className="text-[18px] leading-6.5">
@@ -228,7 +234,7 @@ export default async function ProjectPage({ params, searchParams }: any) {
                     <div key={item._id || index} className="flex-1 w-full">
                       <a href={`/en/projects/${item.slug.current}`} className="flex flex-col group">
                         {item.cardImage && (
-                          <div className="w-full aspect-[4/2.5] md:aspect-[4/2.8] overflow-hidden rounded-xl">
+                          <div className="w-full aspect-[4/2] overflow-hidden rounded-xl">
                             <img 
                               src={urlFor(item.cardImage).width(1600).url()} 
                               alt={title}

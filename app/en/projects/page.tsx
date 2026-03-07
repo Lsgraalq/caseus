@@ -4,7 +4,7 @@ import FooterEN from '@/components/FooterEN'; //
 import RotatingText from '@/components/RotatingText';
 import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/image';
-
+export const revalidate = 60;
 // 1. Запрос в Sanity: берем все проекты и сортируем от новых к старым
 const query = `*[_type == "project"] | order(_createdAt desc) {
   _id,
@@ -45,7 +45,7 @@ export default async function ProjectsPage() {
                     
                     {/* Картинка с анимацией зума */}
                     {item.cardImage && (
-                      <div className="w-full aspect-[4/2.5] md:aspect-[4/2.8] overflow-hidden rounded-xl">
+                      <div className="w-full aspect-[4/2] overflow-hidden rounded-xl">
                         <img 
                           src={urlFor(item.cardImage).width(1600).url()} 
                           alt={title}

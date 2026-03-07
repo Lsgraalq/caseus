@@ -308,7 +308,7 @@ export default function Home() {
                 {/* ВЕРХНИЙ РЯД: 2 проекта */}
                 <div className="flex flex-col md:flex-row gap-5">
                   {projects.slice(0, 2).map((proj) => (
-                    <a key={proj._id} href={`/en/projects/${proj.slug.current}`} className="relative group rounded-2xl overflow-hidden flex-1 cursor-pointer project aspect-[4/3] block">
+                    <a key={proj._id} href={`/en/projects/${proj.slug.current}`} className="relative group rounded-2xl overflow-hidden flex-1 cursor-pointer project aspect-[4/2] block">
                       {proj.cardImage && (
                         <img 
                           src={urlFor(proj.cardImage).width(1200).url()} 

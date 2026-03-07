@@ -1,7 +1,16 @@
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
-export default function RedirectPage() {
-  // можно сразу в return
-  redirect("/de"); // куда редиректим
+export default async function RedirectPage() {
+
+  const headersList = await headers();
+  const acceptLanguage = headersList.get("accept-language") || "";
+
+
+  if (acceptLanguage.toLowerCase().includes("de")) {
+    redirect("/de");
+  } else {
+
+    redirect("/en"); 
+  }
 }
-

@@ -29,7 +29,7 @@ export default function AnimatedNavbar() {
   { text: "Homepage", href: "/en" },
   { text: "Projects", href: "/en/projects" },
   // { text: "Services", href: "#why-us" },
-  { text: "Contact", href: "#" },
+  { text: "Contact", href: "/en/contact-us" },
   { lang: { from: "EN", to: "DE", link: "/de", flagSrc: "/england.png" } }, // language switcher
 
 ];
@@ -180,7 +180,7 @@ export default function AnimatedNavbar() {
             className="flex-row group items-center gap-2 text-center px-8 pt-2 pb-3 rounded-xl hidden md:flex transition duration-400 glassbutton"
           >
             <a
-              href="#"
+              href="/en/contact-us"
               className="text-black group-hover:text-black  transition-colors duration-300 cursor-pointer"
             >
               Contact

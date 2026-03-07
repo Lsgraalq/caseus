@@ -40,13 +40,20 @@ export default {
     },
     {
       name: 'mainImage',
-      title: 'Главная картинка (Hero)',
+      title: 'Главная картинка (Hero | 2 : 1)',
       type: 'image',
       options: { hotspot: true },
     },
     {
+       name: 'mainImageForPhones',
+      title: 'Главная картинка для телефонов(Hero | 1 : 2)',
+      type: 'image',
+      options: { hotspot: true },
+
+    },
+    {
       name: 'cardImage',
-      title: 'Картинка для карточки',
+      title: 'Картинка для карточки (2 : 1)',
       type: 'image',
       options: { hotspot: true },
     },
@@ -120,7 +127,7 @@ export default {
     },
     {
       name: 'gallery',
-      title: 'Галерея картинок',
+      title: 'Галерея картинок (2 квадратных -> 1 широкая -> повторить',
       type: 'array',
       of: [{ type: 'image', options: { hotspot: true } }],
     },

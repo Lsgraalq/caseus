@@ -26,7 +26,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
   { text: "Startseite", href: "/de" },
   { text: "Projekte", href: "/de/projects" },
   // { text: "Leistungen", href: "#why-us" },
-  { text: "Kontakt", href: "#" },
+  { text: "Kontakt", href: "/en/contact-us" },
   { lang: { from: "DE", to: "EN", link: "/en", flagSrc: "germany.png" } }, // переключатель
 ];
   const toggleMenu = () => {
@@ -174,7 +174,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
       onClick={toggleMenu}
     >
       <a
-        href="#"
+        href="/en/contact-us"
         className="text-black group-hover:text-black font-semibold transition-colors duration-300 cursor-pointer"
       >
         Kontakt

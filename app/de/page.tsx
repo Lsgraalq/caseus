@@ -326,7 +326,7 @@ export default function Home() {
                 {/* ВЕРХНИЙ РЯД: 2 проекта */}
                 <div className="flex flex-col md:flex-row gap-5">
                   {projects.slice(0, 2).map((proj) => (
-                    <a key={proj._id} href={`/de/projects/${proj.slug.current}`} className="relative group rounded-2xl overflow-hidden flex-1 cursor-pointer project aspect-[4/3] block">
+                    <a key={proj._id} href={`/de/projects/${proj.slug.current}`} className="relative group rounded-2xl overflow-hidden flex-1 cursor-pointer project aspect-[4/2] block">
                       {proj.cardImage && (
                         <img 
                           src={urlFor(proj.cardImage).width(1200).url()} 
@@ -347,7 +347,7 @@ export default function Home() {
 
                 {/* НИЖНИЙ РЯД: 1 широкий проект */}
                 {projects[2] && (
-                  <a href={`/de/projects/${projects[2].slug.current}`} className="relative group rounded-2xl overflow-hidden w-full cursor-pointer project md:aspect-[16/7] aspect-[4/4] block">
+                  <a href={`/de/projects/${projects[2].slug.current}`} className="relative group rounded-2xl overflow-hidden w-full cursor-pointer project md:aspect-[16/8] aspect-[4/2] block">
                     {projects[2].cardImage && (
                       <img 
                         src={urlFor(projects[2].cardImage).width(1920).url()} 

@@ -25,9 +25,9 @@ const FooterDE = () => {
           <div className="flex flex-col gap-1 md:gap-5">
             <p className="text-lg apercu-bold md:text-2xl">Folge uns:</p>
             <div className="flex flex-row gap-2">
-              <a href="https://www.instagram.com/Caseusstudio" className="text-lg apercu-thin md:text-2xl underline">Instagram</a>
-              <a href="https://www.youtube.com/@caseusstudio" className="text-lg apercu-thin md:text-2xl underline">YouTube</a>
-              <a href="https://www.tiktok.com/@caseus_studios" className="text-lg apercu-thin md:text-2xl underline">TikTok</a>
+              <a href="https://www.instagram.com/caseus.studio/" className="text-lg apercu-thin md:text-2xl underline">Instagram</a>
+              <a href="https://www.youtube.com/@Caseus.studio" className="text-lg apercu-thin md:text-2xl underline">YouTube</a>
+              <a href="https://www.tiktok.com/@caseus.studio" className="text-lg apercu-thin md:text-2xl underline">TikTok</a>
             </div>
           </div>
           
