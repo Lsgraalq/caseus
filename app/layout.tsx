@@ -28,6 +28,7 @@ const apercu = localFont({
 
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.caseus.studio'),
   // 1. Умный Title
   title: {
     default: "Caseus Studio | Premium SMM & Web Development Agency",
