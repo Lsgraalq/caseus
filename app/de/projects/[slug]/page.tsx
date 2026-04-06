@@ -2,6 +2,7 @@ import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
 import AnimatedNavbarDE from '@/components/AnimatedNavbarEN';
+import { Metadata } from 'next';
 import FooterDE from '@/components/FooterDE';
 export const revalidate = 60;
 const query = `
@@ -21,6 +22,51 @@ const query = `
   }
 }
 `;
+
+
+type Props = {
+  params: { slug: string };
+};
+
+// Функция для генерации метаданных
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = params;
+
+  // 1. Запрос в Sanity (выбираем только нужные поля для SEO)
+  const metadataQuery = `*[_type == "project" && slug.current == $slug][0]{
+    title,
+    description,
+    "ogImage": mainImage.asset->url
+  }`;
+
+  const project = await client.fetch(metadataQuery, { slug });
+
+  // Если проект не найден, возвращаем базовые данные
+  if (!project) {
+    return {
+      title: "Project Not Found | Caseus Studio",
+    };
+  }
+
+  // 2. Формируем метаданные
+  return {
+    title: project.title,
+    description: project.description,
+    openGraph: {
+      title: `${project.title} | Caseus Studio`,
+      description: project.description,
+      images: [
+        {
+          url: project.ogImage || '/default-og.jpg', // Фолбек на случай, если картинки нет
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
+}
+
+
 
 export default async function ProjectPage({ params, searchParams }: any) {
   const { slug } = await params;
