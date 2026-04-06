@@ -351,7 +351,7 @@ export default function Home() {
         </section>
 
         {/* about us section */}
-        <section className="h-screen w-full pt-20 why-us md:mb-40" id="why-us" ref={section3Ref}>
+        <section className="min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
           <div className="relative md:hidden items-center">
             <video loop autoPlay muted src="/whyUsVideoOne.mp4" className="absolute w-50 rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
           </div>
