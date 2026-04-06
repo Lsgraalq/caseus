@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import "lenis/dist/lenis.css";
 import { ReactLenis } from "lenis/react";
 import AnimatedNavbar from "@/components/AnimatedNavbarDE";
 import SplitText from "gsap/SplitText";
@@ -305,14 +304,14 @@ export default function Home() {
 
             <div className="w-full absolute h-screen top-[50vh] " ref={textRef}>
               <h3 className="lg:text-2xl text-xl uppercase font-thin text-center ">
-                 Kreativ & Digital Lösungsanbieter
+                 Wirkung sichtbar machen.
               </h3>
             </div>
           </div>
           
           <div className=" sm:max-w-[70%] md:max-w-[60%] lg:max-w-[70%] max-w-[75%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
             <p className="text-gray-400 sm:text-4xl z-2 md:text-6xl lg:text-7xl text-3xl">
-              Wir schaffen ein ganzheitliches Markenbild, wo vorher nur eine Idee war - damit Sie nicht nur gesehen, sondern auch in Erinnerung bleiben.
+              Wir machen Ihre Wirkungen sichtbar. Wir übernehmen Webseiten, Videos und Promotion und halten Ihnen den Rücken frei für das Wesentliche — diese Welt zum Besseren zu verändern.
             </p>
           </div>
         </section>
@@ -377,30 +376,30 @@ export default function Home() {
           <div className="flex flex-col mx-4 md:mx-10 gap-8 md:gap-15 lg:gap-20" id="why-us" ref={text3Ref}>
             <div className="flex md:flex-row md:items-center flex-col">
               <h2 className="text-5xl flex-1 font-heading">Profile</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Social-Media-Konten erstellen und verwalten.</p>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Professionelle Präsenz aufbauen, die Vertrauen schafft.</p>
             </div>
             <div className="flex md:flex-row md:items-center flex-col">
               <h2 className="text-5xl flex-1 font-heading">Inhalte</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden ">Spannende Beiträge planen und veröffentlichen.</p>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden ">Storytelling, das bewegt und Ihre Mission sichtbar macht.</p>
             </div>
             <div className="flex md:flex-row md:items-center flex-col">
-              <h2 className="text-5xl flex-1 font-heading">Werbung</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Gezielte Werbung zur Kundengewinnung.</p>
+              <h2 className="text-5xl flex-1 font-heading">Sichtbarkeit</h2>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Gezielte Kampagnen zur Gewinnung von Spendern und Ehrenamtlichen.</p>
             </div>
             <div className="flex md:flex-row md:items-center flex-col">
-              <h2 className="text-5xl flex-1 font-heading">Analytik</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Ergebnisse analysieren und Strategien verbessern.</p>
+              <h2 className="text-5xl flex-1 font-heading">Wirkung</h2>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Ergebnisse messen, um die soziale Reichweite zu maximieren.</p>
             </div>
             <div className="flex md:flex-row md:items-center flex-col ">
-              <h2 className="text-5xl flex-1 font-heading">Engagement</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden ">Aktive Communitys mit Followern aufbauen.</p>
+              <h2 className="text-5xl flex-1 font-heading">Community</h2>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden ">Aktiven Austausch mit Unterstützern und Förderern fördern.</p>
             </div>
           </div>
         </section>
 
       </main>
 
-      {/* Вставили твой крутой новый компонент-подвал (Немецкая версия) */}
+      
       <FooterDE />
 
     </ReactLenis>

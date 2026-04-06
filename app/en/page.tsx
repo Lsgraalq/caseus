@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react"; // <-- Добавили useState
 import Image from "next/image";
-import "lenis/dist/lenis.css";
 import { ReactLenis } from "lenis/react";
 import AnimatedNavbar from "@/components/AnimatedNavbarEN";
 import SplitText from "gsap/SplitText";
@@ -269,7 +268,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="relative z-10 bg-white mb-[100vh] rounded-3x;">
+      <main className="relative z-10 bg-white mb-[100vh] rounded-3x; ">
         
         <AnimatedNavbar />
 
@@ -289,13 +288,13 @@ export default function Home() {
 
             <div className="w-full absolute h-screen top-[50vh] " ref={textRef}>
               <h3 className="lg:text-2xl text-xl uppercase font-thin text-center ">
-                Creative & Digital  Solutions Provider
+                Making impact visible.
               </h3>
             </div>
           </div>
           
           <div className=" max-w-[75%] md:max-w-[60%] lg:max-w-[70%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
-            <p className="text-gray-400 text-4xl z-2 md:text-6xl lg:text-7xl">We create a holistic brand image where previously there was only an idea - so that you are not just seen, but remembered.</p>
+            <p className="text-gray-400 text-4xl z-2 md:text-6xl lg:text-7xl">We make your impact visible. We handle websites, videos, and promotion, freeing up your time for what matters most — changing this world for the better.</p>
           </div>
         </section>
 
@@ -358,24 +357,24 @@ export default function Home() {
           </div>
           <div className="flex flex-col mx-4 md:mx-10 gap-8 md:gap-15 lg:gap-20 " id="why-us" ref={text3Ref}>
             <div className="flex md:flex-row md:items-center flex-col">
-              <h2 className=" text-5xl flex-1 font-heading ">Profiles</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Create and manage social media accounts.</p>
+              <h2 className=" text-5xl flex-1 font-heading ">Presence</h2>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Building a professional digital identity that earns public trust.</p>
             </div>
             <div className="flex md:flex-row md:items-center flex-col">
-              <h2 className=" text-5xl flex-1 font-heading ">Content</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Plan and post engaging updates.</p>
+              <h2 className=" text-5xl flex-1 font-heading ">Storytelling</h2>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Crafting compelling content that brings your mission to life.</p>
             </div>
             <div className="flex md:flex-row md:items-center flex-col">
-              <h2 className=" text-5xl flex-1 font-heading ">Ads</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Targeted advertising to reach clients.</p>
+              <h2 className=" text-5xl flex-1 font-heading ">Outreach</h2>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Strategic campaigns to engage new donors and volunteers.</p>
             </div>
             <div className="flex md:flex-row md:items-center flex-col">
-              <h2 className=" text-5xl flex-1 font-heading ">Analytics</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Track results and improve strategies.</p>
+              <h2 className=" text-5xl flex-1 font-heading ">Impact</h2>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Measuring results to maximize your social reach and awareness.</p>
             </div>
             <div className="flex md:flex-row md:items-center flex-col">
-              <h2 className=" text-5xl flex-1 font-heading ">Engagement</h2>
-              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Build active communities with followers.</p>
+              <h2 className=" text-5xl flex-1 font-heading ">Community</h2>
+              <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">Fostering active engagement with your supporters and stakeholders.</p>
             </div>
           </div>
         </section>

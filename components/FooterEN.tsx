@@ -5,11 +5,11 @@ const FooterEN = () => {
     <>
     <div className="mb-[110vh] bg-[#0500FF]"></div>
       {/* --- STICKY FOOTER LAYER --- */}
-      <div className="bg-[#0500FF] h-screen flex flex-col w-screen px-3 text-white fixed bottom-0 md:px-10">
+      <div className="bg-[#0500FF] h-screen flex flex-col w-screen px-3  text-white fixed bottom-0 md:px-10">
         
         {/* Footer Heading */}
         <div className="pt-30 md:pt-10 text-[45px] leading-12 2xl:text-[170px] 2xl:leading-40 xl md:text-[60px] xl:text-[100px] xl:leading-20">
-          {"\t"}We believe in <br />partnerships — and <br />people power
+          {"\t"}Believing in <br /> people and the power <br />of goodness
         </div>
         
         {/* Footer Contacts & Links */}

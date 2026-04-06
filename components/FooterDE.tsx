@@ -9,7 +9,7 @@ const FooterDE = () => {
         
         {/* Footer Heading */}
         <div className="pt-30 md:pt-10 text-[45px] leading-12 2xl:text-[140px] 2xl:leading-40 xl md:text-[60px] xl:text-[100px] xl:leading-20">
-          {"\t"}Wir glauben an <br />Partnerschaften — und <br />die Kraft der Menschen
+          {"\t"}Wir glauben an <br />den Menschen und <br />die Kraft des Guten
         </div>
         
         {/* Footer Contacts & Links */}

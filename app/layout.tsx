@@ -25,9 +25,60 @@ const apercu = localFont({
   variable: "--font-apercu",
   display: "swap",
 });
+
+
 export const metadata: Metadata = {
-  title: "Caseus studio",
-  description: "Creative smm design studio",
+  // 1. Умный Title
+  title: {
+    default: "Caseus Studio | Premium SMM & Web Development Agency",
+    // template нужен для внутренних страниц (например: "Work | Caseus Studio")
+    template: "%s | Caseus Studio", 
+  },
+  
+  // 2. Продающий Description (в районе 150-160 символов)
+  description: "We craft high-end visual identities and data-driven social media strategies. Caseus Studio helps bold brands dominate their market.",
+  
+  // 3. Ключевики (Гугл их сейчас почти игнорит, но для других поисковиков полезно)
+  keywords: ["SMM agency", "creative Web Development studio", "social media marketing", "branding", "web development"],
+
+  // 4. Open Graph — это то, как сайт выглядит в Telegram, iMessage, LinkedIn
+  openGraph: {
+    title: "Caseus Studio | Premium SMM & Web Development",
+    description: "High-end visual identities and social media strategies.",
+    url: "https://www.caseus.studio/",
+    siteName: "Caseus Studio",
+    images: [
+      {
+        url: "/og-image.png", // Сделай красивую картинку 1200x630px и положи в папку public
+        width: 800,
+        height: 800,
+        alt: "Caseus Studio Showcase",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  // 5. Twitter (X) Карточки — многие мессенджеры тоже тянут инфу отсюда
+  twitter: {
+    card: "summary_large_image",
+    title: "Caseus Studio | Premium SMM & Web Development",
+    description: "High-end visual identities and social media strategies.",
+    images: ["/og-image.jpg"], 
+  },
+
+  // 6. Инструкции для роботов (Разрешаем индексировать всё)
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
