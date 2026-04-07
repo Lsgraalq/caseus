@@ -254,37 +254,3 @@ export default function AnimatedNavbar() {
 
 
 
-//  styles 
-
-// .glassnav {
-// background-color: rgba(255, 255, 255, 0.3);
-//   backdrop-filter: blur(4px);
-
-// }
-
-// .glassbutton {
-//   transition: all 0.3s ease;
-//     background-color: rgba(255, 255, 255, 0.8);
-//   backdrop-filter: blur(4px);
-// }
-
-
-// .glassbutton:hover {
-//     background-color: rgb(255, 255, 255, 0);
-//   backdrop-filter: blur(0px);
-// }
-
-// .glassmenu {
-//     background-color: rgba(255, 255, 255, 0.3);
-//   backdrop-filter: blur(4px);
-// }
-
-// .lang-glass-big {
-//     background-color: rgba(255, 255, 255, 0.1);
-
-// }
-
-// .lang-glass-small {
-//     background-color: rgb(255, 255, 255, 0.5);
-
-// }
