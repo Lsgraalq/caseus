@@ -105,8 +105,8 @@ export default function HeroSection() {
       <section className="h-screen w-full" id="scroll-container" ref={heroRef}>
         <div className="relative p-0 m-0">
           <div className="w-full h-screen z-0" ref={videoRef}>
-            <video src="/titul.mp4" className="hidden md:block w-full h-full object-cover rounded-4xl p-5" autoPlay muted loop />
-            <video src="/titul_small.mp4" className="block md:hidden w-full h-full object-cover rounded-3xl p-4" autoPlay muted loop />
+            <video src="/titul.webm" className="hidden md:block w-full h-full object-cover rounded-4xl p-5" autoPlay muted loop />
+            <video src="/titul_small.webm" className="block md:hidden w-full h-full object-cover rounded-3xl p-4" autoPlay muted loop />
           </div>
 
           <div className="w-full absolute h-screen top-[50vh]" ref={textRef}>
