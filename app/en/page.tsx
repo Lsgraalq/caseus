@@ -23,7 +23,7 @@ export default async function Home() {
     <>
       <JellyCursor />
       
-      <main className="relative z-10 bg-white mb-[100vh] rounded-3xl">
+      <main className="relative z-10 bg-white mb-[100vh] rounded-b-3xl">
         <AnimatedNavbar />
         <Preloader />
         

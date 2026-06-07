@@ -47,7 +47,7 @@ export default async function ProjectsPage() {
                 
               return (
                 <div key={item._id || index} className="w-full">
-                  <a href={`/en/projects/${item.slug.current}`} className="flex flex-col group">
+                  <a href={`/de/projects/${item.slug.current}`} className="flex flex-col group">
                     
                     {/* Картинка с анимацией зума */}
                     {item.cardImage && (

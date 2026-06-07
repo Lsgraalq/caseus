@@ -30,7 +30,7 @@ type Props = {
 
 // Функция для генерации метаданных
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
 
   // 1. Запрос в Sanity (выбираем только нужные поля для SEO)
   const metadataQuery = `*[_type == "project" && slug.current == $slug][0]{
