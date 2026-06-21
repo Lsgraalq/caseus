@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@700&family=Source+Code+Pro:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@700&family=Source+Code+Pro:wght@200;400&family=Space+Grotesk:wght@700&family=Syncopate:wght@700&display=swap');
 @import "tailwindcss";
 
 /* 1. ПОДКЛЮЧЕНИЕ APERCU PRO - УДАЛЕНО */
@@ -16,6 +16,8 @@
   /* Делаем твой Apercu главным шрифтом Tailwind через переменную из Next.js */
   --font-sans: var(--font-apercu), ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, monospace;
+  --font-space: "Space Grotesk", sans-serif;
+  --font-syncopate: "Syncopate", sans-serif;
 }
 
 /* 3. БАЗОВЫЕ СТИЛИ ДОКУМЕНТА */
