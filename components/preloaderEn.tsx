@@ -24,7 +24,9 @@ export default function Preloader() {
   ease: "power3.inOut",
   delay: 0.2,
   onComplete: () => {
-    document.querySelector(".preloader")?.setAttribute("style", "display: none")
+    document.querySelector(".preloader")?.setAttribute("style", "display: none");
+    (window as any).preloaderFinished = true;
+    window.dispatchEvent(new Event("preloaderFinished"));
   }
 })
       }
@@ -50,7 +52,16 @@ export default function Preloader() {
 
     if (total === 0) {
       setProgress(100)
-      gsap.to(".preloader", { y: "-100%", duration: 0.8, ease: "power3.inOut", delay: 0.2 })
+      gsap.to(".preloader", {
+        y: "-100%",
+        duration: 0.8,
+        ease: "power3.inOut",
+        delay: 0.2,
+        onComplete: () => {
+          (window as any).preloaderFinished = true;
+          window.dispatchEvent(new Event("preloaderFinished"));
+        }
+      })
     }
   }, [])
 

@@ -19,6 +19,7 @@ const menuContainerRef = useRef<HTMLDivElement>(null);
 const menuButtonRef = useRef<HTMLDivElement>(null);
 const langRef = useRef<HTMLDivElement | null>(null);
    const [isMenuOpen, setIsMenuOpen] = useState(false);
+   const [isContrast, setIsContrast] = useState(false);
 
    const menuItems: Array<
   { text: string; href: string } | { lang: { from: string; to: string; link: string; flagSrc: string } }
@@ -27,7 +28,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
   { text: "Projekte", href: "/de/projects" },
   // { text: "Leistungen", href: "#why-us" },
   { text: "Kontakt", href: "/en/contact-us" },
-  { lang: { from: "DE", to: "EN", link: "/en", flagSrc: "germany.png" } }, // переключатель
+  { lang: { from: "DE", to: "EN", link: "/en", flagSrc: "/germany.png" } }, // переключатель
 ];
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -35,28 +36,59 @@ const langRef = useRef<HTMLDivElement | null>(null);
 
   
   useEffect(() => {
-    const tl = gsap.timeline({ delay: 2.9 });
-    const isMobile = window.innerWidth < 768;
-    const distance = isMobile ? 60 : 230;
+    const runNavbarAnimation = () => {
+      let startX = 0;
+      if (circletwoRef.current) {
+        const logoRect = circletwoRef.current.getBoundingClientRect();
+        const screenCenterX = window.innerWidth / 2;
+        const logoLeft = logoRect.left;
+        // Calculate offset to align logo center with screen center
+        startX = screenCenterX - logoLeft - 28;
+      }
 
-    tl.from(circletwoRef.current, {
-      y: -60,
-      opacity: 0,
-      duration: 0.7,
-      ease: "power2.out",
-    }, "-=0.5")
-      .fromTo(
-        circletwoRef.current,
-        { x: 0, color: "#1e2939" },
-        { x: -distance, duration: 0.5, color: "#101828" },
-        "+=0.2"
-      )
-      .fromTo(
-        navbarRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.3 },
-        "+=0"
-      );
+      const tl = gsap.timeline({ delay: 0 });
+      tl.fromTo(circletwoRef.current, {
+        y: -60,
+        x: startX,
+        opacity: 0,
+      }, {
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        ease: "power2.out",
+      }, "-=0.5")
+        .to(circletwoRef.current, {
+          x: 0, // Slide into its natural placeholder position
+          duration: 0.5,
+          ease: "power2.inOut",
+        }, "+=0.2")
+        .fromTo(
+          navbarRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.3 },
+          "-=0.3"
+        );
+    };
+
+    const hasPreloader = typeof document !== "undefined" && document.querySelector(".preloader") !== null;
+    const alreadyFinished = typeof window !== "undefined" && (window as any).preloaderFinished === true;
+
+    if (hasPreloader && !alreadyFinished) {
+      // Hide them initially so they don't flash before preloader finishes
+      gsap.set(circletwoRef.current, { opacity: 0 });
+      gsap.set(navbarRef.current, { opacity: 0 });
+
+      const handleFinished = () => {
+        runNavbarAnimation();
+      };
+      window.addEventListener("preloaderFinished", handleFinished);
+      return () => {
+        window.removeEventListener("preloaderFinished", handleFinished);
+      };
+    } else {
+      // Just run immediately
+      runNavbarAnimation();
+    }
   }, []);
 
  useEffect(() => {
@@ -77,19 +109,35 @@ const langRef = useRef<HTMLDivElement | null>(null);
   };
 }, [isMenuOpen]);
 
+  // Animate menu container and links when menu opens/closes
   useEffect(() => {
     if (isMenuOpen) {
+      // Set container visible and clickable
+      gsap.to(menuContainerRef.current, {
+        opacity: 1,
+        pointerEvents: "auto",
+        duration: 0.3,
+        ease: "power2.out",
+      });
+      // Animate links with pure sequential FadeIn from top to bottom
       gsap.fromTo(
         linksRef.current,
-        { opacity: 0, y: 30 },
+        { opacity: 0 },
         {
           opacity: 1,
-          y: 0,
-          duration: 0.5,
-          stagger: 0.2,
+          duration: 0.3,
+          stagger: 0.1,
           ease: "power2.out",
         }
       );
+    } else {
+      // Fade out container and set unclickable
+      gsap.to(menuContainerRef.current, {
+        opacity: 0,
+        pointerEvents: "none",
+        duration: 0.3,
+        ease: "power2.inOut",
+      });
     }
   }, [isMenuOpen]);
 
@@ -101,6 +149,7 @@ const langRef = useRef<HTMLDivElement | null>(null);
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
         // Скролл вниз — скрываем
         setShow(false);
+        setIsMenuOpen(false); // close mobile menu when scrolling down
       } else {
         // Скролл вверх — показываем
         setShow(true);
@@ -114,124 +163,215 @@ const langRef = useRef<HTMLDivElement | null>(null);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  useEffect(() => {
+    let mainAbsoluteBottom = 0;
+    let hasHeroVideo = false;
+
+    const updateDimensions = () => {
+      const main = document.querySelector("main");
+      if (main) {
+        const rect = main.getBoundingClientRect();
+        mainAbsoluteBottom = rect.top + window.scrollY + rect.height;
+      }
+      hasHeroVideo = document.querySelector("#scroll-container") !== null;
+    };
+
+    const handleContrast = () => {
+      const currentScrollY = window.scrollY;
+      const isMobile = window.innerWidth < 768;
+      const heroHeight = isMobile ? 1300 : 3000;
+
+      // 1. Over the hero video at the top
+      const overHeroVideo = hasHeroVideo && currentScrollY < heroHeight;
+
+      // 2. Over the footer at the bottom
+      const overFooter = mainAbsoluteBottom > 0 && (currentScrollY >= mainAbsoluteBottom - 96);
+
+      if (overHeroVideo || overFooter) {
+        setIsContrast(true);
+      } else {
+        setIsContrast(false);
+      }
+    };
+
+    // Calculate dimensions initially
+    updateDimensions();
+    const timer = setTimeout(updateDimensions, 500);
+
+    window.addEventListener("resize", updateDimensions);
+    window.addEventListener("scroll", handleContrast);
+    window.addEventListener("load", updateDimensions);
+    handleContrast();
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", updateDimensions);
+      window.removeEventListener("scroll", handleContrast);
+      window.removeEventListener("load", updateDimensions);
+    };
+  }, []);
+
   return (
     <>
-    <nav className={`fixed top-0 left-0 w-full flex justify-center items-start z-50 text-black transition-transform duration-550 ${
-  show ? "translate-y-0" : "-translate-y-full"
-}`}>
-  <div
-    ref={circletwoRef}
-    className="absolute w-12 h-12 rounded-full text-black text-xl font-bold mt-10 z-1000"
-  >
-    <img src="/logo.png" alt="" className="z-1000" />
-  </div>
-
-  <div
-    className="relative flex flex-row mt-8 ml-5 pl-5 pr-5 pt-2 pb-2 border-white/20 border rounded-2xl items-center gap-8 glassnav"
-    ref={navbarRef}
-  >
-    <div className="w-12 h-12 rounded-full"></div>
-
-    <Link
-      href="/de"
-      className="hidden md:flex text-black cursor-pointer relative group px-2"
-    >
-      Startseite
-      <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
-    </Link>
-
-    <a
-      href="/de/projects/"
-      className="hidden md:flex text-black cursor-pointer relative group px-2"
-    >
-      Projekte
-      <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
-    </a>
-
-    <a
-      href="/de#whyus"
-      className="hidden md:flex text-black cursor-pointer relative group px-2"
-    >
-      Leistungen
-      <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
-    </a>
-
-    <div
-      className="flex flex-row items-center gap-2 text-center px-5 pt-3 pb-3 rounded-xl md:hidden glassbutton"
-      onClick={toggleMenu}
-      ref={menuButtonRef}
-    >
-      {isMenuOpen ? (
-        <IoMdClose className="w-5 text-black" />
-      ) : (
-        <IoIosMenu className="w-5 flex text-black" />
-      )}
-      <p className="text-black font-semibold">Menü</p>
-    </div>
-
-    <div
-      className="flex-row group items-center gap-2 text-center px-8 pt-2 pb-3 rounded-xl hidden md:flex transition duration-400 glassbutton"
-      onClick={toggleMenu}
-    >
-      <a
-        href="/en/contact-us"
-        className="text-black group-hover:text-black font-semibold transition-colors duration-300 cursor-pointer"
-      >
-        Kontakt
-      </a>
-    </div>
-  </div>
-</nav>
-
-    <div className="z-1000 fixed top-0 left-0 w-full md:hidden">
-      {isMenuOpen && (
-  <div className="absolute mx-auto w-full flex flex-col gap-2 mt-44 meni" ref={menuContainerRef}>
-    {menuItems.map((item, i) => {
-  if ("lang" in item) {
-    return (
+    <nav className={`fixed top-0 left-0 w-full flex justify-center items-start z-50 transition-transform duration-550 ${
+      show ? "translate-y-0" : "-translate-y-full"
+    } ${isContrast ? "text-[#0802E2]" : "text-white"}`}>
       <div
-        key={`lang-${i}`}
-        className="glassmenu z-100 rounded-2xl mx-auto flex border-white/20 border items-center px-4 py-3"
-      ref={(el) => (linksRef.current[i] = el, undefined)}>
-        <a
-          href={item.lang.link}
-          className="w-40 h-15 flex items-center lang-glass-big rounded-xl p-1 px-2"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          <div className="flex items-center lang-glass-small rounded-xl px-2 py-1 mr-2 shadow-sm w-[70%] h-11"
+        className={`relative flex flex-row mt-8 ml-5 pl-5 pr-5 pt-2 pb-2 border rounded-full items-center gap-8 transition-all duration-300 ${
+          isContrast ? "bg-white border-[#0802E2]/25 shadow-lg" : "bg-[#0802E2] border-white/20"
+        }`}
+        ref={navbarRef}
+      >
+        <div className="rounded-full relative flex items-center justify-center" style={{ width: "56px", height: "56px" }}>
+          <div
+            ref={circletwoRef}
+            className={`absolute rounded-full flex items-center justify-center transition-colors duration-300 z-1000 ${
+              isContrast ? "bg-[#0802E2]" : "bg-transparent"
+            }`}
+            style={{
+              width: "56px",
+              height: "56px",
+              padding: "4px",
+              left: 0,
+              top: 0,
+            }}
           >
-            <img
-              src={item.lang.flagSrc}
-              alt={item.lang.from}
-              className="w-7 h-5 mr-1 ml-3"
-            />
-            <p className="text-black font-medium text-lg pl-2">{item.lang.from}</p>
+            <img src="/CaseusRebrandingTranspertLogo.png" alt="" className="z-1000 object-contain w-full h-full" />
           </div>
-          <p className="text-gray-800 text-lg font-medium">{item.lang.to}</p>
-        </a>
-      </div>
-    );
-  } else {
-    return (
-      <div
-        key={i}
-        ref={(el) => (linksRef.current[i] = el, undefined)}
-        onClick={() => setIsMenuOpen(false)}
-        className="glassmenu z-100 rounded-2xl mx-auto flex border-white/20 border"
-      >
-        <a
-          href={item.href}
-          className="text-black px-10 pt-7 pb-7 text-4xl rounded-2xl"
+        </div>
+
+        <Link
+          href="/de"
+          className={`hidden md:flex cursor-pointer relative group px-2 transition-colors duration-300 ${
+            isContrast ? "text-[#0802E2]" : "text-white"
+          }`}
         >
-          {item.text}
+          Startseite
+          <span className={`absolute bottom-0 left-0 h-[2px] w-0 transition-all group-hover:w-full ${
+            isContrast ? "bg-[#0802E2]" : "bg-white"
+          }`}></span>
+        </Link>
+
+        <a
+          href="/de/projects/"
+          className={`hidden md:flex cursor-pointer relative group px-2 transition-colors duration-300 ${
+            isContrast ? "text-[#0802E2]" : "text-white"
+          }`}
+        >
+          Projekte
+          <span className={`absolute bottom-0 left-0 h-[2px] w-0 transition-all group-hover:w-full ${
+            isContrast ? "bg-[#0802E2]" : "bg-white"
+          }`}></span>
         </a>
+
+        <a
+          href="/de#whyus"
+          className={`hidden md:flex cursor-pointer relative group px-2 transition-colors duration-300 ${
+            isContrast ? "text-[#0802E2]" : "text-white"
+          }`}
+        >
+          Leistungen
+          <span className={`absolute bottom-0 left-0 h-[2px] w-0 transition-all group-hover:w-full ${
+            isContrast ? "bg-[#0802E2]" : "bg-white"
+          }`}></span>
+        </a>
+
+        <div
+          className={`flex flex-row group items-center gap-2 text-center px-8 pt-2 pb-3 rounded-full md:hidden glassbutton cursor-pointer ${
+            isContrast ? "contrast" : ""
+          }`}
+          onClick={toggleMenu}
+          ref={menuButtonRef}
+        >
+          <span
+            className={`transition-colors duration-300 font-semibold ${
+              isContrast ? "text-white group-hover:text-[#0802E2]" : "text-[#0802E2] group-hover:text-white"
+            }`}
+          >
+            {isMenuOpen ? "Schließen" : "Menü"}
+          </span>
+        </div>
+
+        <div
+          className={`flex-row group items-center gap-2 text-center px-8 pt-2 pb-3 rounded-full hidden md:flex glassbutton ${
+            isContrast ? "contrast" : ""
+          }`}
+          onClick={toggleMenu}
+        >
+          <a
+            href="/en/contact-us"
+            className={`font-semibold transition-colors duration-300 cursor-pointer ${
+              isContrast ? "text-white group-hover:text-[#0802E2]" : "text-[#0802E2] group-hover:text-white"
+            }`}
+          >
+            Kontakt
+          </a>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        <div
+          className="absolute left-0 right-0 flex flex-col gap-2 mt-4 items-center w-full md:hidden pointer-events-none opacity-0"
+          style={{
+            top: "100%",
+          }}
+          ref={menuContainerRef}
+        >
+          {menuItems.map((item, i) => {
+            if ("lang" in item) {
+              return (
+                <div
+                  key={`lang-${i}`}
+                  className={`z-100 rounded-full flex border transition-colors duration-300 w-[70%] h-[42px] items-center justify-center ${
+                    isContrast
+                      ? "bg-white border-[#0802E2]/25 shadow-lg"
+                      : "bg-[#0802E2] border-white/20"
+                  }`}
+                  ref={(el) => (linksRef.current[i] = el, undefined)}
+                >
+                  <a
+                    href={item.lang.link}
+                    className="w-full h-full flex items-center justify-center gap-2 text-lg rounded-full font-semibold transition-colors duration-300"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span className={isContrast ? "text-[#0802E2]" : "text-white"}>
+                      DE
+                    </span>
+                    <span className={isContrast ? "text-gray-300" : "text-white/20"}>
+                      /
+                    </span>
+                    <span className={isContrast ? "text-gray-400" : "text-white/40"}>
+                      EN
+                    </span>
+                  </a>
+                </div>
+              );
+            } else {
+              return (
+                <div
+                  key={i}
+                  ref={(el) => (linksRef.current[i] = el, undefined)}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`z-100 rounded-full flex border transition-colors duration-300 w-full h-[60px] items-center justify-center ${
+                    isContrast
+                      ? "bg-white border-[#0802E2]/25 shadow-lg"
+                      : "bg-[#0802E2] border-white/20"
+                  }`}
+                >
+                  <a
+                    href={item.href}
+                    className={`w-full h-full flex items-center justify-center text-2xl rounded-full transition-colors duration-300 ${
+                      isContrast ? "text-[#0802E2]" : "text-white"
+                    }`}
+                  >
+                    {item.text}
+                  </a>
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
-    );
-  }
-})}
-  </div>
-)}
-    </div>
+</nav>
     </>
   );
 }
