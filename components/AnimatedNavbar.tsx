@@ -4,35 +4,51 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { IoIosMenu, IoMdClose } from "react-icons/io";
 import Link from "next/link";
+import { translations, Locale } from "@/utils/translations";
 
-
-// ------------------------------
-// Animated Navbar Component
-// ------------------------------
-export default function AnimatedNavbar() {
-  const circleRef = useRef<HTMLDivElement>(null);
+export default function AnimatedNavbar({ locale }: { locale: Locale }) {
   const circletwoRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
   const navbarRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<(HTMLDivElement | null)[]>([]);
   const menuContainerRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLDivElement>(null);
-  const langRef = useRef<HTMLDivElement | null>(null);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [show, setShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-    const menuItems: Array<
-  { text: string; href: string } | { lang: { from: string; to: string; link: string; flagSrc: string } }
-> = [
-  { text: "Homepage", href: "/en" },
-  { text: "Projects", href: "/en/projects" },
-  // { text: "Services", href: "#why-us" },
-  { text: "Contact", href: "/en/contact-us" },
-  { lang: { from: "EN", to: "DE", link: "/de", flagSrc: "/england.png" } }, // language switcher
+  const t = translations[locale].navbar;
 
-];
+  interface MenuItemText {
+    text: string;
+    href: string;
+  }
+
+  interface MenuItemLang {
+    lang: {
+      from: string;
+      to: string;
+      link: string;
+      flagSrc: string;
+    };
+  }
+
+  type MenuItem = MenuItemText | MenuItemLang;
+
+  const menuItems: MenuItem[] = [
+    { text: t.homepage, href: `/${locale}` },
+    { text: t.projects, href: `/${locale}/projects` },
+    { text: t.contact, href: "/en/contact-us" },
+    {
+      lang: {
+        from: t.langFrom,
+        to: t.langTo,
+        link: t.langLink,
+        flagSrc: t.flagSrc,
+      },
+    },
+  ];
+
   // Toggle mobile menu
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -42,7 +58,7 @@ export default function AnimatedNavbar() {
   useEffect(() => {
     const tl = gsap.timeline({ delay: 2.9 });
     const isMobile = window.innerWidth < 768;
-    const distance = isMobile ? 60 : 210;
+    const distance = isMobile ? 60 : (locale === "de" ? 230 : 210);
 
     tl.from(circletwoRef.current, {
       y: -60,
@@ -62,7 +78,7 @@ export default function AnimatedNavbar() {
         { opacity: 1, duration: 0.3 },
         "+=0"
       );
-  }, []);
+  }, [locale]);
 
   // Close menu when clicked outside
   useEffect(() => {
@@ -135,34 +151,33 @@ export default function AnimatedNavbar() {
           {/* Desktop Links */}
           <div className="w-12 h-12 rounded-full"></div>
 
-            {/* actually no reason to use Link )) */}
           <Link
-            href="/en"
+            href={`/${locale}`}
             className="hidden md:flex text-black cursor-pointer relative group px-2"
           >
-            Home
+            {t.home}
             <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
           </Link>
 
-          <a
-            href="/en/projects/"
+          <Link
+            href={`/${locale}/projects`}
             className="hidden md:flex text-black cursor-pointer relative group px-2"
           >
-            Projects
+            {t.projects}
             <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
-          </a>
+          </Link>
 
-          <a
-            href="/en#why-us"
+          <Link
+            href={`/${locale}#why-us`}
             className="hidden md:flex text-black cursor-pointer relative group px-2"
           >
-            Services
+            {t.services}
             <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-black transition-all group-hover:w-full"></span>
-          </a>
+          </Link>
 
           {/* Mobile Menu Toggle */}
           <div
-            className="flex flex-row items-center gap-2 text-center px-5 pt-3 pb-3 rounded-xl md:hidden glassbutton"
+            className="flex flex-row items-center gap-2 text-center px-5 pt-3 pb-3 rounded-xl md:hidden glassbutton cursor-pointer"
             onClick={toggleMenu}
             ref={menuButtonRef}
           >
@@ -171,20 +186,20 @@ export default function AnimatedNavbar() {
             ) : (
               <IoIosMenu className="w-5 flex text-black" />
             )}
-            <p className="text-black ">Menu</p>
+            <p className="text-black font-semibold">{t.menu}</p>
           </div>
 
           {/* Desktop Contact Button */}
           <div
             onClick={toggleMenu}
-            className="flex-row group items-center gap-2 text-center px-8 pt-2 pb-3 rounded-xl hidden md:flex transition duration-400 glassbutton"
+            className="flex-row group items-center gap-2 text-center px-8 pt-2 pb-3 rounded-xl hidden md:flex transition duration-400 glassbutton cursor-pointer"
           >
-            <a
+            <Link
               href="/en/contact-us"
-              className="text-black group-hover:text-black  transition-colors duration-300 cursor-pointer"
+              className="text-black group-hover:text-black font-semibold transition-colors duration-300"
             >
-              Contact
-            </a>
+              {t.contact}
+            </Link>
           </div>
         </div>
       </nav>
@@ -202,9 +217,9 @@ export default function AnimatedNavbar() {
                   <div
                     key={`lang-${i}`}
                     className="glassmenu z-100 rounded-2xl mx-auto flex border-white/20 border items-center px-4 py-3"
-                    ref={(el) => ((linksRef.current[i] = el), undefined)}
+                    ref={(el) => { linksRef.current[i] = el; }}
                   >
-                    <a
+                    <Link
                       href={item.lang.link}
                       className="w-40 h-15 flex items-center lang-glass-big rounded-xl p-1 px-2"
                       onClick={() => setIsMenuOpen(false)}
@@ -222,23 +237,23 @@ export default function AnimatedNavbar() {
                       <p className="text-gray-800 text-lg font-medium">
                         {item.lang.to}
                       </p>
-                    </a>
+                    </Link>
                   </div>
                 );
               } else {
                 return (
                   <div
                     key={i}
-                    ref={(el) => ((linksRef.current[i] = el), undefined)}
+                    ref={(el) => { linksRef.current[i] = el; }}
                     onClick={() => setIsMenuOpen(false)}
                     className="glassmenu z-100 rounded-2xl mx-auto flex border-white/20 border"
                   >
-                    <a
+                    <Link
                       href={item.href}
                       className="text-black px-10 pt-7 pb-7 text-4xl rounded-2xl"
                     >
                       {item.text}
-                    </a>
+                    </Link>
                   </div>
                 );
               }
@@ -249,42 +264,3 @@ export default function AnimatedNavbar() {
     </>
   );
 }
-
-
-
-
-
-//  styles 
-
-// .glassnav {
-// background-color: rgba(255, 255, 255, 0.3);
-//   backdrop-filter: blur(4px);
-
-// }
-
-// .glassbutton {
-//   transition: all 0.3s ease;
-//     background-color: rgba(255, 255, 255, 0.8);
-//   backdrop-filter: blur(4px);
-// }
-
-
-// .glassbutton:hover {
-//     background-color: rgb(255, 255, 255, 0);
-//   backdrop-filter: blur(0px);
-// }
-
-// .glassmenu {
-//     background-color: rgba(255, 255, 255, 0.3);
-//   backdrop-filter: blur(4px);
-// }
-
-// .lang-glass-big {
-//     background-color: rgba(255, 255, 255, 0.1);
-
-// }
-
-// .lang-glass-small {
-//     background-color: rgb(255, 255, 255, 0.5);
-
-// }

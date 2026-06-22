@@ -2,8 +2,11 @@
 
 import { useEffect } from "react";
 import gsap from "gsap";
+import { translations, Locale } from "@/utils/translations";
 
-export default function JellyCursor() {
+export default function JellyCursor({ locale }: { locale: Locale }) {
+  const t = translations[locale];
+
   // Global cursor animation
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -86,7 +89,7 @@ export default function JellyCursor() {
   return (
     <div id="jelly-cursor" className="hidden md:flex">
       <div className="text-blue-300 text-2xl border-b-1 pb-0 libre-regular" id="cursor-event">
-        What we do
+        {t.jellyCursor}
       </div>
     </div>
   );

@@ -1,16 +1,14 @@
 import { client } from "@/sanity/lib/client";
-import AnimatedNavbar from "@/components/AnimatedNavbarEN";
-import Preloader from "@/components/preloaderEn";
-import FooterEN from "@/components/FooterEN";
-
-// Import our new client components
+import AnimatedNavbar from "@/components/AnimatedNavbar";
+import Preloader from "@/components/Preloader";
+import Footer from "@/components/Footer";
 import JellyCursor from "@/components/JellyCursor";
-import HeroSection from "@/components/en/HeroSection";
-import ProjectsSection from "@/components/en/ProjectsSection";
-import WhyUsSection from "@/components/en/WhyUsSection";
+import HeroSection from "@/components/HeroSection";
+import ProjectsSection from "@/components/ProjectsSection";
+import WhyUsSection from "@/components/WhyUsSection";
 
 export default async function Home() {
-  // 1. Fetch projects on the server (SSR)
+  // Fetch projects on the server (SSR)
   const query = `*[_type == "project"] | order(_createdAt desc) [0...3] {
     _id,
     title,
@@ -21,20 +19,19 @@ export default async function Home() {
 
   return (
     <>
-      <JellyCursor />
+      <JellyCursor locale="en" />
       
       <main className="relative z-10 bg-white mb-[100vh] rounded-b-3xl">
-        <AnimatedNavbar />
-        <Preloader />
+        <AnimatedNavbar locale="en" />
+        <Preloader locale="en" />
         
         {/* Pass data to client components as props */}
-        <HeroSection />
-        <ProjectsSection projects={projects} />
-        <WhyUsSection />
-        
+        <HeroSection locale="en" />
+        <ProjectsSection projects={projects} locale="en" />
+        <WhyUsSection locale="en" />
       </main>
 
-      <FooterEN />
+      <Footer locale="en" />
     </>
   );
 }

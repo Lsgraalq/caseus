@@ -4,13 +4,16 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+import { translations, Locale } from "@/utils/translations";
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
-export default function WhyUsSectionDE() {
+export default function WhyUsSection({ locale }: { locale: Locale }) {
   const section3Ref = useRef(null);
   const text3Ref = useRef<HTMLDivElement>(null);
   const whyUsVideoOne = useRef(null);
+
+  const t = translations[locale].whyUs;
 
   // Video pin animation
   useEffect(() => {
@@ -69,32 +72,20 @@ export default function WhyUsSectionDE() {
   }, []);
 
   return (
-    <section className="min-h-screen w-full pt-20 why-us mb-40 pb-20" id="why-us" ref={section3Ref}>
+    <section className="min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
       <div className="relative md:hidden items-center">
         <video loop autoPlay muted src="/whyUsVideoOne.mp4" className="absolute w-50 rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
       </div>
 
       <div className="flex flex-col mx-4 md:mx-10 gap-8 md:gap-15 lg:gap-20" ref={text3Ref}>
-        <div className="flex md:flex-row md:items-center flex-col">
-          <h2 className="text-5xl flex-1 font-heading">Profile</h2>
-          <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Professionelle Präsenz aufbauen, die Vertrauen schafft.</p>
-        </div>
-        <div className="flex md:flex-row md:items-center flex-col">
-          <h2 className="text-5xl flex-1 font-heading">Inhalte</h2>
-          <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Storytelling, das bewegt und Ihre Mission sichtbar macht.</p>
-        </div>
-        <div className="flex md:flex-row md:items-center flex-col">
-          <h2 className="text-5xl flex-1 font-heading">Sichtbarkeit</h2>
-          <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Gezielte Kampagnen zur Gewinnung von Spendern und Ehrenamtlichen.</p>
-        </div>
-        <div className="flex md:flex-row md:items-center flex-col">
-          <h2 className="text-5xl flex-1 font-heading">Wirkung</h2>
-          <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Ergebnisse messen, um die soziale Reichweite zu maximieren.</p>
-        </div>
-        <div className="flex md:flex-row md:items-center flex-col">
-          <h2 className="text-5xl flex-1 font-heading">Community</h2>
-          <p className="flex-1 md:flex-none text-3xl lg:text-4xl pt-2 overflow-hidden">Aktiven Austausch mit Unterstützern und Förderern fördern.</p>
-        </div>
+        {t.map((item, idx) => (
+          <div key={idx} className="flex md:flex-row md:items-center flex-col">
+            <h2 className="text-5xl flex-1 font-heading">{item.title}</h2>
+            <p className="flex-1 md:flex-none text-3xl lg:text-4xl overflow-hidden pt-2">
+              {item.description}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -1,16 +1,14 @@
 import { client } from "@/sanity/lib/client";
-import AnimatedNavbar from "@/components/AnimatedNavbarDE";
-import Preloader from "@/components/preloaderDe";
-import FooterDE from "@/components/FooterDE";
-
-// Import our client wrappers and components
-import JellyCursorDE from "@/components/de/JellyCursorDE";
-import HeroSectionDE from "@/components/de/HeroSectionDE";
-import ProjectsSectionDE from "@/components/de/ProjectsSectionDE";
-import WhyUsSectionDE from "@/components/de/WhyUsSectionDE";
+import AnimatedNavbar from "@/components/AnimatedNavbar";
+import Preloader from "@/components/Preloader";
+import Footer from "@/components/Footer";
+import JellyCursor from "@/components/JellyCursor";
+import HeroSection from "@/components/HeroSection";
+import ProjectsSection from "@/components/ProjectsSection";
+import WhyUsSection from "@/components/WhyUsSection";
 
 export default async function HomeDE() {
-  // 1. Fetch projects on the server (SSR)
+  // Fetch projects on the server (SSR)
   const query = `*[_type == "project"] | order(_createdAt desc) [0...3] {
     _id,
     title,
@@ -20,22 +18,21 @@ export default async function HomeDE() {
   const projects = await client.fetch(query);
 
   return (
-<>
-      <JellyCursorDE />
+    <>
+      <JellyCursor locale="de" />
       
       {/* Spacer for sticky footer */}
       <main className="relative z-10 bg-white mb-[100vh]">
-        <AnimatedNavbar />
-        <Preloader />
+        <AnimatedNavbar locale="de" />
+        <Preloader locale="de" />
         
         {/* Page Sections */}
-        <HeroSectionDE />
-        <ProjectsSectionDE projects={projects} />
-        <WhyUsSectionDE />
-        
+        <HeroSection locale="de" />
+        <ProjectsSection projects={projects} locale="de" />
+        <WhyUsSection locale="de" />
       </main>
 
-      <FooterDE />
-      </>
+      <Footer locale="de" />
+    </>
   );
 }

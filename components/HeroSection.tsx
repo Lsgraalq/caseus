@@ -4,14 +4,17 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitText from "gsap/SplitText";
+import { translations, Locale } from "@/utils/translations";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-export default function HeroSection() {
+export default function HeroSection({ locale }: { locale: Locale }) {
   const textRef = useRef(null);
   const heroTextRef = useRef(null);
   const videoRef = useRef(null);
   const heroRef = useRef(null);
+
+  const t = translations[locale].hero;
 
   // Initial Hero Animation
   useEffect(() => {
@@ -111,14 +114,14 @@ export default function HeroSection() {
 
           <div className="w-full absolute h-screen top-[50vh]" ref={textRef}>
             <h3 className="lg:text-2xl text-xl uppercase font-thin text-center">
-              Making impact visible.
+              {t.impactText}
             </h3>
           </div>
         </div>
 
-        <div className="max-w-[75%] md:max-w-[60%] lg:max-w-[70%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
+        <div className="sm:max-w-[70%] md:max-w-[60%] lg:max-w-[70%] max-w-[75%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
           <p className="text-gray-400 text-4xl z-2 md:text-6xl lg:text-7xl">
-            We make your impact visible. We handle websites, videos, and promotion, freeing up your time for what matters most — changing this world for the better.
+            {t.mainParagraph}
           </p>
         </div>
       </section>
