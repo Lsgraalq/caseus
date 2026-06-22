@@ -98,21 +98,21 @@ body {
 
 .glassbutton {
   transition: all 0.3s ease;
-  background-color: #ffffff;
+  background-color: #ffffff !important;
 }
 
 .glassbutton:hover {
-  background-color: rgba(255, 255, 255, 0);
-  box-shadow: inset 0 0 0 4px #ffffff;
+  background-color: rgba(255, 255, 255, 0) !important;
+  box-shadow: inset 0 0 0 4px #ffffff !important;
 }
 
 .glassbutton.contrast {
-  background-color: #0802E2;
+  background-color: #0802E2 !important;
 }
 
 .glassbutton.contrast:hover {
-  background-color: rgba(8, 2, 226, 0);
-  box-shadow: inset 0 0 0 4px #0802E2;
+  background-color: rgba(8, 2, 226, 0) !important;
+  box-shadow: inset 0 0 0 4px #0802E2 !important;
 }
 
 .glassmenu {
