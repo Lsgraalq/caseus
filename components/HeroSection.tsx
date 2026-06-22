@@ -18,32 +18,13 @@ export default function HeroSection({ locale }: { locale: Locale }) {
 
   // Initial Hero Animation
   useEffect(() => {
-    if (typeof window !== "undefined" && textRef.current) {
-      const split = new SplitText(textRef.current, { type: "chars" });
+    if (typeof window !== "undefined" && videoRef.current) {
       const tl = gsap.timeline();
-
-      tl.from(split.chars, {
-        x: -20,
-        y: -10,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power4",
-        stagger: 0.04,
-      })
-        .fromTo(
-          videoRef.current,
-          { transformOrigin: "top left", opacity: 0, scaleY: 0.25, x: 0, scaleX: 0.25 },
-          { x: 0, scaleY: 1, opacity: 1, scale: 1, duration: 1, ease: "power3.inOut" },
-          "-=0.5"
-        )
-        .fromTo(
-          split.chars,
-          { color: "#000000" },
-          { color: "#ffffff" },
-          "-=0.68"
-        );
-
-      return () => split.revert();
+      tl.fromTo(
+        videoRef.current,
+        { transformOrigin: "top left", opacity: 0, scaleY: 0.25, x: 0, scaleX: 0.25 },
+        { x: 0, scaleY: 1, opacity: 1, scale: 1, duration: 1, ease: "power3.inOut" }
+      );
     }
   }, []);
 
@@ -108,15 +89,10 @@ export default function HeroSection({ locale }: { locale: Locale }) {
       <section className="h-screen w-full" id="scroll-container" ref={heroRef}>
         <div className="relative p-0 m-0">
           <div className="w-full h-screen z-0" ref={videoRef}>
-            <video src="/titul.webm" className="hidden md:block w-full h-full object-cover rounded-4xl p-5" autoPlay muted loop />
-            <video src="/titul_small.webm" className="block md:hidden w-full h-full object-cover rounded-3xl p-4" autoPlay muted loop />
+            <video src="/StartScreen.mp4" className="hidden md:landscape:block w-full h-full object-cover rounded-4xl p-5" autoPlay muted loop />
+            <video src="/Start Screen V.mp4" className="block md:landscape:hidden w-full h-full object-cover rounded-3xl p-4" autoPlay muted loop />
           </div>
 
-          <div className="w-full absolute h-screen top-[50vh]" ref={textRef}>
-            <h3 className="lg:text-2xl text-xl uppercase font-thin text-center">
-              {t.impactText}
-            </h3>
-          </div>
         </div>
 
         <div className="sm:max-w-[70%] md:max-w-[60%] lg:max-w-[70%] max-w-[75%] pl-5 lg:pl-20" ref={heroTextRef} id="animated-text">
