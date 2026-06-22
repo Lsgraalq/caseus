@@ -21,14 +21,17 @@ export default async function Home() {
     <>
       <JellyCursor locale="en" />
       
-      <main className="relative z-10 bg-white mb-[100vh] rounded-b-3xl">
+      <main className="relative z-10 bg-transparent mb-[100vh]">
         <AnimatedNavbar locale="en" />
         <Preloader locale="en" />
         
         {/* Pass data to client components as props */}
         <HeroSection locale="en" />
-        <ProjectsSection projects={projects} locale="en" />
-        <WhyUsSection locale="en" />
+        
+        <div className="bg-white rounded-b-3xl relative z-10">
+          <ProjectsSection projects={projects} locale="en" />
+          <WhyUsSection locale="en" />
+        </div>
       </main>
 
       <Footer locale="en" />

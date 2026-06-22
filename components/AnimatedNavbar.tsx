@@ -6,6 +6,9 @@ import { IoIosMenu, IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import { translations, Locale } from "@/utils/translations";
 
+// Module-level variable to track if the navbar animation has run
+let globalNavbarAnimated = false;
+
 export default function AnimatedNavbar({ locale }: { locale: Locale }) {
   const circletwoRef = useRef<HTMLDivElement>(null);
   const navbarRef = useRef<HTMLDivElement>(null);
@@ -58,6 +61,12 @@ export default function AnimatedNavbar({ locale }: { locale: Locale }) {
   // Initial animation
   useEffect(() => {
     const runNavbarAnimation = () => {
+      if (globalNavbarAnimated) {
+        gsap.set(circletwoRef.current, { opacity: 1, x: 0, y: 0 });
+        gsap.set(navbarRef.current, { opacity: 1 });
+        return;
+      }
+
       let startX = 0;
       if (circletwoRef.current) {
         const logoRect = circletwoRef.current.getBoundingClientRect();
@@ -86,7 +95,7 @@ export default function AnimatedNavbar({ locale }: { locale: Locale }) {
         .fromTo(
           navbarRef.current,
           { opacity: 0 },
-          { opacity: 1, duration: 0.3 },
+          { opacity: 1, duration: 0.3, onComplete: () => { globalNavbarAnimated = true; } },
           "-=0.3"
         );
     };
@@ -346,21 +355,47 @@ export default function AnimatedNavbar({ locale }: { locale: Locale }) {
                     }`}
                     ref={(el) => { linksRef.current[i] = el; }}
                   >
-                    <Link
-                      href={item.lang.link}
-                      className="w-full h-full flex items-center justify-center gap-2 text-lg rounded-full font-semibold transition-colors duration-300"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <span className={isContrast ? "text-gray-400" : "text-white/40"}>
-                        {locale === "en" ? "DE" : "EN"}
-                      </span>
-                      <span className={isContrast ? "text-gray-300" : "text-white/20"}>
-                        /
-                      </span>
-                      <span className={isContrast ? "text-[#0802E2]" : "text-white"}>
-                        {locale === "en" ? "EN" : "DE"}
-                      </span>
-                    </Link>
+                    <div className="w-full h-full flex items-center justify-center gap-2 text-lg rounded-full font-semibold transition-colors duration-300">
+                      {locale === "en" ? (
+                        <>
+                          <span className={isContrast ? "text-[#0802E2]" : "text-white"}>
+                            EN
+                          </span>
+                          <span className={isContrast ? "text-gray-300" : "text-white/20"}>
+                            /
+                          </span>
+                          <Link
+                            href="/de"
+                            scroll={false}
+                            className={`transition-colors duration-300 hover:opacity-80 cursor-pointer ${
+                              isContrast ? "text-gray-400" : "text-white/40"
+                            }`}
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            DE
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <Link
+                            href="/en"
+                            scroll={false}
+                            className={`transition-colors duration-300 hover:opacity-80 cursor-pointer ${
+                              isContrast ? "text-gray-400" : "text-white/40"
+                            }`}
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            EN
+                          </Link>
+                          <span className={isContrast ? "text-gray-300" : "text-white/20"}>
+                            /
+                          </span>
+                          <span className={isContrast ? "text-[#0802E2]" : "text-white"}>
+                            DE
+                          </span>
+                        </>
+                      )}
+                    </div>
                   </div>
                 );
               } else {

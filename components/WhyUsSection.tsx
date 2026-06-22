@@ -17,24 +17,28 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
 
   // Video pin animation
   useEffect(() => {
-    const isMobile = window.innerWidth < 400;
-    const x = isMobile ? 200 : 245;
+    const ctx = gsap.context(() => {
+      const isMobile = window.innerWidth < 400;
+      const x = isMobile ? 200 : 245;
 
-    const tl4 = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#why-us",
-        start: "top 95%",
-        end: "bottom 50%",
-        scrub: true,
-        markers: false,
-        pin: whyUsVideoOne.current,
-      },
+      const tl4 = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#why-us",
+          start: "top 95%",
+          end: "bottom 50%",
+          scrub: true,
+          markers: false,
+          pin: whyUsVideoOne.current,
+        },
+      });
+
+      tl4.fromTo(whyUsVideoOne.current, { x: 0 }, { x: x, rotate: 90, duration: 0 })
+         .fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.2 })
+         .fromTo(whyUsVideoOne.current, { y: 0 }, { y: -450, duration: 3 }, "<")
+         .fromTo(whyUsVideoOne.current, { opacity: 1 }, { opacity: 0, duration: 0.5 }, "-=0.5");
     });
 
-    tl4.fromTo(whyUsVideoOne.current, { x: 0 }, { x: x, rotate: 90, duration: 0 })
-       .fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.2 })
-       .fromTo(whyUsVideoOne.current, { y: 0 }, { y: -450, duration: 3 }, "<")
-       .fromTo(whyUsVideoOne.current, { opacity: 1 }, { opacity: 0, duration: 0.5 }, "-=0.5");
+    return () => ctx.revert();
   }, []);
 
   // Text scramble animation
@@ -42,33 +46,33 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
     const el = text3Ref.current;
     if (!el) return;
 
-    const isMobile = window.innerWidth < 768;
-    const pHeight = isMobile ? "bottom 55%" : "+=300";
-    const paragraphs = el.querySelectorAll("p");
+    const ctx = gsap.context(() => {
+      const isMobile = window.innerWidth < 768;
+      const pHeight = isMobile ? "bottom 55%" : "+=300";
+      const paragraphs = el.querySelectorAll("p");
 
-    gsap.set(paragraphs, { opacity: 0 });
+      gsap.set(paragraphs, { opacity: 0 });
 
-    paragraphs.forEach((p) => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: p,
-          start: "top 90%",
-          end: pHeight,
-          scrub: true,
-          markers: false,
-        },
+      paragraphs.forEach((p) => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: p,
+            start: "top 90%",
+            end: pHeight,
+            scrub: true,
+            markers: false,
+          },
+        });
+
+        tl.fromTo(
+          p,
+          { opacity: 0, scrambleText: { text: "", revealDelay: 0.2 } },
+          { opacity: 1, scrambleText: { text: p.textContent || "", chars: "upperCase", speed: 0.5, revealDelay: 0.2 }, duration: 2 }
+        );
       });
-
-      tl.fromTo(
-        p,
-        { opacity: 0, scrambleText: { text: "", revealDelay: 0.2 } },
-        { opacity: 1, scrambleText: { text: p.textContent || "", chars: "upperCase", speed: 0.5, revealDelay: 0.2 }, duration: 2 }
-      );
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
   return (

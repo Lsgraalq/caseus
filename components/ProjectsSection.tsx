@@ -21,28 +21,31 @@ export default function ProjectsSection({ projects, locale }: ProjectProps) {
   // Projects scroll animation
   useEffect(() => {
     if (projects.length > 0) {
-      const isMobile = window.innerWidth < 768;
-      const startProjectPosition = isMobile ? "top 99%" : "top 85%";
+      const ctx = gsap.context(() => {
+        const isMobile = window.innerWidth < 768;
+        const startProjectPosition = isMobile ? "top 99%" : "top 85%";
 
-      gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
-        gsap.fromTo(
-          box,
-          { opacity: 0, y: 200 },
-          {
-            scrollTrigger: {
-              trigger: box,
-              start: startProjectPosition,
-              toggleActions: "play none none reverse",
-            },
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            ease: "power2.out",
-          }
-        );
+        gsap.utils.toArray<HTMLElement>(".project").forEach((box) => {
+          gsap.fromTo(
+            box,
+            { opacity: 0, y: 200 },
+            {
+              scrollTrigger: {
+                trigger: box,
+                start: startProjectPosition,
+                toggleActions: "play none none reverse",
+              },
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: "power2.out",
+            }
+          );
+        });
       });
       
       ScrollTrigger.refresh();
+      return () => ctx.revert();
     }
   }, [projects]);
 

@@ -4,12 +4,22 @@ import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { translations, Locale } from "@/utils/translations";
 
+// Module-level variable to track if the preloader finished in this session
+let globalPreloaderFinished = false;
+
 export default function Preloader({ locale }: { locale: Locale }) {
   const [progress, setProgress] = useState(0);
+  const [isFinished, setIsFinished] = useState(globalPreloaderFinished);
   const t = translations[locale];
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    if (isFinished) {
+      // Dispatch immediately so other components (navbar, etc.) know we're ready
+      window.dispatchEvent(new Event("preloaderFinished"));
+      return;
+    }
 
     const nodes = Array.from(window.document.querySelectorAll("img, video"));
     let loaded = 0;
@@ -28,6 +38,8 @@ export default function Preloader({ locale }: { locale: Locale }) {
           onComplete: () => {
             document.querySelector(".preloader")?.setAttribute("style", "display: none");
             (window as any).preloaderFinished = true;
+            globalPreloaderFinished = true;
+            setIsFinished(true);
             window.dispatchEvent(new Event("preloaderFinished"));
           }
         });
@@ -69,11 +81,17 @@ export default function Preloader({ locale }: { locale: Locale }) {
         delay: 0.2,
         onComplete: () => {
           (window as any).preloaderFinished = true;
+          globalPreloaderFinished = true;
+          setIsFinished(true);
           window.dispatchEvent(new Event("preloaderFinished"));
         }
       });
     }
-  }, []);
+  }, [isFinished]);
+
+  if (isFinished) {
+    return null;
+  }
 
   return (
     <div className="preloader fixed inset-0 flex flex-col items-center justify-center bg-white text-black z-50">

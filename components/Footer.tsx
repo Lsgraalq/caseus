@@ -1,15 +1,43 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { translations, Locale } from "@/utils/translations";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer({ locale }: { locale: Locale }) {
   const t = translations[locale].footer;
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const triggerEl = document.getElementById("scroll-container");
+      if (triggerEl) {
+        gsap.set(footerRef.current, { opacity: 0, visibility: "hidden" });
+        ScrollTrigger.create({
+          trigger: triggerEl,
+          start: "bottom top",
+          onEnter: () => gsap.set(footerRef.current, { opacity: 1, visibility: "visible" }),
+          onLeaveBack: () => gsap.set(footerRef.current, { opacity: 0, visibility: "hidden" }),
+        });
+      } else {
+        gsap.set(footerRef.current, { opacity: 1, visibility: "visible" });
+      }
+    });
+    return () => ctx.revert();
+  }, []);
 
   return (
     <>
       <div className="mb-[110vh] bg-[#0500FF]"></div>
       {/* --- STICKY FOOTER LAYER --- */}
-      <div className="bg-[#0500FF] h-screen flex flex-col w-screen px-3 text-white fixed bottom-0 md:px-10">
+      <div 
+        ref={footerRef}
+        className="bg-[#0500FF] h-screen flex flex-col w-screen px-3 text-white fixed bottom-0 md:px-10"
+      >
         
         {/* Footer Heading */}
         <div className={t.headingClass}>
@@ -52,11 +80,11 @@ export default function Footer({ locale }: { locale: Locale }) {
                 <>
                   <div className="apercu-bold underline">EN</div>
                   /
-                  <Link href="/de" className="apercu-thin hover:underline">DE</Link>
+                  <Link href="/de" scroll={false} className="apercu-thin hover:underline">DE</Link>
                 </>
               ) : (
                 <>
-                  <Link href="/en" className="apercu-thin hover:underline">EN</Link>
+                  <Link href="/en" scroll={false} className="apercu-thin hover:underline">EN</Link>
                   /
                   <div className="apercu-bold underline">DE</div>
                 </>

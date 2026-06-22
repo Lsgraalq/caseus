@@ -22,14 +22,17 @@ export default async function HomeDE() {
       <JellyCursor locale="de" />
       
       {/* Spacer for sticky footer */}
-      <main className="relative z-10 bg-white mb-[100vh]">
+      <main className="relative z-10 bg-transparent mb-[100vh]">
         <AnimatedNavbar locale="de" />
         <Preloader locale="de" />
         
         {/* Page Sections */}
         <HeroSection locale="de" />
-        <ProjectsSection projects={projects} locale="de" />
-        <WhyUsSection locale="de" />
+        
+        <div className="bg-white rounded-b-3xl relative z-10">
+          <ProjectsSection projects={projects} locale="de" />
+          <WhyUsSection locale="de" />
+        </div>
       </main>
 
       <Footer locale="de" />
