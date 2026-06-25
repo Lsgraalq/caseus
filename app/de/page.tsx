@@ -29,7 +29,7 @@ export default async function HomeDE() {
         {/* Page Sections */}
         <HeroSection locale="de" />
         
-        <div className="bg-white rounded-b-3xl relative z-10">
+        <div id="main-content-trigger" className="bg-white rounded-b-3xl relative z-10">
           <ProjectsSection projects={projects} locale="de" />
           <WhyUsSection locale="de" />
         </div>

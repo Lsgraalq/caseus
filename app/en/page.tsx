@@ -28,7 +28,7 @@ export default async function Home() {
         {/* Pass data to client components as props */}
         <HeroSection locale="en" />
         
-        <div className="bg-white rounded-b-3xl relative z-10">
+        <div id="main-content-trigger" className="bg-white rounded-b-3xl relative z-10">
           <ProjectsSection projects={projects} locale="en" />
           <WhyUsSection locale="en" />
         </div>

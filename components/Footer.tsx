@@ -13,21 +13,21 @@ export default function Footer({ locale }: { locale: Locale }) {
   const footerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const triggerEl = document.getElementById("scroll-container");
-      if (triggerEl) {
-        gsap.set(footerRef.current, { opacity: 0, visibility: "hidden" });
-        ScrollTrigger.create({
-          trigger: triggerEl,
-          start: "bottom top",
-          onEnter: () => gsap.set(footerRef.current, { opacity: 1, visibility: "visible" }),
-          onLeaveBack: () => gsap.set(footerRef.current, { opacity: 0, visibility: "hidden" }),
-        });
-      } else {
+    // Initially hide footer to prevent flash.
+    // On homepage, HeroSection's ScrollTrigger onLeave/onEnterBack will toggle visibility.
+    if (footerRef.current) {
+      gsap.set(footerRef.current, { opacity: 0, visibility: "hidden" });
+    }
+
+    // On pages without a hero pin (#scroll-container), show footer immediately.
+    const timer = setTimeout(() => {
+      const hasHero = document.getElementById("scroll-container");
+      if (!hasHero && footerRef.current) {
         gsap.set(footerRef.current, { opacity: 1, visibility: "visible" });
       }
-    });
-    return () => ctx.revert();
+    }, 200);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -36,6 +36,7 @@ export default function Footer({ locale }: { locale: Locale }) {
       {/* --- STICKY FOOTER LAYER --- */}
       <div 
         ref={footerRef}
+        id="site-footer"
         className="bg-[#0500FF] h-screen flex flex-col w-screen px-3 text-white fixed bottom-0 md:px-10"
       >
         

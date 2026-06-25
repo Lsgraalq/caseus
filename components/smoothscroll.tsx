@@ -61,8 +61,8 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       root 
       options={{
         anchors: true,
-        duration: 1.5,
-        wheelMultiplier: 0.8,
+        duration: 1.2,
+        wheelMultiplier: 1.0,
         touchMultiplier: 0.7, 
         smoothWheel: true,
         autoRaf: true,
