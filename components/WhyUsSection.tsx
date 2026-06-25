@@ -41,95 +41,123 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
     return () => ctx.revert();
   }, []);
 
-  // Text scramble animation — runs after a delay so GSAP knows the
-  // hero pin-spacer height and measures correct scroll positions.
+  // Text scramble animation with resize handling
   useEffect(() => {
     const el = text3Ref.current;
     if (!el) return;
 
-    let ctx: gsap.Context;
+    let ctx: gsap.Context | null = null;
+    let timer: ReturnType<typeof setTimeout>;
 
-    const timer = setTimeout(() => {
-      // Refresh so ScrollTrigger knows the full page height (pin spacer included)
-      ScrollTrigger.refresh();
+    const setupAnimations = (delay: number) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        // Revert previous context
+        if (ctx) ctx.revert();
 
-      ctx = gsap.context(() => {
-        const isMobile = window.innerWidth < 768;
-        const endPos = isMobile ? "bottom 55%" : "+=300";
-
-        // Animate both headings and paragraphs
+        // Restore original text from translations before GSAP scrambles it
+        // (on resize the DOM might hold a partially scrambled state)
         const headings = el.querySelectorAll("h2");
         const paragraphs = el.querySelectorAll("p");
-
-        // Set initial state
-        gsap.set(headings, { opacity: 0 });
-        gsap.set(paragraphs, { opacity: 0 });
-
-        // Scramble headings (brand blue)
-        headings.forEach((h) => {
-          const originalText = h.textContent || "";
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: h,
-              start: "top 90%",
-              end: endPos,
-              scrub: true,
-              markers: false,
-            },
-          });
-
-          tl.fromTo(
-            h,
-            { opacity: 0, scrambleText: { text: "", revealDelay: 0.1 } },
-            {
-              opacity: 1,
-              scrambleText: {
-                text: originalText,
-                chars: "upperCase",
-                speed: 0.6,
-                revealDelay: 0.1,
-              },
-              duration: 2,
-            }
-          );
+        headings.forEach((h, i) => {
+          if (t[i]) h.textContent = t[i].title;
+        });
+        paragraphs.forEach((p, i) => {
+          if (t[i]) p.textContent = t[i].description;
         });
 
-        // Scramble paragraphs
-        paragraphs.forEach((p) => {
-          const originalText = p.textContent || "";
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: p,
-              start: "top 90%",
-              end: endPos,
-              scrub: true,
-              markers: false,
-            },
+        // Recalculate all ScrollTrigger positions (including hero pin spacer)
+        ScrollTrigger.refresh();
+
+        ctx = gsap.context(() => {
+          const isMobile = window.innerWidth < 768;
+          const endPos = isMobile ? "bottom 55%" : "+=300";
+
+          // Set initial hidden state
+          gsap.set(headings, { opacity: 0 });
+          gsap.set(paragraphs, { opacity: 0 });
+
+          // Scramble headings (brand blue)
+          headings.forEach((h, i) => {
+            const originalText = t[i]?.title || h.textContent || "";
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: h,
+                start: "top 90%",
+                end: endPos,
+                scrub: true,
+                markers: false,
+              },
+            });
+
+            tl.fromTo(
+              h,
+              { opacity: 0, scrambleText: { text: "", revealDelay: 0.1 } },
+              {
+                opacity: 1,
+                scrambleText: {
+                  text: originalText,
+                  chars: "upperCase",
+                  speed: 0.6,
+                  revealDelay: 0.1,
+                },
+                duration: 2,
+              }
+            );
           });
 
-          tl.fromTo(
-            p,
-            { opacity: 0, scrambleText: { text: "", revealDelay: 0.2 } },
-            {
-              opacity: 1,
-              scrambleText: {
-                text: originalText,
-                chars: "upperCase",
-                speed: 0.5,
-                revealDelay: 0.2,
+          // Scramble paragraphs
+          paragraphs.forEach((p, i) => {
+            const originalText = t[i]?.description || p.textContent || "";
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: p,
+                start: "top 90%",
+                end: endPos,
+                scrub: true,
+                markers: false,
               },
-              duration: 2,
-            }
-          );
+            });
+
+            tl.fromTo(
+              p,
+              { opacity: 0, scrambleText: { text: "", revealDelay: 0.2 } },
+              {
+                opacity: 1,
+                scrambleText: {
+                  text: originalText,
+                  chars: "upperCase",
+                  speed: 0.5,
+                  revealDelay: 0.2,
+                },
+                duration: 2,
+              }
+            );
+          });
         });
-      });
-    }, 900); // wait for hero pin spacer to be measured
+      }, delay);
+    };
+
+    // Initial setup — wait for hero pin spacer to be measured
+    setupAnimations(900);
+
+    // On resize: wait longer to let HeroSection reinitialize its pin first,
+    // then refresh and rebuild our ScrollTriggers.
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => setupAnimations(1100), 100);
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
       clearTimeout(timer);
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", handleResize);
       if (ctx) ctx.revert();
     };
-  }, [locale]);
+  }, [locale]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <section className="min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
