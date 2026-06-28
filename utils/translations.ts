@@ -67,7 +67,7 @@ export const translations = {
     recently: "Kürzlich",
     hero: {
       impactText: "Wirkung sichtbar machen.",
-      mainParagraph: "Wir machen Ihre Wirkungen sichtbar. Wir übernehmen Webseiten, Videos und Promotion und halten Ihnen den Rücken frei für das Wesentliche — diese Welt zum Besseren zu verändern."
+      mainParagraph: "Für nur 99\u00A0€ im Monat erhalten Sie ein ganzes Expertenteam für Ihre Webseite, nahtlos integriert in Ihr Business. Wir vereinen technologische Innovation mit echter menschlicher Exzellenz: Nach einem smarten KI-Briefing sorgen мы rund um die Uhr für schnelle Fehlerbehebungen und neue Funktionen. Statt automatisierter Standardlösungen erwartet Sie eine maßgeschneiderte Betreuung, die Ihren Webauftritt flexibel mit Ihrem Unternehmen mitwachsen lässt."
     },
     whyUs: [
       {
