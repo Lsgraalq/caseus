@@ -6,7 +6,8 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { PiArrowRightThin } from "react-icons/pi";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
-import { Locale } from "@/utils/translations";
+import { Locale, translations } from "@/utils/translations";
+import RotatingText from "@/components/RotatingText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,8 +50,13 @@ export default function ProjectsSection({ projects, locale }: ProjectProps) {
     }
   }, [projects]);
 
+  const t = translations[locale];
+
   return (
     <section className="w-full mx-auto" id="section2" ref={section2Ref}>
+      <div className="pb-10 pt-5">
+        <RotatingText text={t.recently} size="small" />
+      </div>
       <div className="flex flex-col gap-5 md:mx-10 mx-2" id="projectFlex">
         {projects.length > 0 && (
           <>

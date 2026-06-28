@@ -2,6 +2,7 @@ export const translations = {
   en: {
     jellyCursor: "why us?",
     preloader: "Loading…",
+    recently: "Recently",
     hero: {
       impactText: "Making impact visible.",
       mainParagraph: "We make your impact visible. We handle websites, videos, and promotion, freeing up your time for what matters most — changing this world for the better."
@@ -63,6 +64,7 @@ export const translations = {
   de: {
     jellyCursor: "warum wir?",
     preloader: "Wird geladen…",
+    recently: "Kürzlich",
     hero: {
       impactText: "Wirkung sichtbar machen.",
       mainParagraph: "Wir machen Ihre Wirkungen sichtbar. Wir übernehmen Webseiten, Videos und Promotion und halten Ihnen den Rücken frei für das Wesentliche — diese Welt zum Besseren zu verändern."

@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import localFont from "next/font/local";
 import SmoothScroll from "@/components/smoothscroll";
 import GlobalBackgroundVideo from "@/components/GlobalBackgroundVideo";
+import JellyCursor from "@/components/JellyCursor";
 // 1. Подключаем твой Apercu
 const apercu = localFont({
   src: [
@@ -91,6 +92,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={apercu.variable}> 
       <body className={`${apercu.variable} font-apercu antialiased`}>
+        <JellyCursor />
         <GlobalBackgroundVideo />
         <SmoothScroll>
         {children}  

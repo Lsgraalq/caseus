@@ -3,8 +3,17 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { translations, Locale } from "@/utils/translations";
+import { usePathname } from "next/navigation";
 
-export default function JellyCursor({ locale }: { locale: Locale }) {
+export default function JellyCursor({ locale: propLocale }: { locale?: Locale }) {
+  const pathname = usePathname();
+  let locale: Locale = propLocale || "en";
+  if (!propLocale && pathname) {
+    const segments = pathname.split("/");
+    if (segments.includes("de")) {
+      locale = "de";
+    }
+  }
   const t = translations[locale];
 
   // Global cursor animation
