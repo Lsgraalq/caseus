@@ -170,6 +170,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
           className="absolute right-4 top-0 w-44 rotate-90 rounded-xl"
           ref={whyUsVideoOne}
         >
+          <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
           <source src="/Cheese Raster Blue.mov" type="video/quicktime" />
           Ваш браузер не поддерживает видео.
         </video>
