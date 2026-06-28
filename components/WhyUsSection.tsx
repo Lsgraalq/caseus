@@ -18,23 +18,19 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
   // Video pin animation
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth < 400;
-      const x = isMobile ? 200 : 245;
-
       const tl4 = gsap.timeline({
         scrollTrigger: {
           trigger: "#why-us",
-          start: "top 95%",
-          end: "bottom 50%",
+          start: "top 40%",
+          end: "bottom 30%",
           scrub: true,
           markers: false,
           pin: whyUsVideoOne.current,
         },
       });
 
-      tl4.fromTo(whyUsVideoOne.current, { x: 0 }, { x: x, rotate: 90, duration: 0 })
-         .fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.2 })
-         .fromTo(whyUsVideoOne.current, { y: 0 }, { y: -450, duration: 3 }, "<")
+      tl4.fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.2 })
+         .fromTo(whyUsVideoOne.current, { y: 0 }, { y: -250, duration: 3 }, "<")
          .fromTo(whyUsVideoOne.current, { opacity: 1 }, { opacity: 0, duration: 0.5 }, "-=0.5");
     });
 
@@ -161,8 +157,8 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
 
   return (
     <section className="min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
-      <div className="relative md:hidden items-center">
-        <video loop autoPlay muted src="/whyUsVideoOne.mp4" className="absolute w-50 rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
+      <div className="relative md:hidden">
+        <video loop autoPlay muted src="/whyUsVideoOne.mp4" className="absolute right-4 top-0 w-44 rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
       </div>
 
       <div className="flex flex-col mx-2 md:mx-10 gap-10 md:gap-16 lg:gap-20" ref={text3Ref}>
