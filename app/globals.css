@@ -28,7 +28,7 @@ html, body {
 }
 
 @media (min-width: 768px) {
-  html, body, a, button, [role="button"], input, select, textarea {
+  html, body, a, button, [role="button"], input, select, textarea, .cursor-pointer {
     cursor: none !important;
   }
 }
