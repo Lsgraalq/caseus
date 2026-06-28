@@ -67,7 +67,7 @@ export const translations = {
     recently: "Kürzlich",
     hero: {
       impactText: "Wirkung sichtbar machen.",
-      mainParagraph: "Für nur 99\u00A0€ im Monat erhalten Sie ein ganzes Expertenteam für Ihre Webseite, nahtlos integriert in Ihr Business. Wir vereinen technologische Innovation mit echter menschlicher Exzellenz: Nach einem smarten KI-Briefing sorgen мы rund um die Uhr für schnelle Fehlerbehebungen und neue Funktionen. Statt automatisierter Standardlösungen erwartet Sie eine maßgeschneiderte Betreuung, die Ihren Webauftritt flexibel mit Ihrem Unternehmen mitwachsen lässt."
+      mainParagraph: "Zum monatlichen Festpreis erhalten Sie ein ganzes Expertenteam für Ihre Webseite. Nach einem smarten KI-Briefing betreuen wir Ihren Webauftritt rund um die Uhr mit schnellen Updates und Fehlerbehebungen\u00A0– maßgeschneidert statt automatisierter Standardlösungen, damit Ihr Business flexibel wächst."
     },
     whyUs: [
       {
