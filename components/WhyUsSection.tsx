@@ -86,7 +86,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
 
         ctx = gsap.context(() => {
           const isMobile = window.innerWidth < 768;
-          const endPos = isMobile ? "bottom 55%" : "+=300";
+          const endPos = isMobile ? "top 30%" : "+=150";
 
           // Set initial hidden state
           gsap.set(headings, { opacity: 0 });
