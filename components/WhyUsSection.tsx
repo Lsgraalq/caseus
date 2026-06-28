@@ -24,8 +24,8 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
         const tl4 = gsap.timeline({
           scrollTrigger: {
             trigger: "#why-us",
-            start: "top 20%",
-            end: "bottom 60%",
+            start: "top 60%",
+            end: "bottom 40%",
             scrub: true,
             markers: false,
           },
@@ -180,7 +180,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
           autoPlay
           muted
           playsInline
-          className="absolute right-4 top-48 w-44 rotate-90 rounded-xl opacity-0"
+          className="fixed right-4 top-[35vh] w-44 rotate-90 rounded-xl opacity-0"
           style={{ filter: "url(#chroma-key)" }}
           ref={whyUsVideoOne}
         >
