@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
@@ -11,37 +11,51 @@ gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 export default function WhyUsSection({ locale }: { locale: Locale }) {
   const section3Ref = useRef(null);
   const text3Ref = useRef<HTMLDivElement>(null);
-  const whyUsVideoOne = useRef(null);
+  const whyUsVideoOne = useRef<HTMLVideoElement>(null);
+  const [videoVisible, setVideoVisible] = useState(false);
 
   const t = translations[locale].whyUs;
 
-  // Video pin animation
+  // IntersectionObserver: show/hide fixed video only when Why Us is in viewport
   useEffect(() => {
+    if (typeof window === "undefined" || window.innerWidth >= 768) return;
+    const section = document.getElementById("why-us");
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setVideoVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  // GSAP parallax y-motion while Why Us is in view (mobile only)
+  useEffect(() => {
+    if (typeof window === "undefined" || window.innerWidth >= 768) return;
+    const video = whyUsVideoOne.current;
+    if (!video) return;
+
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add("(max-width: 767px)", () => {
-        gsap.set(whyUsVideoOne.current, { opacity: 0, y: -60 });
-
-        const tl4 = gsap.timeline({
+      gsap.fromTo(
+        video,
+        { y: -30 },
+        {
+          y: 30,
+          ease: "none",
           scrollTrigger: {
             trigger: "#why-us",
-            start: "top 70%",
-            end: "bottom 20%",
-            scrub: 1.5,
-            markers: false,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
           },
-        });
-
-        tl4
-          .to(whyUsVideoOne.current, { opacity: 1, y: 0, duration: 1, ease: "power2.out" })
-          .to(whyUsVideoOne.current, { y: 60, duration: 2, ease: "none" })
-          .to(whyUsVideoOne.current, { opacity: 0, duration: 0.8, ease: "power2.in" }, "-=0.8");
-      });
+        }
+      );
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [videoVisible]); // re-init after video becomes visible
+
 
   // Text scramble animation with resize handling
   useEffect(() => {
@@ -163,36 +177,38 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
 
   return (
     <section className="relative min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
-      <div className="sticky top-[35vh] float-right right-4 w-44 h-0 md:hidden z-20 pointer-events-none">
-        <svg width="0" height="0" className="absolute pointer-events-none">
-          <defs>
-            <filter id="chroma-key">
-              <feColorMatrix
-                type="matrix"
-                values="
-                  1 0 0 0 0
-                  0 1 0 0 0
-                  0 0 1 0 0
-                  0 0 3 0 0
-                "
-              />
-            </filter>
-          </defs>
-        </svg>
-        <video
-          loop
-          autoPlay
-          muted
-          playsInline
-          className="absolute w-44 rotate-90 rounded-xl"
-          style={{ filter: "url(#chroma-key)" }}
-          ref={whyUsVideoOne}
-        >
-          <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
-          <source src="/Cheese Raster Blue.mov" type="video/quicktime" />
-          Ваш браузер не поддерживает видео.
-        </video>
-      </div>
+      {/* Fixed bottom-right video — only on mobile, only visible when Why Us section is on screen */}
+      {videoVisible && (
+        <div className="fixed bottom-4 right-4 z-30 pointer-events-none md:hidden">
+          <svg width="0" height="0" className="absolute">
+            <defs>
+              <filter id="chroma-key">
+                <feColorMatrix
+                  type="matrix"
+                  values="
+                    1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 3 0 0
+                  "
+                />
+              </filter>
+            </defs>
+          </svg>
+          <video
+            loop
+            autoPlay
+            muted
+            playsInline
+            className="w-36 rotate-90 rounded-xl"
+            style={{ filter: "url(#chroma-key)" }}
+            ref={whyUsVideoOne}
+          >
+            <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
+            <source src="/Cheese Raster Blue.mov" type="video/quicktime" />
+          </video>
+        </div>
+      )}
 
       <div className="flex flex-col mx-2 md:mx-10 gap-10 md:gap-16 lg:gap-20" ref={text3Ref}>
         {t.map((item, idx) => (
