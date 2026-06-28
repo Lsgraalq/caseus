@@ -18,20 +18,24 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
   // Video pin animation
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl4 = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#why-us",
-          start: "top 40%",
-          end: "bottom 30%",
-          scrub: true,
-          markers: false,
-          pin: whyUsVideoOne.current,
-        },
-      });
+      const mm = gsap.matchMedia();
 
-      tl4.fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.2 })
-         .fromTo(whyUsVideoOne.current, { y: 0 }, { y: -250, duration: 3 }, "<")
-         .fromTo(whyUsVideoOne.current, { opacity: 1 }, { opacity: 0, duration: 0.5 }, "-=0.5");
+      mm.add("(max-width: 767px)", () => {
+        const tl4 = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#why-us",
+            start: "top 40%",
+            end: "bottom 30%",
+            scrub: true,
+            markers: false,
+            pin: whyUsVideoOne.current,
+          },
+        });
+
+        tl4.fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.2 })
+           .fromTo(whyUsVideoOne.current, { y: 0 }, { y: -250, duration: 3 }, "<")
+           .fromTo(whyUsVideoOne.current, { opacity: 1 }, { opacity: 0, duration: 0.5 }, "-=0.5");
+      });
     });
 
     return () => ctx.revert();
@@ -158,7 +162,17 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
   return (
     <section className="min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
       <div className="relative md:hidden">
-        <video loop autoPlay muted src="/whyUsVideoOne.mp4" className="absolute right-4 top-0 w-44 rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
+        <video
+          loop
+          autoPlay
+          muted
+          playsInline
+          className="absolute right-4 top-0 w-44 rotate-90 rounded-xl"
+          ref={whyUsVideoOne}
+        >
+          <source src="/Cheese Raster Blue.mov" type="video/quicktime" />
+          Ваш браузер не поддерживает видео.
+        </video>
       </div>
 
       <div className="flex flex-col mx-2 md:mx-10 gap-10 md:gap-16 lg:gap-20" ref={text3Ref}>
