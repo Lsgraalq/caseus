@@ -72,19 +72,69 @@ export default function JellyCursor({ locale }: { locale: Locale }) {
       targetSection.addEventListener("mouseenter", () => {
         cursorPointer.style.display = "flex";
         if (cursorDiv) {
-          cursorDiv.style.width = "200px";
-          cursorDiv.style.border = "0px";
+          gsap.to(cursorDiv, {
+            width: "200px",
+            border: "0px solid transparent",
+            duration: 0.3,
+            ease: "power2.out"
+          });
         }
       });
 
       targetSection.addEventListener("mouseleave", () => {
         cursorPointer.style.display = "none";
         if (cursorDiv) {
-          cursorDiv.style.width = "42px";
-          cursorDiv.style.border = "2px solid gray";
+          gsap.to(cursorDiv, {
+            width: "42px",
+            border: "2px solid gray",
+            duration: 0.3,
+            ease: "power2.out"
+          });
         }
       });
     }
+
+    // Hover effect for clickable elements
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && (target.closest("a") || target.closest("button") || target.closest(".cursor-pointer") || target.closest('[role="button"]'))) {
+        if (cursorDiv) {
+          gsap.to(cursorDiv, {
+            width: "21px",
+            height: "21px",
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        }
+      }
+    };
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && (target.closest("a") || target.closest("button") || target.closest(".cursor-pointer") || target.closest('[role="button"]'))) {
+        const relatedTarget = e.relatedTarget as HTMLElement;
+        if (!relatedTarget || !(relatedTarget.closest("a") || relatedTarget.closest("button") || relatedTarget.closest(".cursor-pointer") || relatedTarget.closest('[role="button"]'))) {
+          if (cursorDiv) {
+            gsap.to(cursorDiv, {
+              width: "42px",
+              height: "42px",
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          }
+        }
+      }
+    };
+
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
+
+    return () => {
+      document.removeEventListener("mouseleave", hideCursor);
+      document.removeEventListener("mouseenter", showCursor);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
+    };
   }, []);
 
   return (
