@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef /*, useState */ } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
@@ -9,68 +9,52 @@ import { translations, Locale } from "@/utils/translations";
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
 export default function WhyUsSection({ locale }: { locale: Locale }) {
-  const section3Ref = useRef<HTMLElement>(null);
+  const section3Ref = useRef(null);
   const text3Ref = useRef<HTMLDivElement>(null);
-  const whyUsVideoOne = useRef<HTMLVideoElement>(null);
-  const videoContainerRef = useRef<HTMLDivElement>(null);
+  // const whyUsVideoOne = useRef<HTMLVideoElement>(null);
+  // const [videoVisible, setVideoVisible] = useState(false);
 
   const t = translations[locale].whyUs;
 
-  // Mobile video: FadeIn + move top → bottom across section, stop at the end
-  useEffect(() => {
-    const container = videoContainerRef.current;
-    if (!container) return;
+  // // IntersectionObserver: show/hide fixed video only when Why Us is in viewport
+  // useEffect(() => {
+  //   if (typeof window === "undefined" || window.innerWidth >= 768) return;
+  //   const section = document.getElementById("why-us");
+  //   if (!section) return;
 
-    const videoVisualHeight = 150;
-    const gap = 16;
+  //   const observer = new IntersectionObserver(
+  //     ([entry]) => setVideoVisible(entry.isIntersecting),
+  //     { threshold: 0.05 }
+  //   );
+  //   observer.observe(section);
+  //   return () => observer.disconnect();
+  // }, []);
 
-    // Use gsap.matchMedia so this re-evaluates if the user resizes the window
-    const mm = gsap.matchMedia();
+  // // GSAP parallax y-motion while Why Us is in view (mobile only)
+  // useEffect(() => {
+  //   if (typeof window === "undefined" || window.innerWidth >= 768) return;
+  //   const video = whyUsVideoOne.current;
+  //   if (!video) return;
 
-    mm.add("(max-width: 767px)", () => {
-      const vh = window.innerHeight;
-      const endTop = vh - videoVisualHeight - gap;
+  //   const ctx = gsap.context(() => {
+  //     gsap.fromTo(
+  //       video,
+  //       { y: -30 },
+  //       {
+  //         y: 30,
+  //         ease: "none",
+  //         scrollTrigger: {
+  //           trigger: "#why-us",
+  //           start: "top bottom",
+  //           end: "bottom top",
+  //           scrub: true,
+  //         },
+  //       }
+  //     );
+  //   });
 
-      // Start hidden at top-right
-      gsap.set(container, { opacity: 0, top: gap });
-
-      // 1. FadeIn as section enters
-      gsap.to(container, {
-        opacity: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: "#why-us",
-          start: "top 80%",
-          end: "top 40%",
-          scrub: true,
-        },
-      });
-
-      // 2. Slide top → bottom while section scrolls through viewport
-      gsap.fromTo(
-        container,
-        { top: gap },
-        {
-          top: endTop,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#why-us",
-            start: "top top",
-            end: "bottom bottom",
-            scrub: true,
-          },
-        }
-      );
-
-      // Cleanup when breakpoint changes back to desktop
-      return () => {
-        gsap.set(container, { clearProps: "all" });
-      };
-    });
-
-    return () => mm.revert();
-  }, []);
-
+  //   return () => ctx.revert();
+  // }, [videoVisible]); // re-init after video becomes visible
 
   // Text scramble animation with resize handling
   useEffect(() => {
@@ -83,8 +67,11 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
     const setupAnimations = (delay: number) => {
       clearTimeout(timer);
       timer = setTimeout(() => {
+        // Revert previous context
         if (ctx) ctx.revert();
 
+        // Restore original text from translations before GSAP scrambles it
+        // (on resize the DOM might hold a partially scrambled state)
         const headings = el.querySelectorAll("h2");
         const paragraphs = el.querySelectorAll("p");
         headings.forEach((h, i) => {
@@ -94,15 +81,18 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
           if (t[i]) p.textContent = t[i].description;
         });
 
+        // Recalculate all ScrollTrigger positions (including hero pin spacer)
         ScrollTrigger.refresh();
 
         ctx = gsap.context(() => {
           const isMobile = window.innerWidth < 768;
           const endPos = isMobile ? "bottom 55%" : "+=300";
 
+          // Set initial hidden state
           gsap.set(headings, { opacity: 0 });
           gsap.set(paragraphs, { opacity: 0 });
 
+          // Scramble headings (brand blue)
           headings.forEach((h, i) => {
             const originalText = t[i]?.title || h.textContent || "";
             const tl = gsap.timeline({
@@ -131,6 +121,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
             );
           });
 
+          // Scramble paragraphs
           paragraphs.forEach((p, i) => {
             const originalText = t[i]?.description || p.textContent || "";
             const tl = gsap.timeline({
@@ -162,8 +153,11 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
       }, delay);
     };
 
+    // Initial setup — wait for hero pin spacer to be measured
     setupAnimations(900);
 
+    // On resize: wait longer to let HeroSection reinitialize its pin first,
+    // then refresh and rebuild our ScrollTriggers.
     let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
       clearTimeout(resizeTimer);
@@ -181,58 +175,47 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
   }, [locale]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <section
-      className="relative min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl"
-      id="why-us"
-      ref={section3Ref}
-    >
-      {/*
-        ── Mobile: cheese video, fixed to viewport right edge, slides top→bottom
-           as user scrolls through Why Us section. Invisible on other sections.
-           Container is `fixed` — GSAP animates `top` via ScrollTrigger.
-      ──*/}
-      <div
-        ref={videoContainerRef}
-        className="fixed right-4 md:hidden z-30 pointer-events-none"
-        style={{ top: 16, opacity: 0 }}
-      >
-        {/* SVG chroma-key: strips black background, keeps rich blue */}
-        <svg width="0" height="0" className="absolute pointer-events-none">
-          <defs>
-            <filter id="chroma-key">
-              <feColorMatrix
-                type="matrix"
-                values="
-                  1 0 0 0 0
-                  0 1 0 0 0
-                  0 0 1 0 0
-                  0 0 3 0 0
-                "
-              />
-            </filter>
-          </defs>
-        </svg>
-        <video
-          loop
-          autoPlay
-          muted
-          playsInline
-          className="w-36 rotate-90 rounded-xl"
-          style={{ filter: "url(#chroma-key)" }}
-          ref={whyUsVideoOne}
-        >
-          <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
-          <source src="/Cheese Raster Blue.mov" type="video/quicktime" />
-        </video>
-      </div>
+    <section className="relative min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
 
-      {/* ── Text content ── */}
+      {/* Fixed bottom-right video — TEMPORARILY DISABLED
+      {videoVisible && (
+        <div className="fixed bottom-4 right-4 z-30 pointer-events-none md:hidden">
+          <svg width="0" height="0" className="absolute">
+            <defs>
+              <filter id="chroma-key">
+                <feColorMatrix
+                  type="matrix"
+                  values="
+                    1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 3 0 0
+                  "
+                />
+              </filter>
+            </defs>
+          </svg>
+          <video
+            loop
+            autoPlay
+            muted
+            playsInline
+            className="w-36 rotate-90 rounded-xl"
+            style={{ filter: "url(#chroma-key)" }}
+            ref={whyUsVideoOne}
+          >
+            <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
+            <source src="/Cheese Raster Blue.mov" type="video/quicktime" />
+          </video>
+        </div>
+      )}
+      */}
+
       <div className="flex flex-col mx-2 md:mx-10 gap-10 md:gap-16 lg:gap-20" ref={text3Ref}>
         {t.map((item, idx) => (
           <div key={idx} className="flex flex-col md:flex-row md:items-center gap-2 md:gap-12">
-            <h2 className="text-5xl md:text-6xl font-heading text-[#0802E2] md:w-[320px] lg:w-[400px] shrink-0">
-              {item.title}
-            </h2>
+            {/* Brand blue heading — fixed width so paragraphs align consistently on the right */}
+            <h2 className="text-5xl md:text-6xl font-heading text-[#0802E2] md:w-[320px] lg:w-[400px] shrink-0">{item.title}</h2>
             <p className="flex-1 text-xl md:text-2xl lg:text-3xl pt-1 md:pt-0 leading-snug break-words md:text-right">
               {item.description}
             </p>
