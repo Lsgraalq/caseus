@@ -169,6 +169,15 @@ export default function HeroSection({ locale }: { locale: Locale }) {
             "-=0.6"
           );
 
+          // 5. Pull up the main content trigger dynamically as the typing animation finishes
+          const pullUpDistance = isMobile ? -80 : -220;
+          tl.fromTo(
+            "#main-content-trigger",
+            { y: 0 },
+            { y: pullUpDistance, duration: 1.5, ease: "power2.out" },
+            "-=1.5"
+          );
+
         }
       });
     };
