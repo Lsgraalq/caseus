@@ -18,34 +18,35 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
 
   // Mobile video: FadeIn + move top → bottom across section, stop at the end
   useEffect(() => {
-    if (typeof window === "undefined" || window.innerWidth >= 768) return;
     const container = videoContainerRef.current;
     if (!container) return;
 
-    // Visual height of the rotated video (w-36 rotated 90° ≈ 144px wide video, displayed as tall)
     const videoVisualHeight = 150;
     const gap = 16;
 
-    // Set initial state: invisible, positioned at top-right
-    gsap.set(container, { opacity: 0, top: gap, right: gap });
+    // Use gsap.matchMedia so this re-evaluates if the user resizes the window
+    const mm = gsap.matchMedia();
 
-    const ctx = gsap.context(() => {
+    mm.add("(max-width: 767px)", () => {
       const vh = window.innerHeight;
       const endTop = vh - videoVisualHeight - gap;
 
-      // 1. FadeIn when the section enters the viewport
+      // Start hidden at top-right
+      gsap.set(container, { opacity: 0, top: gap });
+
+      // 1. FadeIn as section enters
       gsap.to(container, {
         opacity: 1,
         ease: "power2.out",
         scrollTrigger: {
           trigger: "#why-us",
-          start: "top 80%",   // section top hits 80% from top of viewport
-          end: "top 40%",     // fully opaque by 40%
+          start: "top 80%",
+          end: "top 40%",
           scrub: true,
         },
       });
 
-      // 2. Slide from top (16px) to bottom (vh - videoHeight - 16px) as section scrolls
+      // 2. Slide top → bottom while section scrolls through viewport
       gsap.fromTo(
         container,
         { top: gap },
@@ -54,16 +55,22 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
           ease: "none",
           scrollTrigger: {
             trigger: "#why-us",
-            start: "top top",      // when section top hits viewport top → start moving
-            end: "bottom bottom",  // when section bottom hits viewport bottom → stop
+            start: "top top",
+            end: "bottom bottom",
             scrub: true,
           },
         }
       );
+
+      // Cleanup when breakpoint changes back to desktop
+      return () => {
+        gsap.set(container, { clearProps: "all" });
+      };
     });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
+
 
   // Text scramble animation with resize handling
   useEffect(() => {
