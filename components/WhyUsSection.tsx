@@ -21,18 +21,22 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
       const mm = gsap.matchMedia();
 
       mm.add("(max-width: 767px)", () => {
+        gsap.set(whyUsVideoOne.current, { opacity: 0, y: -60 });
+
         const tl4 = gsap.timeline({
           scrollTrigger: {
             trigger: "#why-us",
-            start: "top 60%",
-            end: "bottom 40%",
-            scrub: true,
+            start: "top 70%",
+            end: "bottom 20%",
+            scrub: 1.5,
             markers: false,
           },
         });
 
-        tl4.fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.5 })
-           .to(whyUsVideoOne.current, { opacity: 0, duration: 0.5 }, "+=2");
+        tl4
+          .to(whyUsVideoOne.current, { opacity: 1, y: 0, duration: 1, ease: "power2.out" })
+          .to(whyUsVideoOne.current, { y: 60, duration: 2, ease: "none" })
+          .to(whyUsVideoOne.current, { opacity: 0, duration: 0.8, ease: "power2.in" }, "-=0.8");
       });
     });
 
@@ -180,7 +184,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
           autoPlay
           muted
           playsInline
-          className="absolute w-44 rotate-90 rounded-xl opacity-0"
+          className="absolute w-44 rotate-90 rounded-xl"
           style={{ filter: "url(#chroma-key)" }}
           ref={whyUsVideoOne}
         >
