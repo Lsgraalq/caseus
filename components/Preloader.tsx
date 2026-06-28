@@ -94,16 +94,21 @@ export default function Preloader({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="preloader fixed inset-0 flex flex-col items-center justify-center bg-white text-black z-50">
-      <h1 className="text-2xl font-bold mb-4">
-        {t.preloader} {progress}%
+    <div className="preloader fixed inset-0 flex flex-col items-center justify-center bg-[#0802E2] text-white z-50">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-64 h-64 object-contain mb-2 mix-blend-screen"
+      >
+        <source src="/Cheese Raster White.mp4" type="video/mp4" />
+        <source src="/Cheese Raster White.mov" type="video/quicktime" />
+        Ваш браузер не поддерживает видео.
+      </video>
+      <h1 className="text-[28px] font-mono font-extralight tracking-widest tabular-nums">
+        {progress}%
       </h1>
-      <div className="w-64 h-2 bg-gray-700 rounded overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-[#3261fb] to-[#36f96d] transition-all duration-200"
-          style={{ width: `${progress}%` }}
-        ></div>
-      </div>
     </div>
   );
 }
