@@ -9,24 +9,24 @@ export const translations = {
     },
     whyUs: [
       {
-        title: "Presence",
-        description: "Building a professional digital identity that earns public trust."
+        title: "Plannable",
+        description: "Transparent fixed prices with no hidden costs: from €499 setup, €99 support."
       },
       {
-        title: "Storytelling",
-        description: "Crafting compelling content that brings your mission to life."
+        title: "Smart Briefing",
+        description: "AI-powered onboarding in minutes — no lengthy meetings required."
       },
       {
-        title: "Outreach",
-        description: "Strategic campaigns to engage new donors and volunteers."
+        title: "Client Portal",
+        description: "Submit tasks asynchronously and track their status live in your dashboard."
       },
       {
-        title: "Impact",
-        description: "Measuring results to maximize your social reach and awareness."
+        title: "Reliability",
+        description: "Smooth operations with 2 hours of included support every month."
       },
       {
-        title: "Community",
-        description: "Fostering active engagement with your supporters and stakeholders."
+        title: "Flexibility",
+        description: "Modular growth: add new sections flexibly for just €100 each."
       }
     ],
     navbar: {
@@ -71,24 +71,24 @@ export const translations = {
     },
     whyUs: [
       {
-        title: "Profile",
-        description: "Professionelle Präsenz aufbauen, die Vertrauen schafft."
+        title: "Planbarkeit",
+        description: "Transparente Fixpreise ohne versteckte Kosten: ab 499\u20AC Setup, 99\u20AC Support."
       },
       {
-        title: "Inhalte",
-        description: "Storytelling, das bewegt und Ihre Mission sichtbar macht."
+        title: "Smart Briefing",
+        description: "KI-gest\u00FCtztes Onboarding in wenigen Minuten \u2013 ganz ohne stundenlange Meetings."
       },
       {
-        title: "Sichtbarkeit",
-        description: "Gezielte Kampagnen zur Gewinnung von Spendern und Ehrenamtlichen."
+        title: "Kundenportal",
+        description: "Aufgaben asynchron einreichen und den Status im Dashboard live verfolgen."
       },
       {
-        title: "Wirkung",
-        description: "Ergebnisse messen, um die soziale Reichweite zu maximieren."
+        title: "Sicherheit",
+        description: "Reibungsloser Betrieb durch 2 Stunden inkludierten Support jeden Monat."
       },
       {
-        title: "Community",
-        description: "Aktiven Austausch mit Unterstützern und Förderern fördern."
+        title: "Flexibilit\u00E4t",
+        description: "Modulares Wachstum: Neue Sektionen flexibel f\u00FCr je 100 \u20AC hinzuf\u00FCgen."
       }
     ],
     navbar: {
