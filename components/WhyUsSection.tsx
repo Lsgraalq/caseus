@@ -24,17 +24,16 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
         const tl4 = gsap.timeline({
           scrollTrigger: {
             trigger: "#why-us",
-            start: "top 35%",
-            end: "bottom 40%",
+            start: "top 20%",
+            end: "bottom 60%",
             scrub: true,
             markers: false,
             pin: whyUsVideoOne.current,
           },
         });
 
-        tl4.fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.2 })
-           .fromTo(whyUsVideoOne.current, { y: 0 }, { y: 80, duration: 3 }, "<")
-           .fromTo(whyUsVideoOne.current, { opacity: 1 }, { opacity: 0, duration: 0.5 }, "-=0.5");
+        tl4.fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.5 })
+           .to(whyUsVideoOne.current, { opacity: 0, duration: 0.5 }, "+=2");
       });
     });
 
@@ -162,13 +161,28 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
   return (
     <section className="min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
       <div className="relative md:hidden">
+        <svg width="0" height="0" className="absolute pointer-events-none">
+          <defs>
+            <filter id="chroma-key">
+              <feColorMatrix
+                type="matrix"
+                values="
+                  1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 3 0 0
+                "
+              />
+            </filter>
+          </defs>
+        </svg>
         <video
           loop
           autoPlay
           muted
           playsInline
-          className="absolute right-4 top-48 w-44 rotate-90 rounded-xl opacity-0 mix-blend-multiply"
-          style={{ filter: "invert(1) hue-rotate(180deg)" }}
+          className="absolute right-4 top-48 w-44 rotate-90 rounded-xl opacity-0"
+          style={{ filter: "url(#chroma-key)" }}
           ref={whyUsVideoOne}
         >
           <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
