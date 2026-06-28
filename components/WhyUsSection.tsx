@@ -9,53 +9,54 @@ import { translations, Locale } from "@/utils/translations";
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
 export default function WhyUsSection({ locale }: { locale: Locale }) {
-  const section3Ref = useRef(null);
+  const section3Ref = useRef<HTMLElement>(null);
   const text3Ref = useRef<HTMLDivElement>(null);
   const whyUsVideoOne = useRef<HTMLVideoElement>(null);
-  const [videoVisible, setVideoVisible] = useState(false);
+
+  // "fixed" = follows viewport corner, "absolute" = pinned to section bottom, "hidden" = invisible
+  const [videoMode, setVideoMode] = useState<"hidden" | "fixed" | "absolute">("hidden");
+  // Absolute offset from section bottom (px) when mode switches to "absolute"
+  const [videoBottom, setVideoBottom] = useState(16);
 
   const t = translations[locale].whyUs;
 
-  // IntersectionObserver: show/hide fixed video only when Why Us is in viewport
+  // Scroll listener: control video visibility + switch fixed ↔ absolute at section end
   useEffect(() => {
     if (typeof window === "undefined" || window.innerWidth >= 768) return;
-    const section = document.getElementById("why-us");
-    if (!section) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setVideoVisible(entry.isIntersecting),
-      { threshold: 0.05 }
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
+    const VIDEO_HEIGHT = 148; // rotated video apparent height (w-36 = 144px + a bit)
+    const GAP = 16; // bottom-4 = 16px
+
+    const onScroll = () => {
+      const section = section3Ref.current;
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // Section fully outside viewport
+      if (rect.bottom <= 0 || rect.top >= vh) {
+        setVideoMode("hidden");
+        return;
+      }
+
+      // How much space remains between viewport bottom and section bottom?
+      // rect.bottom < (VIDEO_HEIGHT + GAP) means the section bottom is about to leave
+      // which is when we want to anchor the video absolutely to prevent it going into footer
+      if (rect.bottom <= VIDEO_HEIGHT + GAP * 2) {
+        // Switch to absolute-within-section; keep video pinned to section bottom
+        const offset = Math.max(GAP, vh - rect.bottom + GAP);
+        setVideoBottom(offset);
+        setVideoMode("absolute");
+      } else {
+        setVideoMode("fixed");
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // run once on mount
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  // GSAP parallax y-motion while Why Us is in view (mobile only)
-  useEffect(() => {
-    if (typeof window === "undefined" || window.innerWidth >= 768) return;
-    const video = whyUsVideoOne.current;
-    if (!video) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        video,
-        { y: -30 },
-        {
-          y: 30,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#why-us",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
-    });
-
-    return () => ctx.revert();
-  }, [videoVisible]); // re-init after video becomes visible
-
 
   // Text scramble animation with resize handling
   useEffect(() => {
@@ -175,41 +176,61 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
     };
   }, [locale]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Shared video element (rendered once, never unmounted to avoid GSAP issues)
+  const videoEl = (
+    <>
+      {/* SVG chroma-key filter: strips black background while keeping rich blue */}
+      <svg width="0" height="0" className="absolute pointer-events-none">
+        <defs>
+          <filter id="chroma-key">
+            <feColorMatrix
+              type="matrix"
+              values="
+                1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 3 0 0
+              "
+            />
+          </filter>
+        </defs>
+      </svg>
+      <video
+        loop
+        autoPlay
+        muted
+        playsInline
+        className="w-36 rotate-90 rounded-xl"
+        style={{ filter: "url(#chroma-key)" }}
+        ref={whyUsVideoOne}
+      >
+        <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
+        <source src="/Cheese Raster Blue.mov" type="video/quicktime" />
+      </video>
+    </>
+  );
+
   return (
-    <section className="relative min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
-      {/* Fixed bottom-right video — only on mobile, only visible when Why Us section is on screen */}
-      {videoVisible && (
-        <div className="fixed bottom-4 right-4 z-30 pointer-events-none md:hidden">
-          <svg width="0" height="0" className="absolute">
-            <defs>
-              <filter id="chroma-key">
-                <feColorMatrix
-                  type="matrix"
-                  values="
-                    1 0 0 0 0
-                    0 1 0 0 0
-                    0 0 1 0 0
-                    0 0 3 0 0
-                  "
-                />
-              </filter>
-            </defs>
-          </svg>
-          <video
-            loop
-            autoPlay
-            muted
-            playsInline
-            className="w-36 rotate-90 rounded-xl"
-            style={{ filter: "url(#chroma-key)" }}
-            ref={whyUsVideoOne}
-          >
-            <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
-            <source src="/Cheese Raster Blue.mov" type="video/quicktime" />
-          </video>
+    <section
+      className="relative min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl"
+      id="why-us"
+      ref={section3Ref}
+    >
+      {/* ── Mobile video: follows viewport bottom-right corner while in Why Us ── */}
+      {videoMode !== "hidden" && (
+        <div
+          className="md:hidden z-30 pointer-events-none"
+          style={
+            videoMode === "fixed"
+              ? { position: "fixed", bottom: 16, right: 16 }
+              : { position: "absolute", bottom: videoBottom, right: 16 }
+          }
+        >
+          {videoEl}
         </div>
       )}
 
+      {/* ── Text content ── */}
       <div className="flex flex-col mx-2 md:mx-10 gap-10 md:gap-16 lg:gap-20" ref={text3Ref}>
         {t.map((item, idx) => (
           <div key={idx} className="flex flex-col md:flex-row md:items-center gap-2 md:gap-12">
