@@ -24,8 +24,8 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
         const tl4 = gsap.timeline({
           scrollTrigger: {
             trigger: "#why-us",
-            start: "top 60%",
-            end: "bottom 40%",
+            start: "top top",
+            end: "bottom bottom",
             scrub: true,
             markers: false,
           },
