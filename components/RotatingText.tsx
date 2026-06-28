@@ -23,7 +23,7 @@ export default function RotatingText({ text, size = "large" }: { text: string; s
   const isSmall = size === "small";
 
   // Создаем массив из нескольких слов, чтобы заполнить экран
-  const items = [...Array(4)].map((_, i) => (
+  const items = [...Array(12)].map((_, i) => (
     <h1 key={i} className={`${isSmall ? "text-[35px] md:text-[55px]" : "text-[60px] md:text-[130px]"} apercu-bold uppercase px-8 shrink-0`}>
       {text}
     </h1>
