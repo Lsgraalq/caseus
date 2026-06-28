@@ -71,8 +71,10 @@ export default function ProjectsSection({ projects, locale }: ProjectProps) {
                         className="block w-full h-full rounded-2xl transition-transform duration-500 group-hover:scale-105 object-cover"
                       />
                     )}
-                    <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3 z-10">
-                      <p className="text-black font-semibold text-xl md:text-2xl m-auto">{title}</p>
+                    <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-full flex flex-row gap-3 z-10">
+                      <p className="text-black font-semibold text-xl md:text-2xl m-auto">
+                        {title.length > 25 ? title.substring(0, 25) + "..." : title}
+                      </p>
                       <div className="inline-flex items-center justify-center rounded-full bg-gray-100 transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
                         <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out" />
                       </div>
@@ -97,8 +99,10 @@ export default function ProjectsSection({ projects, locale }: ProjectProps) {
                       className="block w-full h-full rounded-2xl transition-transform duration-500 group-hover:scale-105 object-cover"
                     />
                   )}
-                  <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-xl flex flex-row gap-3 z-10">
-                    <p className="text-black font-semibold text-xl md:text-2xl m-auto">{title}</p>
+                  <div className="absolute bottom-4 left-4 bg-white px-5 pt-3 pb-3 rounded-full flex flex-row gap-3 z-10">
+                    <p className="text-black font-semibold text-xl md:text-2xl m-auto">
+                      {title.length > 25 ? title.substring(0, 25) + "..." : title}
+                    </p>
                     <div className="inline-flex items-center justify-center rounded-full bg-gray-100 transition-colors duration-550 ease-in-out group-hover:bg-black p-2 md:p-3">
                       <PiArrowRightThin className="text-xl text-black group-hover:text-white transition-colors duration-550 ease-in-out" />
                     </div>
