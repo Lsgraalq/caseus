@@ -24,8 +24,8 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
         const tl4 = gsap.timeline({
           scrollTrigger: {
             trigger: "#why-us",
-            start: "top 40%",
-            end: "bottom 30%",
+            start: "top 35%",
+            end: "bottom 40%",
             scrub: true,
             markers: false,
             pin: whyUsVideoOne.current,
@@ -33,7 +33,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
         });
 
         tl4.fromTo(whyUsVideoOne.current, { opacity: 0 }, { opacity: 1, duration: 0.2 })
-           .fromTo(whyUsVideoOne.current, { y: 0 }, { y: -250, duration: 3 }, "<")
+           .fromTo(whyUsVideoOne.current, { y: 0 }, { y: 80, duration: 3 }, "<")
            .fromTo(whyUsVideoOne.current, { opacity: 1 }, { opacity: 0, duration: 0.5 }, "-=0.5");
       });
     });
@@ -167,7 +167,8 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
           autoPlay
           muted
           playsInline
-          className="absolute right-4 top-0 w-44 rotate-90 rounded-xl mix-blend-screen"
+          className="absolute right-4 top-48 w-44 rotate-90 rounded-xl opacity-0 mix-blend-multiply"
+          style={{ filter: "invert(1) hue-rotate(180deg)" }}
           ref={whyUsVideoOne}
         >
           <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
