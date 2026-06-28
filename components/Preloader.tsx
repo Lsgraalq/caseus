@@ -104,7 +104,7 @@ export default function Preloader({ locale }: { locale: Locale }) {
       >
         <source src="/Cheese Raster White.mp4" type="video/mp4" />
         <source src="/Cheese Raster White.mov" type="video/quicktime" />
-        Ваш браузер не поддерживает видео.
+        Your browser does not support video.
       </video>
       <h1 className="text-[28px] font-mono font-extralight tracking-widest tabular-nums">
         {progress}%

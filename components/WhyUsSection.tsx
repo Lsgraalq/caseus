@@ -165,12 +165,12 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
         <video loop autoPlay muted src="/whyUsVideoOne.mp4" className="absolute w-50 rotate-90 rounded-xl" ref={whyUsVideoOne}></video>
       </div>
 
-      <div className="flex flex-col mx-4 md:mx-16 lg:mx-24 gap-10 md:gap-16 lg:gap-20" ref={text3Ref}>
+      <div className="flex flex-col mx-2 md:mx-10 gap-10 md:gap-16 lg:gap-20" ref={text3Ref}>
         {t.map((item, idx) => (
           <div key={idx} className="flex flex-col md:flex-row md:items-center gap-2 md:gap-12">
             {/* Brand blue heading — fixed width so paragraphs align consistently on the right */}
             <h2 className="text-5xl md:text-6xl font-heading text-[#0802E2] md:w-[320px] lg:w-[400px] shrink-0">{item.title}</h2>
-            <p className="flex-1 text-xl md:text-2xl lg:text-3xl pt-1 md:pt-0 leading-snug break-words">
+            <p className="flex-1 text-xl md:text-2xl lg:text-3xl pt-1 md:pt-0 leading-snug break-words md:text-right">
               {item.description}
             </p>
           </div>

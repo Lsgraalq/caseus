@@ -1,6 +1,6 @@
 export const translations = {
   en: {
-    jellyCursor: "What we do",
+    jellyCursor: "why us?",
     preloader: "Loading…",
     hero: {
       impactText: "Making impact visible.",
@@ -61,7 +61,7 @@ export const translations = {
     }
   },
   de: {
-    jellyCursor: "Was wir tun",
+    jellyCursor: "warum wir?",
     preloader: "Wird geladen…",
     hero: {
       impactText: "Wirkung sichtbar machen.",

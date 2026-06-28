@@ -88,7 +88,7 @@ export default function JellyCursor({ locale }: { locale: Locale }) {
 
   return (
     <div id="jelly-cursor" className="hidden md:flex" style={{ pointerEvents: "none" }}>
-      <div className="text-blue-300 text-2xl border-b-1 pb-0 libre-regular" id="cursor-event" style={{ pointerEvents: "none" }}>
+      <div className="text-[#0802E2] text-2xl border-b-1 pb-0 font-mono font-extralight tracking-widest" id="cursor-event" style={{ pointerEvents: "none" }}>
         {t.jellyCursor}
       </div>
     </div>
