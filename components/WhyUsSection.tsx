@@ -167,7 +167,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
           autoPlay
           muted
           playsInline
-          className="absolute right-4 top-0 w-44 rotate-90 rounded-xl"
+          className="absolute right-4 top-0 w-44 rotate-90 rounded-xl mix-blend-screen"
           ref={whyUsVideoOne}
         >
           <source src="/Cheese Raster Blue.mp4" type="video/mp4" />
