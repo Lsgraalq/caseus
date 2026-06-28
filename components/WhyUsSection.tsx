@@ -24,8 +24,8 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
         const tl4 = gsap.timeline({
           scrollTrigger: {
             trigger: "#why-us",
-            start: "top top",
-            end: "bottom bottom",
+            start: "top 60%",
+            end: "bottom 40%",
             scrub: true,
             markers: false,
           },
@@ -158,8 +158,8 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
   }, [locale]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <section className="min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
-      <div className="relative md:hidden">
+    <section className="relative min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
+      <div className="sticky top-[35vh] float-right right-4 w-44 h-0 md:hidden z-20 pointer-events-none">
         <svg width="0" height="0" className="absolute pointer-events-none">
           <defs>
             <filter id="chroma-key">
@@ -180,7 +180,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
           autoPlay
           muted
           playsInline
-          className="fixed right-4 top-[35vh] w-44 rotate-90 rounded-xl opacity-0"
+          className="absolute w-44 rotate-90 rounded-xl opacity-0"
           style={{ filter: "url(#chroma-key)" }}
           ref={whyUsVideoOne}
         >
