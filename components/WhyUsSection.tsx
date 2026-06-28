@@ -28,7 +28,6 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
             end: "bottom 60%",
             scrub: true,
             markers: false,
-            pin: whyUsVideoOne.current,
           },
         });
 
