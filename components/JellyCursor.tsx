@@ -25,6 +25,7 @@ export default function JellyCursor({ locale }: { locale: Locale }) {
 
     const setX = gsap.quickSetter(elasticCursor, "x", "px");
     const setY = gsap.quickSetter(elasticCursor, "y", "px");
+    gsap.set(elasticCursor, { xPercent: -50, yPercent: -50 });
 
     function update() {
       setX(pos.x);
