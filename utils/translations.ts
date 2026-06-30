@@ -42,7 +42,7 @@ export const translations = {
       flagSrc: "/england.png"
     },
     footer: {
-      heading: "Believing in \n people and the power \nof goodness",
+      heading: "Cutting-edge \ntechnologies supported \nby human power",
       headingClass: "pt-30 md:pt-10 text-[45px] leading-12 2xl:text-[170px] 2xl:leading-40 xl md:text-[60px] xl:text-[100px] xl:leading-20",
       jobInquiry: "You got a work ?",
       followUs: "Follow us :",
@@ -106,7 +106,7 @@ export const translations = {
       flagSrc: "/germany.png"
     },
     footer: {
-      heading: "Wir glauben an \nden Menschen und \ndie Kraft des Guten",
+      heading: "Modernste \nTechnologien unterstützt \ndurch menschliche Kraft",
       headingClass: "pt-30 md:pt-10 text-[45px] leading-12 2xl:text-[140px] 2xl:leading-40 xl md:text-[60px] xl:text-[100px] xl:leading-20",
       jobInquiry: "Hast du ein Projekt?",
       followUs: "Folge uns:",

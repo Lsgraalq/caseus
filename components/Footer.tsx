@@ -32,12 +32,12 @@ export default function Footer({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <div className="mb-[110vh] bg-[#0500FF]"></div>
+      <div className="mb-[110vh] bg-[#0802E2]"></div>
       {/* --- STICKY FOOTER LAYER --- */}
       <div 
         ref={footerRef}
         id="site-footer"
-        className="bg-[#0500FF] h-screen flex flex-col w-screen px-3 text-white fixed bottom-0 md:px-10"
+        className="bg-[#0802E2] h-screen flex flex-col w-screen px-3 text-white fixed bottom-0 md:px-10"
       >
         
         {/* Footer Heading */}
