@@ -9,52 +9,39 @@ import { translations, Locale } from "@/utils/translations";
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
 export default function WhyUsSection({ locale }: { locale: Locale }) {
-  const section3Ref = useRef(null);
+  const section3Ref = useRef<HTMLElement>(null);
   const text3Ref = useRef<HTMLDivElement>(null);
-  // const whyUsVideoOne = useRef<HTMLVideoElement>(null);
-  // const [videoVisible, setVideoVisible] = useState(false);
+  const whyUsVideoOne = useRef<HTMLVideoElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
 
   const t = translations[locale].whyUs;
 
-  // // IntersectionObserver: show/hide fixed video only when Why Us is in viewport
-  // useEffect(() => {
-  //   if (typeof window === "undefined" || window.innerWidth >= 768) return;
-  //   const section = document.getElementById("why-us");
-  //   if (!section) return;
+  // Mobile video FadeIn animation using gsap.matchMedia for accurate breakpoints
+  useEffect(() => {
+    const container = videoContainerRef.current;
+    if (!container) return;
 
-  //   const observer = new IntersectionObserver(
-  //     ([entry]) => setVideoVisible(entry.isIntersecting),
-  //     { threshold: 0.05 }
-  //   );
-  //   observer.observe(section);
-  //   return () => observer.disconnect();
-  // }, []);
+    const mm = gsap.matchMedia();
 
-  // // GSAP parallax y-motion while Why Us is in view (mobile only)
-  // useEffect(() => {
-  //   if (typeof window === "undefined" || window.innerWidth >= 768) return;
-  //   const video = whyUsVideoOne.current;
-  //   if (!video) return;
+    mm.add("(max-width: 767px)", () => {
+      // Start completely transparent
+      gsap.set(container, { opacity: 0 });
 
-  //   const ctx = gsap.context(() => {
-  //     gsap.fromTo(
-  //       video,
-  //       { y: -30 },
-  //       {
-  //         y: 30,
-  //         ease: "none",
-  //         scrollTrigger: {
-  //           trigger: "#why-us",
-  //           start: "top bottom",
-  //           end: "bottom top",
-  //           scrub: true,
-  //         },
-  //       }
-  //     );
-  //   });
+      // Smooth FadeIn as user scrolls past recent projects and begins Why Us section
+      gsap.to(container, {
+        opacity: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#why-us",
+          start: "top 95%", // starts fading when top of Why Us is near bottom of screen
+          end: "top 45%",   // fully visible when top of Why Us is past the middle of screen
+          scrub: true,
+        },
+      });
+    });
 
-  //   return () => ctx.revert();
-  // }, [videoVisible]); // re-init after video becomes visible
+    return () => mm.revert();
+  }, []);
 
   // Text scramble animation with resize handling
   useEffect(() => {
@@ -177,9 +164,12 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
   return (
     <section className="relative min-h-screen w-full pt-20 why-us md:mb-40 pb-20 rounded-3xl" id="why-us" ref={section3Ref}>
 
-      {/* Fixed bottom-right video — TEMPORARILY DISABLED
-      {videoVisible && (
-        <div className="fixed bottom-4 right-4 z-30 pointer-events-none md:hidden">
+      {/* Sticky bottom-right video — only on mobile, absolute tracking inside Why Us to stop before footer */}
+      <div 
+        ref={videoContainerRef}
+        className="absolute top-0 bottom-0 right-4 w-36 pointer-events-none md:hidden z-30"
+      >
+        <div className="sticky bottom-4 w-36 h-36 flex items-center justify-center">
           <svg width="0" height="0" className="absolute">
             <defs>
               <filter id="chroma-key">
@@ -208,8 +198,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
             <source src="/Cheese Raster Blue.mov" type="video/quicktime" />
           </video>
         </div>
-      )}
-      */}
+      </div>
 
       <div className="flex flex-col mx-2 md:mx-10 gap-10 md:gap-16 lg:gap-20" ref={text3Ref}>
         {t.map((item, idx) => (
