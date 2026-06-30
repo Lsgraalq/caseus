@@ -73,7 +73,9 @@ export default function Footer({ locale }: { locale: Locale }) {
           <div className="flex flex-row">
             <div className="flex flex-row gap-5 w-full">
               <p className="text-sm md:text-xl">Caseus ©2026</p> 
-              <Link href="/impressum" className="text-sm apercu-thin md:text-xl underline">Impressum</Link>
+              <Link href={locale === "en" ? "/en/impressum" : "/de/impressum"} className="text-sm apercu-thin md:text-xl underline">
+                {t.impressum}
+              </Link>
             </div>
             
             <div className="flex-row gap-1 md:flex hidden">

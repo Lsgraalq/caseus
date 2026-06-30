@@ -26,11 +26,11 @@ function getRelativeCoords(element: HTMLElement, wrapper: HTMLElement) {
 }
 
 export default function HeroSection({ locale }: { locale: Locale }) {
-  const textRef = useRef(null);
-  const heroTextRef = useRef(null);
-  const wrapperRef = useRef(null);
-  const cursorRef = useRef(null);
-  const heroRef = useRef(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const heroTextRef = useRef<HTMLParagraphElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
 
   const t = translations[locale].hero;
 
@@ -119,8 +119,9 @@ export default function HeroSection({ locale }: { locale: Locale }) {
             );
 
           // 3. Typing animation with moving cursor
-          const firstChar = split.chars[0];
-          if (firstChar) {
+          const chars = split.chars as HTMLElement[];
+          const firstChar = chars[0];
+          if (firstChar && wrapperRef.current) {
             const coords = getRelativeCoords(firstChar, wrapperRef.current);
             tl.set(cursorRef.current, {
               display: "block",
@@ -136,26 +137,28 @@ export default function HeroSection({ locale }: { locale: Locale }) {
           const charDuration = 0.01;
           const charStagger = 0.02;
 
-          split.chars.forEach((char, index) => {
+          chars.forEach((char, index) => {
             const timeOffset = `+=${charStagger}`;
 
             // Turn character color to brand blue
             tl.to(char, { color: "#0802E2", duration: charDuration }, timeOffset);
 
             // Move the cursor to the right side of this character (+2px gap)
-            const coords = getRelativeCoords(char, wrapperRef.current);
+            if (wrapperRef.current) {
+              const coords = getRelativeCoords(char, wrapperRef.current);
 
-            tl.to(
-              cursorRef.current,
-              {
-                x: coords.x + char.offsetWidth + 2,
-                y: coords.y,
-                height: char.offsetHeight,
-                duration: 0.01,
-                ease: "none",
-              },
-              "<"
-            );
+              tl.to(
+                cursorRef.current,
+                {
+                  x: coords.x + char.offsetWidth + 2,
+                  y: coords.y,
+                  height: char.offsetHeight,
+                  duration: 0.01,
+                  ease: "none",
+                },
+                "<"
+              );
+            }
           });
 
           // Hide cursor at the end

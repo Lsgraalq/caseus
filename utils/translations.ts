@@ -45,7 +45,8 @@ export const translations = {
       heading: "Believing in \n people and the power \nof goodness",
       headingClass: "pt-30 md:pt-10 text-[45px] leading-12 2xl:text-[170px] 2xl:leading-40 xl md:text-[60px] xl:text-[100px] xl:leading-20",
       jobInquiry: "You got a work ?",
-      followUs: "Follow us :"
+      followUs: "Follow us :",
+      impressum: "Imprint"
     },
     projectsPage: {
       title: "PROJECTS"
@@ -67,7 +68,7 @@ export const translations = {
     recently: "Kürzlich",
     hero: {
       impactText: "Wirkung sichtbar machen.",
-      mainParagraph: "Zum monatlichen Festpreis erhalten Sie ein ganzes Expertenteam für Ihre Webseite. Nach einem smarten KI-Briefing betreuen wir Ihren Webauftritt rund um die Uhr mit schnellen Updates und Fehlerbehebungen\u00A0– maßgeschneidert statt automatisierter Standardlösungen, damit Ihr Business flexibel wächst."
+      mainParagraph: "Wir machen Ihre Wirkungen sichtbar. Wir übernehmen Webseiten, Videos und Promotion und halten Ihnen den Rücken frei für das Wesentliche — diese Welt zum Besseren zu verändern."
     },
     whyUs: [
       {
@@ -107,7 +108,8 @@ export const translations = {
       heading: "Wir glauben an \nden Menschen und \ndie Kraft des Guten",
       headingClass: "pt-30 md:pt-10 text-[45px] leading-12 2xl:text-[140px] 2xl:leading-40 xl md:text-[60px] xl:text-[100px] xl:leading-20",
       jobInquiry: "Hast du ein Projekt?",
-      followUs: "Folge uns:"
+      followUs: "Folge uns:",
+      impressum: "Impressum"
     },
     projectsPage: {
       title: "PROJEKTE"
