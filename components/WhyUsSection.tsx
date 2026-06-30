@@ -16,7 +16,7 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
 
   const t = translations[locale].whyUs;
 
-  // Mobile video positioning, smooth FadeIn, and stopping before footer
+  // Mobile video positioning (top-right to bottom-right progress animation)
   useEffect(() => {
     if (typeof window === "undefined" || window.innerWidth >= 768) return;
 
@@ -38,13 +38,28 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
         opacity = Math.min(1, Math.max(0, progress));
       }
 
-      // 2. Control vertical translation (pin to section bottom when footer comes up)
+      // 2. Control vertical translation (slides top -> bottom of screen as we scroll)
       let y = 0;
-      const GAP = 16; // matching bottom-4 (16px)
-      const limit = vh - GAP;
+      const GAP = 16; // matching top-4 (16px)
+      const VIDEO_HEIGHT = 144; // visual height of w-36 container
+      const limitY = vh - VIDEO_HEIGHT - GAP * 2; // total range of motion inside viewport
 
-      if (rect.bottom < limit) {
-        y = rect.bottom - limit; // translate upwards (negative y)
+      const totalScrollable = rect.height - vh;
+      if (totalScrollable > 0) {
+        if (rect.top > 0) {
+          // Section top hasn't reached the top of viewport yet -> hold at top
+          y = 0;
+        } else if (rect.bottom < vh) {
+          // Section bottom is inside viewport (scrolling past the end into footer) -> pin to section bottom
+          y = limitY - (vh - rect.bottom);
+        } else {
+          // Actively scrolling through the section -> translate top to bottom based on progress
+          const progress = -rect.top / totalScrollable;
+          y = progress * limitY;
+        }
+      } else {
+        // Fallback for very short screen heights
+        y = rect.bottom < vh ? limitY - (vh - rect.bottom) : 0;
       }
 
       container.style.opacity = opacity.toString();
@@ -175,10 +190,10 @@ export default function WhyUsSection({ locale }: { locale: Locale }) {
       id="why-us"
       ref={section3Ref}
     >
-      {/* ── Mobile Video: fixed at bottom-right, translated upwards at section end to avoid footer ── */}
+      {/* ── Mobile Video: fixed at top-right, slides top -> bottom of screen as we scroll ── */}
       <div
         ref={videoContainerRef}
-        className="fixed bottom-4 right-4 w-36 h-36 flex items-center justify-center z-30 pointer-events-none md:hidden"
+        className="fixed top-4 right-4 w-36 h-36 flex items-center justify-center z-30 pointer-events-none md:hidden"
         style={{ opacity: 0 }}
       >
         <svg width="0" height="0" className="absolute">
