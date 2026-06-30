@@ -46,7 +46,8 @@ export const translations = {
       headingClass: "pt-30 md:pt-10 text-[45px] leading-12 2xl:text-[170px] 2xl:leading-40 xl md:text-[60px] xl:text-[100px] xl:leading-20",
       jobInquiry: "You got a work ?",
       followUs: "Follow us :",
-      impressum: "Imprint"
+      impressum: "Imprint",
+      datenschutz: "Privacy Policy"
     },
     projectsPage: {
       title: "PROJECTS"
@@ -109,7 +110,8 @@ export const translations = {
       headingClass: "pt-30 md:pt-10 text-[45px] leading-12 2xl:text-[140px] 2xl:leading-40 xl md:text-[60px] xl:text-[100px] xl:leading-20",
       jobInquiry: "Hast du ein Projekt?",
       followUs: "Folge uns:",
-      impressum: "Impressum"
+      impressum: "Impressum",
+      datenschutz: "Datenschutz"
     },
     projectsPage: {
       title: "PROJEKTE"

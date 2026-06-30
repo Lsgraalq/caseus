@@ -76,6 +76,10 @@ export default function Footer({ locale }: { locale: Locale }) {
               <Link href={locale === "en" ? "/en/impressum" : "/de/impressum"} className="text-sm apercu-thin md:text-xl underline">
                 {t.impressum}
               </Link>
+              <span className="text-sm md:text-xl opacity-30">|</span>
+              <Link href={locale === "en" ? "/en/datenschutz" : "/de/datenschutz"} className="text-sm apercu-thin md:text-xl underline">
+                {t.datenschutz}
+              </Link>
             </div>
             
             <div className="flex-row gap-1 md:flex hidden">
