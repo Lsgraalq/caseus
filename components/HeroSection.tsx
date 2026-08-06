@@ -5,25 +5,12 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitText from "gsap/SplitText";
 import { translations, Locale } from "@/utils/translations";
+import { getRelativeCoords } from "@/lib/dom";
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 // Module-level variable to track if the Hero animation has run
 let globalHeroAnimated = false;
-
-// Helper function to calculate exact coordinates of a character relative to the wrapper,
-// avoiding scroll-dependent and pinning coordinate bugs of getBoundingClientRect.
-function getRelativeCoords(element: HTMLElement, wrapper: HTMLElement) {
-  let x = 0;
-  let y = 0;
-  let curr: HTMLElement | null = element;
-  while (curr && curr !== wrapper) {
-    x += curr.offsetLeft || 0;
-    y += curr.offsetTop || 0;
-    curr = curr.offsetParent as HTMLElement;
-  }
-  return { x, y };
-}
 
 export default function HeroSection({ locale }: { locale: Locale }) {
   const textRef = useRef<HTMLDivElement>(null);

@@ -6,7 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import WhyUsSection from "@/components/WhyUsSection";
 
-export default async function Home() {
+export default async function EnglishHomePage() {
   // Fetch projects on the server (SSR)
   const query = `*[_type == "project"] | order(_createdAt desc) [0...3] {
     _id,

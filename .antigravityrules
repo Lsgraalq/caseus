@@ -1,0 +1,20 @@
+# AI & Architecture Guidelines (.antigravityrules)
+
+These rules are strictly enforced to maintain a clean codebase, lower token usage, and simplify agent integration.
+
+## UI Components
+- **Line Limit**: Any single React component file (in `components/`) must not exceed 250 lines of code. If a component exceeds this threshold, it must be decomposed into smaller sub-components or custom hooks.
+- **Pure Markup**: Focus on JSX and presentation. Avoid bloating components with large static data, configuration objects, or extensive business logic.
+
+## Separation of Concerns
+- **UI Components**: Must reside in the `components/` directory.
+- **Business Logic & APIs**: Must reside in the `lib/` directory.
+- **Global TypeScript Types**: Must reside in the `types/` directory.
+- **Data & Translations**: Constants and rich-text configurations must reside in `utils/` or dedicated data files in `lib/`.
+
+## Lightweight Routes
+- Files inside the `app/` directory (Next.js Page Router) must only serve as thin entrypoints/wrappers. 
+- Avoid placing direct styling, nested grids, complex UI elements, or inline event handlers in `app/**/page.tsx` or `app/**/layout.tsx`. Delegate these to page components under `components/`.
+
+## Workflow
+- **Planning First**: Before starting any non-trivial modifications or feature integrations, the agent must create or update an `implementation_plan.md` in the workspace context.

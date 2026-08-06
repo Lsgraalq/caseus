@@ -269,9 +269,33 @@ html, body {
 }
 
 @media (min-width: 768px) {
-  html, body, a, button, [role="button"], input, select, textarea, .cursor-pointer {
+  html, body, a, button, [role="button"], input, select, textarea, .cursor-pointer,
+  ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner {
     cursor: none !important;
   }
+}
+
+/* Custom Thin Scrollbar with hidden OS cursor pointer */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  cursor: none !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  cursor: none !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+  cursor: none !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(8, 2, 226, 0.6);
+  cursor: none !important;
 }
 
 body {
@@ -395,4 +419,99 @@ html.lenis, html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+/* 5. CUSTOM ANIMATIONS FOR PORTAL */
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-2rem); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromRight {
+  from { opacity: 0; transform: translateX(2rem); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromBottom {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 0.5s cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.animate-slide-in-right {
+  animation: slideInFromRight 0.5s cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.animate-slide-in-bottom {
+  animation: slideInFromBottom 0.5s cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.animate-zoom-in {
+  animation: zoomIn 0.3s cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+@keyframes expandDown {
+  from { opacity: 0; max-height: 0; transform: translateY(-10px); }
+  to { opacity: 1; max-height: 100px; transform: translateY(0); }
+}
+
+.animate-expand-down {
+  animation: expandDown 0.4s cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+@keyframes flyInFromBottom {
+  from { opacity: 0; transform: translateY(120%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes flyInFromLeftScreen {
+  from { opacity: 0; transform: translateX(-120%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fly-in-bottom {
+  animation: flyInFromBottom 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fly-in-left {
+  animation: flyInFromLeftScreen 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes waveGlow {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+    filter: blur(40px);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.08);
+    opacity: 0.95;
+    filter: blur(55px);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+    filter: blur(40px);
+  }
+}
+
+.animate-wave-glow {
+  animation: waveGlow 5s ease-in-out infinite;
 }

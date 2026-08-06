@@ -51,11 +51,71 @@ export default function JellyCursor({ locale: propLocale }: { locale?: Locale })
       requestAnimationFrame(animate);
     }
 
-    window.addEventListener("mousemove", (e) => {
+    let isHoveringShrink = false;
+
+    const isPointerOrScrollbar = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target) return false;
+
+      if (
+        target.closest("a") ||
+        target.closest("button") ||
+        target.closest(".cursor-pointer") ||
+        target.closest('[role="button"]')
+      ) {
+        return true;
+      }
+
+      let current: HTMLElement | null = target;
+      while (current && current !== document.body) {
+        if (current.scrollHeight > current.clientHeight + 2) {
+          const rect = current.getBoundingClientRect();
+          if (e.clientX >= rect.right - 20 && e.clientX <= rect.right + 4) {
+            return true;
+          }
+        }
+        if (current.scrollWidth > current.clientWidth + 2) {
+          const rect = current.getBoundingClientRect();
+          if (e.clientY >= rect.bottom - 20 && e.clientY <= rect.bottom + 4) {
+            return true;
+          }
+        }
+        current = current.parentElement;
+      }
+
+      return false;
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
       targetPos.x = e.clientX;
       targetPos.y = e.clientY;
       update();
-    });
+
+      const shouldShrink = isPointerOrScrollbar(e);
+      if (shouldShrink && !isHoveringShrink) {
+        isHoveringShrink = true;
+        if (cursorDiv) {
+          gsap.to(cursorDiv, {
+            width: "21px",
+            height: "21px",
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        }
+      } else if (!shouldShrink && isHoveringShrink) {
+        isHoveringShrink = false;
+        if (cursorDiv) {
+          gsap.to(cursorDiv, {
+            width: "42px",
+            height: "42px",
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        }
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
 
     function hideCursor() {
       gsap.to(elasticCursor, { opacity: 0, duration: 0.7, ease: "power2.out" });
@@ -103,46 +163,10 @@ export default function JellyCursor({ locale: propLocale }: { locale?: Locale })
       });
     }
 
-    // Hover effect for clickable elements
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target && (target.closest("a") || target.closest("button") || target.closest(".cursor-pointer") || target.closest('[role="button"]'))) {
-        if (cursorDiv) {
-          gsap.to(cursorDiv, {
-            width: "21px",
-            height: "21px",
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        }
-      }
-    };
-
-    const handleMouseOut = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target && (target.closest("a") || target.closest("button") || target.closest(".cursor-pointer") || target.closest('[role="button"]'))) {
-        const relatedTarget = e.relatedTarget as HTMLElement;
-        if (!relatedTarget || !(relatedTarget.closest("a") || relatedTarget.closest("button") || relatedTarget.closest(".cursor-pointer") || relatedTarget.closest('[role="button"]'))) {
-          if (cursorDiv) {
-            gsap.to(cursorDiv, {
-              width: "42px",
-              height: "42px",
-              duration: 0.3,
-              ease: "power2.out"
-            });
-          }
-        }
-      }
-    };
-
-    document.addEventListener("mouseover", handleMouseOver);
-    document.addEventListener("mouseout", handleMouseOut);
-
     return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", hideCursor);
       document.removeEventListener("mouseenter", showCursor);
-      document.removeEventListener("mouseover", handleMouseOver);
-      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 
