@@ -7,9 +7,10 @@ interface ChatInputProps {
   onSendMessage: (content: string) => void;
   isLoading?: boolean;
   hasMessages?: boolean;
+  suggestions?: string[];
 }
 
-export default function ChatInput({ onSendMessage, isLoading, hasMessages }: ChatInputProps) {
+export default function ChatInput({ onSendMessage, isLoading, hasMessages, suggestions }: ChatInputProps) {
   const [value, setValue] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
@@ -23,6 +24,14 @@ export default function ChatInput({ onSendMessage, isLoading, hasMessages }: Cha
     if (isLoading) return;
     onSendMessage(text);
   };
+
+  const displaySuggestions = suggestions?.length 
+    ? suggestions 
+    : [
+        "Мне нужно короткое видео (Reels/TikTok)",
+        "Хочу добавить глубокий покрас и саунд-дизайн",
+        "Нужна экспресс-доставка (24ч)"
+      ];
 
   return (
     <div
@@ -48,25 +57,22 @@ export default function ChatInput({ onSendMessage, isLoading, hasMessages }: Cha
       </div>
 
       {/* Quick Action Suggestion Buttons */}
-      <div className="relative z-10 flex gap-3 max-w-3xl mx-auto w-full mb-3 pointer-events-auto">
-        <button
-          onClick={() => handleQuickAction("Quick option 1")}
-          className="flex-1 text-sm bg-white hover:bg-[#0802E2] hover:text-white text-[#0802E2] font-medium px-4 py-2.5 rounded-xl border-2 border-[#0802E2] transition-colors duration-200 shadow-sm cursor-pointer text-center truncate"
-        >
-          Quick option 1
-        </button>
-        <button
-          onClick={() => handleQuickAction("Quick option 2")}
-          className="flex-1 text-sm bg-white hover:bg-[#0802E2] hover:text-white text-[#0802E2] font-medium px-4 py-2.5 rounded-xl border-2 border-[#0802E2] transition-colors duration-200 shadow-sm cursor-pointer text-center truncate"
-        >
-          Quick option 2
-        </button>
-        <button
-          onClick={() => handleQuickAction("Quick option 3")}
-          className="flex-1 text-sm bg-white hover:bg-[#0802E2] hover:text-white text-[#0802E2] font-medium px-4 py-2.5 rounded-xl border-2 border-[#0802E2] transition-colors duration-200 shadow-sm cursor-pointer text-center truncate"
-        >
-          Quick option 3
-        </button>
+      <div className="relative z-10 flex flex-wrap justify-center gap-3 max-w-3xl mx-auto w-full mb-3 pointer-events-auto">
+        {displaySuggestions.map((suggestion, idx) => {
+          const isHidden = isLoading || value.length > 0;
+          return (
+            <button
+              key={idx}
+              onClick={() => handleQuickAction(suggestion)}
+              style={{ transitionDelay: `${idx * 75}ms` }}
+              className={`flex-1 min-w-[140px] text-sm bg-white hover:bg-[#0802E2] hover:text-white text-[#0802E2] font-medium px-4 py-2.5 rounded-xl border-2 border-[#0802E2] shadow-sm cursor-pointer text-center break-words whitespace-normal leading-snug transition-all duration-300 ease-out ${
+                isHidden ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0"
+              }`}
+            >
+              {suggestion}
+            </button>
+          );
+        })}
       </div>
 
       <form onSubmit={handleSubmit} className="relative z-10 flex gap-3 items-center max-w-3xl mx-auto w-full pointer-events-auto">

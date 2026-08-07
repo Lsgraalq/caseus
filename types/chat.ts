@@ -4,6 +4,8 @@ export interface Message {
   id: string;
   role: MessageRole;
   content: string;
+  rawContent?: string;
+  suggestions?: string[];
   createdAt: Date;
 }
 

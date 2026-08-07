@@ -95,11 +95,9 @@ export default function ChatWindow({ messages, isGenerating }: ChatWindowProps) 
                     : "text-[#0802E2] font-medium"
                 }`}
               >
-                {isLastAiMsg ? (
-                  <p className="whitespace-pre-wrap"><WaterfallText text={message.content} /></p>
-                ) : (
-                  <p className="whitespace-pre-wrap">{message.content}</p>
-                )}
+                <p className="whitespace-pre-wrap">
+                  {message.content}
+                </p>
               </div>
             </div>
           </div>
@@ -110,9 +108,9 @@ export default function ChatWindow({ messages, isGenerating }: ChatWindowProps) 
         <div className="flex gap-4 max-w-3xl mr-auto">
           <div className="px-5 py-3">
             <div className="flex gap-1.5 items-center">
-              <div className="w-2 h-2 rounded-full bg-[#0802E2] animate-bounce" style={{ animationDelay: "0ms" }}></div>
-              <div className="w-2 h-2 rounded-full bg-[#0802E2] animate-bounce" style={{ animationDelay: "150ms" }}></div>
-              <div className="w-2 h-2 rounded-full bg-[#0802E2] animate-bounce" style={{ animationDelay: "300ms" }}></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-[#0802E2] animate-bounce" style={{ animationDelay: "0ms" }}></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-[#0802E2] animate-bounce" style={{ animationDelay: "150ms" }}></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-[#0802E2] animate-bounce" style={{ animationDelay: "300ms" }}></div>
             </div>
           </div>
         </div>

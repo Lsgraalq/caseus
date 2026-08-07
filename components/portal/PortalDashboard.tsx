@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
 import Sidebar from "./Sidebar";
 import ChatWindow from "./ChatWindow";
 import ChatInput from "./ChatInput";
 import RightPanel from "./RightPanel";
 import { Message } from "@/types/chat";
 import { ClientProject } from "@/types/project";
-import { sendPortalMessage } from "@/lib/gemini/client";
+import { useChat } from "@/lib/hooks/useChat";
+import { useRealtimeBrief } from "@/lib/hooks/useRealtimeBrief";
 import MobileDrawer from "./MobileDrawer";
 import { MobileTab } from "./MobileBottomNav";
 import { FaBars } from "react-icons/fa";
@@ -62,23 +64,15 @@ const mockDocuments = [
 export default function PortalDashboard() {
   const [projects, setProjects] = useState<ClientProject[]>(mockProjects);
   const [activeProjectId, setActiveProjectId] = useState<string>("proj-1");
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { messages, setMessages, isLoading, sendMessage: handleSendMessage } = useChat(activeProjectId, setProjects);
+  
+  useRealtimeBrief(activeProjectId, setProjects);
   
   const [authState, setAuthState] = useState<"initial" | "login_form" | "authenticated">("initial");
   const [animStage, setAnimStage] = useState<string>("unauthenticated");
   const [documents] = useState(mockDocuments);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [mobileActiveTab, setMobileActiveTab] = useState<MobileTab>("projects");
-
-  const activeProject = projects.find((p) => p.id === activeProjectId);
-
-  const handleSetAuthState = (state: "initial" | "login_form" | "authenticated") => {
-    setAuthState(state);
-    if (state !== "authenticated") {
-      setAnimStage("unauthenticated");
-    }
-  };
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,6 +102,40 @@ export default function PortalDashboard() {
     setTimeout(() => {
       setAnimStage("authenticated");
     }, 2100);
+  };
+
+  useEffect(() => {
+    const supabase = createClient();
+    
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session && authState !== "authenticated") {
+        setAuthState("authenticated");
+        setAnimStage("authenticated");
+      }
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session && event === 'SIGNED_IN' && authState !== "authenticated") {
+        handleLoginSubmit(new Event('submit') as unknown as React.FormEvent);
+        handleSendMessage("SYSTEM: Успешная регистрация и вход. Аккаунт подтвержден.");
+      } else if (event === 'SIGNED_OUT') {
+        setAuthState("initial");
+        setAnimStage("unauthenticated");
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [authState, handleSendMessage]);
+
+  const activeProject = projects.find((p) => p.id === activeProjectId);
+
+  const handleSetAuthState = (state: "initial" | "login_form" | "authenticated") => {
+    setAuthState(state);
+    if (state !== "authenticated") {
+      setAnimStage("unauthenticated");
+    }
   };
 
   const handleNewProject = () => {
@@ -152,43 +180,7 @@ export default function PortalDashboard() {
     setProjects((prev) => prev.filter((p) => p.id !== projectId));
   };
 
-  const handleSendMessage = async (content: string) => {
-    const userMsg: Message = {
-      id: Math.random().toString(),
-      role: "user",
-      content,
-      createdAt: new Date(),
-    };
-
-    setMessages((prev) => [...prev, userMsg]);
-    setIsLoading(true);
-
-    try {
-      const response = await sendPortalMessage(content, messages);
-      const assistantMsg: Message = {
-        id: Math.random().toString(),
-        role: "model",
-        content: response.text,
-        createdAt: new Date(),
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
-    } catch (err) {
-      console.error("Failed to generate response:", err);
-      // Fallback for demo without backend
-      setTimeout(() => {
-        setMessages((prev) => [...prev, {
-          id: Math.random().toString(),
-          role: "model",
-          content: "I am your Caseus Studio AI assistant! How can I help you with your video project?",
-          createdAt: new Date(),
-        }]);
-        setIsLoading(false);
-      }, 1000);
-      return;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // Chat is handled via useChat hook above
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-white font-sans text-slate-800 antialiased">
@@ -220,7 +212,12 @@ export default function PortalDashboard() {
         <ChatWindow messages={messages} isGenerating={isLoading} />
 
         {/* Input box */}
-        <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} hasMessages={messages.length > 0} />
+        <ChatInput 
+          onSendMessage={handleSendMessage} 
+          isLoading={isLoading} 
+          hasMessages={messages.length > 0} 
+          suggestions={messages.slice().reverse().find(m => m.role === "model")?.suggestions}
+        />
       </div>
 
       {/* Right panel */}
